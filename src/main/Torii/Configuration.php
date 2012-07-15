@@ -36,6 +36,18 @@ class Configuration
      */
     public function __construct( $iniFile, $environment )
     {
+        $this->parseIniFile( $iniFile, $environment );
+    }
+
+    /**
+     * Parse ini file
+     *
+     * @param string $iniFile
+     * @param string $environment
+     * @return void
+     */
+    public function parseIniFile( $iniFile, $environment )
+    {
         $configuration = parse_ini_file( $iniFile, true );
 
         if ( false === isset( $configuration[$environment] ) )
@@ -44,7 +56,39 @@ class Configuration
         }
 
         $this->configuration = $configuration[$environment];
+        foreach ( $this->configuration as $key => $value )
+        {
+            if ( strpos( $key, '.' ) === false )
+            {
+                continue;
+            }
 
+            $path = array_filter( explode( '.', $key ) );
+            unset( $this->configuration[$key] );
+            $current = &$this->configuration;
+            foreach ( $path as $element )
+            {
+                if ( !isset( $current[$element] ) )
+                {
+                    $current[$element] = array();
+                }
+
+                $current = &$current[$element];
+            }
+            $current = $value;
+        }
+
+        $this->applyInheritance( $environment );
+    }
+
+    /**
+     * Inherit configuration options from upper level environments
+     *
+     * @param string $environment
+     * @return void
+     */
+    protected function applyInheritance( $environment )
+    {
         $parent = $environment;
         while ( isset( $this->inheritance[$parent] ) )
         {
