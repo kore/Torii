@@ -18,15 +18,16 @@ use Torii\Struct;
 class Main
 {
     /**
-     * Index action
+     * Main view action
      *
      * @param RMF\Request $request
+     * @param Struct\User $user
      * @return Struct\Response
      */
-    public function index( RMF\Request $request )
+    public function view( RMF\Request $request, Struct\User $user )
     {
         return new Struct\Response(
-            'login.twig'
+            'main.twig'
         );
     }
 }

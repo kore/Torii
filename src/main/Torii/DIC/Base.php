@@ -31,6 +31,7 @@ class Base extends DIC
         'userModel'      => true,
         'mailMessenger'  => true,
         'authController' => true,
+        'mainController' => true,
     );
 
     /**
@@ -97,6 +98,14 @@ class Base extends DIC
             return new Torii\Controller\Auth(
                 $dic->userModel,
                 $dic->mailMessenger
+            );
+        };
+
+        $this->mainController = function( $dic )
+        {
+           return new Torii\Controller\Auth\Filter(
+                new Torii\Controller\Main(
+                )
             );
         };
     }
