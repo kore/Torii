@@ -1,7 +1,10 @@
 {% extends "html/index.twig" %}
 
+{% block navItems %}
+{% endblock %}
+
 {% block content %}
-<div class="well" id="loginBox">
+<div class="box well">
     {% for error in errors %}
         <div class="alert alert-error">{{error}}</div>
     {% endfor %}
