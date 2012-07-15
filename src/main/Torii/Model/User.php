@@ -45,7 +45,7 @@ class User
     {
         $queryBuilder = $this->dbal->createQueryBuilder();
         $queryBuilder
-            ->select( 'u_id', 'u_login', 'u_password' )
+            ->select( 'u_id', 'u_login', 'u_password', 'u_settings' )
             ->from( 'user', 'u' )
             ->where(
                 $queryBuilder->expr()->andx(
@@ -70,7 +70,11 @@ class User
             return false;
         }
 
-        return new Struct\User( $result['u_id'], $result['u_login'] );
+        return new Struct\User(
+            $result['u_id'],
+            $result['u_login'],
+            Struct\UserSettings::create( json_decode( $result['u_settings'] ) )
+        );
     }
 
     /**
@@ -115,6 +119,7 @@ class User
         return new Struct\User(
             $this->dbal->lastInsertId(),
             $email,
+            new Struct\UserSettings(),
             $key
         );
     }

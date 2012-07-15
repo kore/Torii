@@ -30,6 +30,13 @@ class User extends Struct
     public $email;
 
     /**
+     * User settings
+     *
+     * @var UserSettings
+     */
+    public $settings;
+
+    /**
      * User verification key
      *
      * @var string
@@ -44,10 +51,11 @@ class User extends Struct
      * @param mixed $verified
      * @return void
      */
-    public function __construct( $id, $email, $verified = null )
+    public function __construct( $id, $email, UserSettings $settings, $verified = null )
     {
         $this->id       = $id;
         $this->email    = $email;
+        $this->settings = $settings;
         $this->verified = $verified;
     }
 }

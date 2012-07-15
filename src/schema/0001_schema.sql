@@ -38,6 +38,7 @@ CREATE TABLE `user` (
   `u_login` VARCHAR(255) NOT NULL,
   `u_password` VARCHAR(255) NOT NULL,
   `u_verified` VARCHAR(255) NOT NULL,
+  `u_settings` TEXT NOT NULL,
   `changed` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`u_id`),
   UNIQUE KEY(`u_login`)
