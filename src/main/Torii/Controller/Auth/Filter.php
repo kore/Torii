@@ -53,7 +53,7 @@ class Filter
             throw new \BadMethodCallException( "Call not available in aggregated controller." );
         }
 
-        return $this->controller->$method( $request );
+        return $this->controller->$method( $request, $request->session['user'] );
     }
 }
 
