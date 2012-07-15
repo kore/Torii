@@ -10,7 +10,7 @@ namespace Torii;
 // @codeCoverageIgnoreStart
 // @codingStandardsIgnoreStart
 
-require __DIR__ . '/../../../library/autoload.php';
+require __DIR__ . '/../../library/autoload.php';
 
 spl_autoload_register(
     function ( $class )
