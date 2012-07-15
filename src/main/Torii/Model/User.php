@@ -59,9 +59,32 @@ class User
     }
 
     /**
-     * Load user
+     * Verifiy
      *
-     * Return user model
+     * Verify user by the given hash
+     *
+     * @param string $id
+     * @param string $hash
+     * @return bool
+     */
+    public function verify( $id, $hash )
+    {
+        return (bool) $this->dbal->update(
+            'user',
+            array(
+                'u_verified' => '1',
+            ),
+            array(
+                'u_id'       => $id,
+                'u_verified' => $hash,
+            )
+        );
+    }
+
+    /**
+     * Create new user
+     *
+     * Returns user model
      *
      * @param string $id
      * @return User

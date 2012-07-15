@@ -103,6 +103,35 @@ class Auth
     }
 
     /**
+     * Register
+     *
+     * @param RMF\Request $request
+     * @return Struct\Response
+     */
+    public function confirm( RMF\Request $request )
+    {
+        $errors  = array();
+        $success = array();
+
+        if ( $this->user->verify( $request->variables['user'], $request->variables['hash'] ) )
+        {
+            $success[] = "You are now verified and may log in.";
+        }
+        else
+        {
+            $errors[] = "Verification failed.";
+        }
+
+        return new Struct\Response(
+            'login.twig',
+            array(
+                'errors'  => $errors,
+                'success' => $success,
+            )
+        );
+    }
+
+    /**
      * Login user
      *
      * @param RMF\Request $request

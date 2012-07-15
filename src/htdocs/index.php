@@ -24,7 +24,7 @@ $dispatcher = new RMF\Dispatcher\Simple(
         '(^/auth/register$)' => array(
             'POST'  => array( $dic->authController, 'register' ),
         ),
-        '(^/auth/confirm/(?P<hash>[a-f0-9]+)$)' => array(
+        '(^/auth/confirm/(?P<user>[a-f0-9]+)/(?P<hash>[a-f0-9]+)$)' => array(
             'GET'  => array( $dic->authController, 'confirm' ),
         ),
         '(^/auth/logout$)' => array(
