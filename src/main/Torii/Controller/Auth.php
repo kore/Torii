@@ -144,15 +144,14 @@ class Auth
         {
             try
             {
-                $user = $this->user->findByLogin( $request->body['login'] );
-                if ( !$user->verifyPassword( $request->body['password'] ) )
+                if ( !$user = $this->user->login( $request->body['login'], $request->body['password'] ) )
                 {
-                    throw new \Exception( 'Invalid password provided.' );
+                    throw new \Exception( 'Invalid login data provided.' );
                 }
                 $request->session['user'] = $user->id;
 
-                // @TODO: This ia na ugly hack:
-                header( 'Location: /' );
+                // @TODO: This ia an ugly hack:
+                header( 'Location: /portal' );
                 exit( 0 );
             }
             catch ( \Exception $e )

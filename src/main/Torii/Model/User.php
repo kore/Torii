@@ -32,30 +32,45 @@ class User
     }
 
     /**
-     * Find user by login
+     * Log user in
      *
-     * Find a user in the database by its login name and return the
-     * User, or throw an exception.
+     * Returns false if credentials are wrong or user is disabled. Returns User 
+     * struct, if successfull.
      *
      * @param string $login
+     * @param string $password
      * @return User
      */
-    public function findByLogin( $login )
+    public function login( $login, $password )
     {
-        throw new \Exception( "@TODO: Implement" );
-    }
+        $queryBuilder = $this->dbal->createQueryBuilder();
+        $queryBuilder
+            ->select( 'u_id', 'u_login', 'u_password' )
+            ->from( 'user', 'u' )
+            ->where(
+                $queryBuilder->expr()->andx(
+                    $queryBuilder->expr()->eq( 'u_login', ':login' ),
+                    $queryBuilder->expr()->eq( 'u_verified', '1' )
+                )
+            )
+            ->setParameter( ':login', $login );
 
-    /**
-     * Load user
-     *
-     * Return user model
-     *
-     * @param string $id
-     * @return User
-     */
-    public function load( $id )
-    {
-        throw new \Exception( "@TODO: Implement" );
+        $statement = $queryBuilder->execute();
+        $result = $statement->fetch( \PDO::FETCH_ASSOC );
+
+        if ( !$result )
+        {
+            // User not found or not verified
+            return false;
+        }
+
+        if ( !$this->hash->verifyPassword( $password, $result['u_password'] ) )
+        {
+            // invalid password provided
+            return false;
+        }
+
+        return new Struct\User( $result['u_id'], $result['u_login'] );
     }
 
     /**
