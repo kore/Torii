@@ -1,0 +1,31 @@
+{
+    "hash": "c59c3d294a5480d9513b040f592f6abe",
+    "packages": [
+        {
+            "package": "Qafoo/RMF",
+            "version": "dev-master",
+            "source-reference": "f5986d29512bfb2276ffde62921efd6776b79d70",
+            "commit-date": "1335543171"
+        },
+        {
+            "package": "twig/twig",
+            "version": "1.6.0"
+        },
+        {
+            "package": "twitter/bootstrap",
+            "version": "0.1"
+        },
+        {
+            "package": "zendframework/zend-feed",
+            "version": "2.0.0-beta5"
+        }
+    ],
+    "packages-dev": null,
+    "aliases": [
+
+    ],
+    "minimum-stability": "dev",
+    "stability-flags": {
+        "qafoo/rmf": 20
+    }
+}
