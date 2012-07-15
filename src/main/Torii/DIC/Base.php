@@ -30,6 +30,7 @@ class Base extends DIC
         'dbal'           => true,
         'userModel'      => true,
         'mailMessenger'  => true,
+        'modules'        => true,
         'authController' => true,
         'mainController' => true,
     );
@@ -101,11 +102,23 @@ class Base extends DIC
             );
         };
 
+        $this->modules = function( $dic )
+        {
+            $modules = array();
+            foreach ( glob( __DIR__ . '/../Module/*/Module.php' ) as $moduleFile )
+            {
+                $modules[basename( dirname( $moduleFile ) )] = include $moduleFile;
+            }
+
+            return $modules;
+        };
+
         $this->mainController = function( $dic )
         {
-           return new Torii\Controller\Auth\Filter(
+            return new Torii\Controller\Auth\Filter(
                 new Torii\Controller\Main(
-                    $dic->userModel
+                    $dic->userModel,
+                    $dic->modules
                 )
             );
         };

@@ -26,14 +26,23 @@ class Main
     protected $user;
 
     /**
+     * Available modules
+     *
+     * @var Struct\Module[]
+     */
+    protected $modules;
+
+    /**
      * Construct from aggregated controller, which performs authorized actions
      *
      * @param Model\User $user
+     * @param Struct\Module[] $modules
      * @return void
      */
-    public function __construct( Model\User $user )
+    public function __construct( Model\User $user, array $modules )
     {
-        $this->user = $user;
+        $this->user    = $user;
+        $this->modules = $modules;
     }
 
     /**
@@ -49,6 +58,7 @@ class Main
             'main.twig',
             array(
                 'settings' => $user->settings,
+                'modules'  => $this->modules,
             )
         );
     }

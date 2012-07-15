@@ -1,13 +1,56 @@
 {% extends "html/index.twig" %}
 
+{% block navItems %}
+<li><a data-toggle="modal" href="#addModule" title="Add Module"><i class="icon-plus icon-white"></i></a></li>
+{{parent()}}
+{% endblock %}
+
 {% block content %}
 <div class="row-fluid">
 {% for number in range( 1, settings.columns ) %}
     <div class="span{{12 / settings.columns}}">
         <div class="column">
-            Modules…
+            {% for module in settings.modules[number] %}
+                {% include "html/module.twig" %}
+            {% endfor %}
         </div>
     </div>
 {% endfor %}
+</div>
+
+<div class="modal hide" id="addModule">
+    <form action="/portal/addModule" method="POST" class="form-horizontal">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">×</button>
+            <h3>Add module</h3>
+        </div>
+        <div class="modal-body">
+            <div class="control-group">
+                <label class="control-label" for="module">Module</label>
+                <div class="controls">
+                    <select name="module" size="1" class="large">
+                    {% for type, module in modules %}
+                        <option value="{{type}}">{{module.getSummary().name}}</option>
+                    {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label" for="column">Column</label>
+                <div class="controls">
+                    <select name="column" size="1" class="large">
+                    {% for number in range( 1, settings.columns ) %}
+                        <option value="{{number}}">{{number}}</option>
+                    {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="btn" data-dismiss="modal">Close</a>
+            <button type="submit" class="btn">Add Module</button>
+        </div>
+    </form>
 </div>
 {% endblock %}
