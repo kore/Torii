@@ -46,7 +46,7 @@ class Twig extends \Qafoo\RMF\View
         if ( $result instanceof \Exception )
         {
             echo $this->twig->render(
-                'error.twig',
+                'html/error.twig',
                 array(
                     'exception' => $result,
                 )
@@ -55,7 +55,7 @@ class Twig extends \Qafoo\RMF\View
         }
 
         echo $this->twig->render(
-            $result->template,
+            'html/' . $result->template,
             $result->data
         );
     }
