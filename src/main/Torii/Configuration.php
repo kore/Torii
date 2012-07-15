@@ -96,7 +96,7 @@ class Configuration
 
             if ( isset( $configuration[$parent] ) )
             {
-                $this->configuration = array_merge_recursive(
+                $this->configuration = array_merge(
                     $configuration[$parent],
                     $this->configuration
                 );

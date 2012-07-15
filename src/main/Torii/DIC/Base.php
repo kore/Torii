@@ -25,9 +25,12 @@ class Base extends DIC
     protected $alwaysShared = array(
         'srcDir'         => true,
         'configuration'  => true,
-        'authController' => true,
         'view'           => true,
         'twig'           => true,
+        'dbal'           => true,
+        'userModel'      => true,
+        'mailMessenger'  => true,
+        'authController' => true,
     );
 
     /**
@@ -81,9 +84,20 @@ class Base extends DIC
             );
         };
 
+        $this->mailMessenger = function( $dic )
+        {
+            return new Torii\MailMessenger(
+                $dic->twig,
+                $dic->configuration->mailSender
+            );
+        };
+
         $this->authController = function( $dic )
         {
-            return new Torii\Controller\Auth( $dic->userModel );
+            return new Torii\Controller\Auth(
+                $dic->userModel,
+                $dic->mailMessenger
+            );
         };
     }
 }

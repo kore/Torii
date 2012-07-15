@@ -7,6 +7,8 @@
 
 namespace Torii\Model;
 
+use Torii\Struct;
+
 /**
  * User model
  *
@@ -69,8 +71,14 @@ class User
         $this->dbal->insert( 'user', array(
             'u_login'    => $email,
             'u_password' => $this->hash->hashPassword( $password ),
-            'u_verified' => md5( microtime() ),
+            'u_verified' => $key = md5( microtime() ),
         ) );
+
+        return new Struct\User(
+            $this->dbal->lastInsertId(),
+            $email,
+            $key
+        );
     }
 }
 

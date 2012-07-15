@@ -19,13 +19,6 @@ use Torii\Model;
 class Auth
 {
     /**
-     * Aggregated controller
-     *
-     * @var Controller
-     */
-    protected $controller;
-
-    /**
      * User model
      *
      * @var Model\User
@@ -33,23 +26,23 @@ class Auth
     protected $user;
 
     /**
-     * Requests, which may pass without authorization
+     * Mail messenger
      *
-     * Array of regular expressions
-     *
-     * @var array
+     * @var MailMessenger
      */
-    protected $unauthorized = array();
+    protected $mailMessenger;
 
     /**
      * Construct from aggregated controller, which performs authorized actions
      *
      * @param Model\User $user
+     * @param \Torii\MailMessenger $mailMessenger
      * @return void
      */
-    public function __construct( Model\User $user )
+    public function __construct( Model\User $user, \Torii\MailMessenger $mailMessenger )
     {
-        $this->user = $user;
+        $this->user          = $user;
+        $this->mailMessenger = $mailMessenger;
     }
 
     /**
@@ -81,6 +74,18 @@ class Auth
             }
 
             $user = $this->user->create( $request->body['login'], $request->body['password'] );
+
+            $this->mailMessenger->send(
+                $user->email,
+                new Struct\Response(
+                    'registered.twig',
+                    array(
+                        'request' => $request,
+                        'user'    => $user,
+                    )
+                )
+            );
+
             $success[] = "We sent you an email to complete registration. Please confirm by clicking on the link in the mail.";
         }
         catch ( \Exception $e )

@@ -1,0 +1,15 @@
+{% extends "email/base.twig" %}
+
+{% block subject -%}
+Welcome to Torii
+{%- endblock %}
+
+{% block body_text -%}
+Welcome to Torii,
+
+Please use the following link to confirm this email address:
+
+http://{{ request.host }}/auth/confirm/{{user.verified}}
+
+Cheers!
+{%- endblock %}
