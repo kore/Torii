@@ -14,6 +14,15 @@ $dic->environment = 'development';
 
 $dispatcher = new RMF\Dispatcher\Simple(
     new RMF\Router\Regexp( array(
+        // Torii main actions
+        '(^/portal$)' => array(
+            'GET'  => array( $dic->mainController, 'view' ),
+        ),
+        '(^/portal/settings$)' => array(
+            'POST' => array( $dic->mainController, 'settings' ),
+            'GET'  => array( $dic->mainController, 'settings' ),
+        ),
+
         // Auth related actions
         '(^/$)' => array(
             'GET'  => array( $dic->authController, 'login' ),
@@ -28,7 +37,7 @@ $dispatcher = new RMF\Dispatcher\Simple(
             'GET'  => array( $dic->authController, 'confirm' ),
         ),
         '(^/auth/logout$)' => array(
-            'POST'  => array( $dic->authController, 'logout' ),
+            'GET'  => array( $dic->authController, 'logout' ),
         ),
         '(^/auth/forgot$)' => array(
             'GET'  => array( $dic->authController, 'showForgot' ),
