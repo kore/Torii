@@ -14,8 +14,25 @@ $dic->environment = 'development';
 
 $dispatcher = new RMF\Dispatcher\Simple(
     new RMF\Router\Regexp( array(
+        // Auth related actions
         '(^/$)' => array(
-            'GET'  => array( $dic->controller, 'index' ),
+            'GET'  => array( $dic->authController, 'login' ),
+        ),
+        '(^/auth/login$)' => array(
+            'POST'  => array( $dic->authController, 'login' ),
+        ),
+        '(^/auth/register$)' => array(
+            'POST'  => array( $dic->authController, 'register' ),
+        ),
+        '(^/auth/confirm/(?P<hash>[a-f0-9]+)$)' => array(
+            'GET'  => array( $dic->authController, 'confirm' ),
+        ),
+        '(^/auth/logout$)' => array(
+            'POST'  => array( $dic->authController, 'logout' ),
+        ),
+        '(^/auth/forgot$)' => array(
+            'GET'  => array( $dic->authController, 'showForgot' ),
+            'POST'  => array( $dic->authController, 'forgot' ),
         ),
     ) ),
     $dic->view

@@ -23,11 +23,11 @@ class Base extends DIC
      * @var array(string)
      */
     protected $alwaysShared = array(
-        'srcDir'        => true,
-        'configuration' => true,
-        'controller'    => true,
-        'view'          => true,
-        'twig'          => true,
+        'srcDir'         => true,
+        'configuration'  => true,
+        'authController' => true,
+        'view'           => true,
+        'twig'           => true,
     );
 
     /**
@@ -65,9 +65,25 @@ class Base extends DIC
             return new Torii\View\Twig( $dic->twig );
         };
 
-        $this->controller = function( $dic )
+        $this->dbal = function( $dic )
         {
-            return new Torii\Controller\Main( $dic->twig );
+            return \Doctrine\DBAL\DriverManager::getConnection(
+                $dic->configuration->database,
+                new \Doctrine\DBAL\Configuration()
+            );
+        };
+
+        $this->userModel = function( $dic )
+        {
+            return new Torii\Model\User(
+                $dic->dbal,
+                new Torii\Model\User\Hash\PBKDF2()
+            );
+        };
+
+        $this->authController = function( $dic )
+        {
+            return new Torii\Controller\Auth( $dic->userModel );
         };
     }
 }
