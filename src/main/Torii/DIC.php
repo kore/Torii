@@ -79,7 +79,7 @@ class DIC
     {
         if ( !isset( $this->objects[$name] ) )
         {
-            throw new DIC\PropertyException( $name );
+            throw new \OutOfBoundsException( "Nothing available with name $name." );
         }
 
         if ( isset( $this->alwaysShared[$name] ) &&
@@ -104,7 +104,7 @@ class DIC
     {
         if ( !isset( $this->objects[$name] ) )
         {
-            throw new \OutOfBoundsException( "Nothing available with name $nam$name." );
+            throw new \OutOfBoundsException( "Nothing available with name $name." );
         }
 
         if ( isset( $this->alwaysShared[$name] ) &&
