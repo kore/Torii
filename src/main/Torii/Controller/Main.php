@@ -99,5 +99,40 @@ class Main
 
         return $this->showSettings( $request, $user );
     }
+
+    /**
+     * Add module
+     *
+     * @param RMF\Request $request
+     * @param Struct\User $user
+     * @return Struct\Response
+     */
+    public function addModule( RMF\Request $request, Struct\User $user )
+    {
+        if ( isset( $request->body['submit'] ) )
+        {
+            $column = (int) $request->body['column'];
+            $module = $request->body['module'];
+
+            if ( ( $column > $user->settings->columns ) &&
+                 ( !isset( $this->modules[$module] ) ) )
+            {
+                throw new \RuntimeException( "Invalid parameters" );
+            }
+
+            if ( !isset( $user->settings->modules[$column] ) )
+            {
+                $user->settings->modules[$column] = array();
+            }
+
+            $module = $this->modules[$module]->getSummary();
+            $module->id = md5( microtime() );
+
+            $user->settings->modules[$column][] = $module;
+            $this->user->update( $user );
+        }
+
+        return $this->view( $request, $user );
+    }
 }
 
