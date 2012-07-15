@@ -56,6 +56,7 @@ class Configuration
         }
 
         $this->configuration = $configuration[$environment];
+        $this->applyInheritance( $configuration, $environment );
         foreach ( $this->configuration as $key => $value )
         {
             if ( strpos( $key, '.' ) === false )
@@ -77,26 +78,25 @@ class Configuration
             }
             $current = $value;
         }
-
-        $this->applyInheritance( $environment );
     }
 
     /**
      * Inherit configuration options from upper level environments
      *
+     * @param array $configuration
      * @param string $environment
      * @return void
      */
-    protected function applyInheritance( $environment )
+    protected function applyInheritance( array $configuration, $environment )
     {
         $parent = $environment;
         while ( isset( $this->inheritance[$parent] ) )
         {
             $parent = $this->inheritance[$parent];
 
-            if ( isset( $configuration[$parent ] ) )
+            if ( isset( $configuration[$parent] ) )
             {
-                $this->configuration = array_merge(
+                $this->configuration = array_merge_recursive(
                     $configuration[$parent],
                     $this->configuration
                 );
