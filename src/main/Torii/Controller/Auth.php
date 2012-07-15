@@ -148,7 +148,7 @@ class Auth
                 {
                     throw new \Exception( 'Invalid login data provided.' );
                 }
-                $request->session['user'] = $user->id;
+                $request->session['user'] = $user;
 
                 // @TODO: This ia an ugly hack:
                 header( 'Location: /portal' );
