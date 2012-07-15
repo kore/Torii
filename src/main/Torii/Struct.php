@@ -38,7 +38,7 @@ abstract class Struct
      */
     public function __get( $property )
     {
-        throw new ValueException( 'Trying to get non-existing property ' . $property );
+        throw new \OutOfBoundsException( 'Trying to get non-existing property ' . $property );
     }
 
     /**
@@ -50,7 +50,7 @@ abstract class Struct
      */
     public function __set( $property, $value )
     {
-        throw new ValueException( 'Trying to set non-existing property ' . $property );
+        throw new \OutOfBoundsException( 'Trying to set non-existing property ' . $property );
     }
 
     /**
