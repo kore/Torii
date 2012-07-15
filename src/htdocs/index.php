@@ -19,8 +19,8 @@ $dispatcher = new RMF\Dispatcher\Simple(
             'GET'  => array( $dic->mainController, 'view' ),
         ),
         '(^/portal/settings$)' => array(
-            'POST' => array( $dic->mainController, 'settings' ),
-            'GET'  => array( $dic->mainController, 'settings' ),
+            'GET'  => array( $dic->mainController, 'showSettings' ),
+            'POST' => array( $dic->mainController, 'updateSettings' ),
         ),
 
         // Auth related actions

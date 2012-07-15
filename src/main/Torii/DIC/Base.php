@@ -105,6 +105,7 @@ class Base extends DIC
         {
            return new Torii\Controller\Auth\Filter(
                 new Torii\Controller\Main(
+                    $dic->userModel
                 )
             );
         };

@@ -1,0 +1,42 @@
+{% extends "html/index.twig" %}
+
+{% block content %}
+<div class="box well">
+    {% for error in errors %}
+        <div class="alert alert-error">{{error}}</div>
+    {% endfor %}
+
+    {% for msg in success %}
+        <div class="alert alert-success">{{msg}}</div>
+    {% endfor %}
+
+    <form action="/portal/settings" method="POST" class="form-horizontal">
+        <fieldset>
+            <legend>Settings</legend>
+            <div class="control-group">
+                <label class="control-label" for="columns">Number of columns</label>
+                <div class="controls">
+                    <select name="columns" size="1">
+                        <option {% if settings.columns == 1 %}selected="selected"{% endif %} value="1">1</option>
+                        <option {% if settings.columns == 2 %}selected="selected"{% endif %} value="2">2</option>
+                        <option {% if settings.columns == 3 %}selected="selected"{% endif %} value="3">3</option>
+                        <option {% if settings.columns == 4 %}selected="selected"{% endif %} value="4">4</option>
+                        <option {% if settings.columns == 6 %}selected="selected"{% endif %} value="6">6</option>
+                    </select>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="columns">Name</label>
+                <div class="controls">
+                    <input type="text" name="name" placeholder="Name" value="{{settings.name}}" />
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    <button class="btn" name="submit" type="submit">Update</button>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>
+{% endblock %}

@@ -45,7 +45,9 @@ class Filter
 
         if ( !isset( $request->session['user'] ) )
         {
-            throw new UnauthorizedException( 'You are not authorized to view this.' );
+            // @TODO: This ia an ugly hack:
+            header( 'Location: /' );
+            exit( 0 );
         }
 
         if ( !is_callable( array( $this->controller, $method ) ) )

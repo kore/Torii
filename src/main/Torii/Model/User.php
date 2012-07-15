@@ -78,6 +78,25 @@ class User
     }
 
     /**
+     * Update user data / settings
+     *
+     * @param Struct\User $user
+     * @return bool
+     */
+    public function update( Struct\User $user )
+    {
+        return (bool) $this->dbal->update(
+            'user',
+            array(
+                'u_settings' => json_encode( $user->settings )
+            ),
+            array(
+                'u_id'       => $user->id,
+            )
+        );
+    }
+
+    /**
      * Verifiy
      *
      * Verify user by the given hash
