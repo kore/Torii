@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %}Torii{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link href="/styles/bootstrap.css" rel="stylesheet">
+    <link href="/styles/bootstrap-responsive.css" rel="stylesheet">
+    <link href="/styles/app.css" rel="stylesheet">
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body>
+    <div class="container">
+        <div class="navbar">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="brand" href="/">Torii</a>
+                    <div class="nav">
+                        <ul class="nav">
+                            {% block navItems %}{% endblock %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="content" class="row">
+            <div class="span12">
+            {% block content %}
+                <div class="alert">
+                    <h1>Please extend from this template…</h1>
+                </div>
+            {% endblock %}
+            </div>
+        </div>
+        <div class="row">
+            {% block footer %}
+            <div class="span12 footer">
+                <hr />
+                &copy; <a href="http://torii-portal.org/">Torii</a>
+            </div>
+            {% endblock %}
+        </div>
+    </div>
+
+    <script type="text/javascript" src="/scripts/vendor/jquery/jquery-1.7.2.js"></script>
+    <!-- script type="text/javascript" src="/scripts/vendor/jquery/jquery-1.7.2.min.js"></script -->
+
+    <script type="text/javascript" src="/scripts/vendor/bootstrap/bootstrap.js"></script>
+    <!-- script type="text/javascript" src="/scripts/vendor/bootstrap/bootstrap.min.js"></script -->
+</body>
+</html>

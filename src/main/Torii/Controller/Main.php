@@ -8,6 +8,7 @@
 namespace Torii\Controller;
 
 use Qafoo\RMF;
+use Torii\Struct;
 
 /**
  * Main controller
@@ -24,6 +25,9 @@ class Main
      */
     public function index( RMF\Request $request )
     {
+        return new Struct\Response(
+            'login.twig'
+        );
     }
 }
 
