@@ -1,11 +1,35 @@
 {
-    "hash": "c59c3d294a5480d9513b040f592f6abe",
+    "hash": "f056b64cd5fce634248b3e2858bc95c8",
     "packages": [
         {
             "package": "Qafoo/RMF",
             "version": "dev-master",
             "source-reference": "f5986d29512bfb2276ffde62921efd6776b79d70",
             "commit-date": "1335543171"
+        },
+        {
+            "package": "doctrine/common",
+            "version": "dev-master",
+            "alias-pretty-version": "2.3.x-dev",
+            "alias-version": "2.3.9999999.9999999-dev"
+        },
+        {
+            "package": "doctrine/common",
+            "version": "dev-master",
+            "source-reference": "ee3aeae972386d761d8358bab3d67e246f4261ba",
+            "commit-date": "1342078708"
+        },
+        {
+            "package": "doctrine/dbal",
+            "version": "dev-master",
+            "alias-pretty-version": "2.3.x-dev",
+            "alias-version": "2.3.9999999.9999999-dev"
+        },
+        {
+            "package": "doctrine/dbal",
+            "version": "dev-master",
+            "source-reference": "00ac50c0e721b1dcbcc4924938ab648e28feb4cf",
+            "commit-date": "1341891672"
         },
         {
             "package": "twig/twig",

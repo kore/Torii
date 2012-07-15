@@ -24,7 +24,8 @@
         "Qafoo/RMF": "dev-master",
         "twitter/bootstrap": "0.1",
         "twig/twig": "1.6.0",
-        "zendframework/zend-feed": "2.0.*"
+        "zendframework/zend-feed": "2.0.*",
+        "doctrine/dbal": "2.*"
     },
     "config":       {
         "vendor-dir": "src/library"
