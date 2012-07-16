@@ -101,6 +101,41 @@ class Main
     }
 
     /**
+     * Resort modules
+     *
+     * @param RMF\Request $request
+     * @param Struct\User $user
+     * @return Struct\Response
+     */
+    public function resort( RMF\Request $request, Struct\User $user )
+    {
+        $modules = array();
+        foreach ( $user->settings->modules as $column )
+        {
+            foreach ( $column as $module )
+            {
+                $modules[$module->id] = $module;
+            }
+        }
+
+        $user->settings->modules = array();
+        foreach ( $request->body['modules'] as $cnr => $column )
+        {
+            $user->settings->modules[$cnr] = array();
+            foreach ( $column as $mnr => $moduleId )
+            {
+                $user->settings->modules[$cnr][$mnr] = $modules[$moduleId];
+            }
+        }
+
+        $this->user->update( $user );
+
+        return array(
+            "ok" => true,
+        );
+    }
+
+    /**
      * Add module
      *
      * @param RMF\Request $request
@@ -111,7 +146,7 @@ class Main
     {
         if ( isset( $request->body['submit'] ) )
         {
-            $column = (int) $request->body['column'];
+            $column = (int) $request->body['column'] - 1;
             $module = $request->body['module'];
 
             if ( ( $column > $user->settings->columns ) &&

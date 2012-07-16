@@ -20,8 +20,15 @@ $(document).ready(function() {
                 } );
                 configuration.push( column );
             } );
-            
-            // @TODO: Send new configuration to server.
+
+            $.post(
+                "/portal/resort",
+                {modules: configuration},
+                function ( data, textStatus, xhr ) {
+                    console.log( textStatus + ": " + data.ok );
+                },
+                "json"
+            );
         };
     } );
 } );

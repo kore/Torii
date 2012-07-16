@@ -7,7 +7,7 @@
 
 {% block content %}
 <div class="row-fluid">
-{% for number in range( 1, settings.columns ) %}
+{% for number in range( 0, settings.columns - 1 ) %}
     <div class="span{{12 / settings.columns}}">
         <ul class="column">
             {% for module in settings.modules[number] %}

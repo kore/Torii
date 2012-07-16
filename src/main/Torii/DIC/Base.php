@@ -6,6 +6,8 @@
  */
 
 namespace Torii\DIC;
+
+use Qafoo\RMF;
 use Torii\DIC;
 use Torii;
 
@@ -67,7 +69,10 @@ class Base extends DIC
 
         $this->view = function( $dic )
         {
-            return new Torii\View\Twig( $dic->twig );
+            return new RMF\View\AcceptHeaderViewDispatcher( array(
+                '(json)' => new RMF\View\Json(),
+                '(html)' => new Torii\View\Twig( $dic->twig ),
+            ) );
         };
 
         $this->dbal = function( $dic )

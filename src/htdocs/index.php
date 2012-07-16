@@ -25,6 +25,9 @@ $dispatcher = new RMF\Dispatcher\Simple(
         '(^/portal/addModule$)' => array(
             'POST' => array( $dic->mainController, 'addModule' ),
         ),
+        '(^/portal/resort$)' => array(
+            'POST' => array( $dic->mainController, 'resort' ),
+        ),
 
         // Auth related actions
         '(^/$)' => array(
