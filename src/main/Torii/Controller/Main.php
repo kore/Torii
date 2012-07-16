@@ -54,6 +54,7 @@ class Main
      */
     public function view( RMF\Request $request, Struct\User $user )
     {
+        var_dump( $user->settings->modules );
         return new Struct\Response(
             'main.twig',
             array(
@@ -126,9 +127,9 @@ class Main
             }
 
             $user->settings->modules[$column][] = new Struct\ModuleConfiguration(
-                $request->body['title'],
                 $this->getModuleId( $request->body['title'] ),
-                $module
+                $module,
+                $request->body['title']
             );
             $this->user->update( $user );
         }
