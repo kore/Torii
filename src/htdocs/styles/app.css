@@ -56,7 +56,9 @@ hr {
     margin: 2px;
     padding: 3px;
 
-    min-height: 10px;
+    min-height: 50px;
+
+    list-style-type: none;
 }
 
 .module {
@@ -84,5 +86,27 @@ hr {
 
 .modal {
     color: #000000;
+}
+
+/**
+ * Drag & Drop
+ */
+body > .column {
+    background-color: #700000;
+    max-width: 400px;
+    margin: 0px auto;
+
+    background-image: url( "/images/trash.png" );
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.drag-over {
+    background-color: #484848;
+}
+
+.column li {
+    position: relative;
+    cursor: move;
 }
 

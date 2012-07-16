@@ -9,11 +9,13 @@
 <div class="row-fluid">
 {% for number in range( 1, settings.columns ) %}
     <div class="span{{12 / settings.columns}}">
-        <div class="column">
+        <ul class="column">
             {% for module in settings.modules[number] %}
+            <li>
                 {% include "html/module.twig" %}
+            </li>
             {% endfor %}
-        </div>
+        </ul>
     </div>
 {% endfor %}
 </div>
