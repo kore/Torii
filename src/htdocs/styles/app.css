@@ -1,4 +1,82 @@
+html {
+    overflow-y: scroll;
+    height: 100%;
+
+    margin: 0px;
+    padding: 0px;
+}
+
+body {
+    height: 100%;
+
+    margin: 0px;
+    padding: 0px;
+
+    background-image: url( "/images/linen.png" );
+    color: #eeeeec;
+}
+
+body > .container-fluid {
+    padding: 0px;
+}
+
+.navbar {
+    margin-bottom: 5px;
+}
+
+.navbar .navbar-inner {
+    background-color: #242424;
+    background-image: none;
+    border-radius: 0px;
+}
+
+hr {
+    border: none;
+    height: 1px;
+    background-color: #242424;
+    margin: 5px;
+}
+
+.footer {
+    text-align: center;
+}
+
 .box {
     max-width: 500px;
     margin: 50px auto;
 }
+
+.column {
+    background-color: #363636;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), 0 -1px 0 rgba(0, 0, 0, 0.1) inset;
+    border-radius: 4px;
+
+    margin: 2px;
+    padding: 3px;
+
+    min-height: 10px;
+}
+
+.module {
+    background-color: #242424;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), 0 -1px 0 rgba(0, 0, 0, 0.1) inset;
+    border-radius: 4px;
+
+    margin-bottom: 10px;
+}
+
+.module .header {
+    font-size: 16px;
+    font-weight: bold;
+    color: #cccccc;
+
+    padding: 3px 3px 3px 6px;
+
+    border-bottom: 1px solid #121212;
+}
+
+.module .body {
+    padding: 3px 4px;
+    color: #ffffff;
+}
+
