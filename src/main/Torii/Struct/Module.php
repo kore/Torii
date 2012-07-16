@@ -30,13 +30,6 @@ class Module extends Struct
     public $description;
 
     /**
-     * Module ID
-     *
-     * @var string
-     */
-    public $id;
-
-    /**
      * Construct
      *
      * @param string $name
