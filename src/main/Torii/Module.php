@@ -37,7 +37,7 @@ abstract class Module
      * @param DIC $dic
      * @return void
      */
-    public function setDIC( DIC $dic )
+    public function initialize( DIC $dic )
     {
         $this->dic = $dic;
     }

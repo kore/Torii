@@ -16,7 +16,7 @@
         <ul class="column">
             {% for module in settings.modules[number] %}
             <li id="{{module.id}}">
-                {% include "html/module.twig" %}
+                {% include "html/" ~ module.type ~ ".twig" %}
             </li>
             {% endfor %}
         </ul>

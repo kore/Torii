@@ -118,6 +118,7 @@ class Base extends DIC
                     throw new \RuntimeException( "Invalid module definition in $moduleFile. Must return an instance of \\Torii\\Module." );
                 }
 
+                $module->initialize( $dic );
                 $modules[basename( dirname( $moduleFile ) )] = $module;
             }
 
