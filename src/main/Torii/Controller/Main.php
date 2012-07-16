@@ -54,7 +54,6 @@ class Main
      */
     public function view( RMF\Request $request, Struct\User $user )
     {
-        var_dump( $user->settings->modules );
         return new Struct\Response(
             'main.twig',
             array(
