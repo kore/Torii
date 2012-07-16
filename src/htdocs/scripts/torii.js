@@ -11,7 +11,17 @@ $(document).ready(function() {
         };
 
         DragDrop.onDragFinished = function() {
-            console.log("Store on server");
+            var configuration = [],
+                column;
+            $( ".column" ).each( function( columnNr, columnElement ) {
+                column = [];
+                $( columnElement ).children( "li" ).each( function( moduleNr, moduleElement ) {
+                    column.push( moduleElement.id );
+                } );
+                configuration.push( column );
+            } );
+            
+            // @TODO: Send new configuration to server.
         };
     } );
 } );

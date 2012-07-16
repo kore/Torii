@@ -11,7 +11,7 @@
     <div class="span{{12 / settings.columns}}">
         <ul class="column">
             {% for module in settings.modules[number] %}
-            <li>
+            <li id="{{module.id}}">
                 {% include "html/module.twig" %}
             </li>
             {% endfor %}
