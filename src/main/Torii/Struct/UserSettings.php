@@ -27,7 +27,7 @@ class UserSettings extends Struct
      *
      * @var int
      */
-    public $columns;
+    public $columns = 3;
 
     /**
      * Installed modules
