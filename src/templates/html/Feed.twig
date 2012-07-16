@@ -1,0 +1,13 @@
+{% extends "html/module.twig" %}
+
+{% block title %}
+<div class="btn-group">
+    <a class="btn btn-inverse btn-mini" href="#"><i class="icon-white icon-cog"></i></a>
+    <a class="btn btn-inverse btn-mini" href="#"><i class="icon-white icon-refresh"></i></a>
+</div>
+{{parent()}}
+{% endblock %}
+{% block content %}
+<ul class="feed">
+</ul>
+{% endblock %}

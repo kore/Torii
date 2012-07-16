@@ -43,6 +43,26 @@ class Module extends \Torii\Module
     {
         throw new \RuntimeException( '@TODO: Implement' );
     }
+
+    /**
+     * Inject DIC
+     *
+     * This is the interface between modules and the base system. Module
+     * definitions are not supposed to be re-usable in other systems.
+     *
+     * The DIC in this case provides the means to configure your own module
+     * environment. The DIC schould NOT be passed to any other objects.
+     *
+     * @param DIC $dic
+     * @return void
+     */
+    public function initialize( DIC $dic )
+    {
+        parent::initialize( $dic );
+
+        // Register path for custom templates
+        $dic->twig->getLoader()->addPath( __DIR__ . '/templates' );
+    }
 }
 
 // Important for registration
