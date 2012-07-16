@@ -107,7 +107,13 @@ class Base extends DIC
             $modules = array();
             foreach ( glob( __DIR__ . '/../Module/*/Module.php' ) as $moduleFile )
             {
-                $modules[basename( dirname( $moduleFile ) )] = include $moduleFile;
+                $module = include $moduleFile;
+                if ( !$module instanceof Torii\Module )
+                {
+                    throw new \RuntimeException( "Invalid module definition in $moduleFile. Must return an instance of \\Torii\\Module." );
+                }
+
+                $modules[basename( dirname( $moduleFile ) )] = $module;
             }
 
             return $modules;
