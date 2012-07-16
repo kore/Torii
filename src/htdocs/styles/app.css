@@ -13,7 +13,6 @@ body {
     padding: 0px;
 
     background-image: url( "/images/linen.png" );
-    color: #eeeeec;
 }
 
 body > .container-fluid {
@@ -25,7 +24,6 @@ body > .container-fluid {
 }
 
 .navbar .navbar-inner {
-    background-color: #242424;
     background-image: none;
     border-radius: 0px;
 }
@@ -44,6 +42,10 @@ hr {
 .box {
     max-width: 500px;
     margin: 50px auto;
+}
+
+#content {
+    margin: 0px 10px;
 }
 
 .column {
