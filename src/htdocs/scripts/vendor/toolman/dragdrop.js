@@ -27,6 +27,7 @@ var DragDrop = {
 		// been added to the container
 		list.onDragOver = new Function();
 		list.onDragOut = new Function();
+		list.onDragEnd = new Function();
 		
     	var items = list.getElementsByTagName( "li" );
     	
@@ -158,12 +159,16 @@ var DragDrop = {
 			var tempParent = this.parentNode;
 			this.parentNode.removeChild( this );
 			tempParent.parentNode.removeChild( tempParent );
+            DragDrop.onDragFinished();
 			return;
 		}
 		this.parentNode.onDragOut();
 		this.style["top"] = "0px";
 		this.style["left"] = "0px";
-	}
+        DragDrop.onDragFinished();
+	},
+
+    onDragFinished : new Function()
 };
 
 var DragUtils = {

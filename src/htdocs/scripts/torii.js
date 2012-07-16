@@ -9,6 +9,10 @@ $(document).ready(function() {
         list.onDragOut = function() {
             $( this ).removeClass( "drag-over" );
         };
+
+        DragDrop.onDragFinished = function() {
+            console.log("Store on server");
+        };
     } );
 } );
 
