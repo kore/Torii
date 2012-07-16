@@ -5,7 +5,15 @@ $(document).ready(function() {
         connectWith: ".column"
     } );
 
-    $( ".column" ).bind( "sortupdate", function(event, ui) {
+    $( ".column" ).bind( "sortover", function(event, ui) {
+        $( this ).addClass( "drag-over" );
+    } );
+
+    $( ".column" ).bind( "sortout", function(event, ui) {
+        $( this ).removeClass( "drag-over" );
+    } );
+
+    $( ".column" ).bind( "sortstop", function(event, ui) {
         var configuration = [],
             column;
         $( ".column" ).each( function( columnNr, columnElement ) {
