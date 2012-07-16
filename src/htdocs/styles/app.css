@@ -61,6 +61,13 @@ hr {
     list-style-type: none;
 }
 
+.modal {
+    color: #000000;
+}
+
+/**
+ * Common module styles
+ */
 .module {
     background-color: #242424;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), 0 -1px 0 rgba(0, 0, 0, 0.1) inset;
@@ -79,13 +86,13 @@ hr {
     border-bottom: 1px solid #121212;
 }
 
+.module .header .btn-group {
+    float: right;
+}
+
 .module .body {
     padding: 3px 4px;
     color: #ffffff;
-}
-
-.modal {
-    color: #000000;
 }
 
 /**
