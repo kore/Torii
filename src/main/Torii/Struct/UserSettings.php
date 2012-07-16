@@ -44,12 +44,21 @@ class UserSettings extends Struct
      */
     public static function create( $data )
     {
+        var_dump( $data );
         $settings = new static();
         if ( is_array( $data ) )
         {
             foreach ( $data as $key => $value )
             {
                 $settings->$key = $value;
+            }
+
+            foreach ( $settings->modules as $cnr => $column )
+            {
+                foreach ( $column as $mnr => $module )
+                {
+                    $settings->modules[$cnr][$mnr] = ModuleConfiguration::create( $module );
+                }
             }
         }
 

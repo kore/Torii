@@ -73,7 +73,7 @@ class User
         return new Struct\User(
             $result['u_id'],
             $result['u_login'],
-            Struct\UserSettings::create( json_decode( $result['u_settings'] ) )
+            Struct\UserSettings::create( json_decode( $result['u_settings'], true ) )
         );
     }
 

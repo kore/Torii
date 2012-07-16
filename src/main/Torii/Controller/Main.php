@@ -125,14 +125,26 @@ class Main
                 $user->settings->modules[$column] = array();
             }
 
-            $module = $this->modules[$module]->getSummary();
-            $module->id = md5( microtime() );
-
-            $user->settings->modules[$column][] = $module;
+            $user->settings->modules[$column][] = new Struct\ModuleConfiguration(
+                $request->body['title'],
+                $this->getModuleId( $request->body['title'] ),
+                $module
+            );
             $this->user->update( $user );
         }
 
         return $this->view( $request, $user );
+    }
+
+    /**
+     * Get a random, unique module ID
+     *
+     * @param string $title
+     * @return string
+     */
+    protected function getModuleId( $title )
+    {
+        return preg_replace( '([^a-z0-9_]+)', '_', strtolower( $title ) ) . '_' . substr( md5( microtime() ), 0, 8 );
     }
 }
 

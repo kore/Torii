@@ -50,5 +50,20 @@ class ModuleConfiguration extends Struct
         $this->type  = $type;
         $this->title = $title;
     }
+
+    /**
+     * Create from data array
+     *
+     * @param array $data
+     * @return ModuleConfiguration
+     */
+    public static function create( $data )
+    {
+        return new static(
+            $data['id'],
+            $data['type'],
+            $data['title']
+        );
+    }
 }
 
