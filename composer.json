@@ -26,6 +26,7 @@
         "twig/twig": "1.6.0",
         "zendframework/zend-feed": "2.0.*",
         "kriswallsmith/assetic": "1.*",
+        "doctrine/common": "2.*",
         "doctrine/dbal": "2.*"
     },
     "config":       {

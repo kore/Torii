@@ -1,11 +1,23 @@
 {
-    "hash": "f6d7e709fc14df793dbd7a0b3a917707",
+    "hash": "2fe18aad18b4a58ad69d7743e3a27c5f",
     "packages": [
         {
             "package": "Qafoo/RMF",
             "version": "dev-master",
             "source-reference": "852d993d45952dbc86e2bfd78addad540bd85998",
             "commit-date": "1342375436"
+        },
+        {
+            "package": "doctrine/common",
+            "version": "dev-master",
+            "alias-pretty-version": "2.4.x-dev",
+            "alias-version": "2.4.9999999.9999999-dev"
+        },
+        {
+            "package": "doctrine/common",
+            "version": "dev-master",
+            "source-reference": "91a2875447a38a638cebbd679fa2081a84d5f7af",
+            "commit-date": "1342444390"
         },
         {
             "package": "doctrine/dbal",
