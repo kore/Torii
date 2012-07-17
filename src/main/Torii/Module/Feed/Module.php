@@ -9,6 +9,7 @@ namespace Torii\Module\Feed;
 
 use Qafoo\RMF;
 use Torii\Struct;
+use Torii\DIC;
 
 /**
  * Feed module definition
