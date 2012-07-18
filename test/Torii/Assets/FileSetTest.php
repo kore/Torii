@@ -88,4 +88,21 @@ class FileSetTest extends \PHPUnit_Framework_TestCase
             $set->getFiles()
         );
     }
+
+    public function testGetIgnorePattern()
+    {
+        $set = new FileSet(
+            __DIR__ . '/_data/',
+            '*',
+            'bar.*'
+        );
+
+        $this->assertEquals(
+            array(
+                new Struct\File( __DIR__ . '/_data/', 'blubb.js' ),
+                new Struct\File( __DIR__ . '/_data/', 'foo.css' ),
+            ),
+            $set->getFiles()
+        );
+    }
 }
