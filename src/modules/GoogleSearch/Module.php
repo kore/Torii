@@ -10,6 +10,7 @@ namespace Torii\Module\GoogleSearch;
 use Qafoo\RMF;
 use Torii\Struct;
 use Torii\DIC;
+use Torii\Assets;
 
 /**
  * GoogleSearch module definition
@@ -63,6 +64,11 @@ class Module extends \Torii\Module
 
         // Register path for custom templates
         $dic->twig->getLoader()->addPath( __DIR__ . '/templates' );
+
+        // Register assets
+        $dic->css->addFileSet( new Assets\FileSet( __DIR__ . '/css', '*.css' ) );
+        $dic->javaScript->addFileSet( new Assets\FileSet( __DIR__ . '/js', '*.js' ) );
+        $dic->images->addFileSet( new Assets\FileSet( __DIR__ . '/images', '*.png' ) );
     }
 }
 
