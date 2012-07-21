@@ -38,6 +38,15 @@ class File extends Struct
     public $mimeType;
 
     /**
+     * File modification time
+     *
+     * Stored as a unix timestamp (UTC)
+     *
+     * @var int
+     */
+    protected $modificationTime;
+
+    /**
      * Construct
      *
      * @param string $basePath
@@ -49,6 +58,27 @@ class File extends Struct
         $this->basePath  = $basePath;
         $this->localPath = $localPath;
         $this->mimeType  = $mimeType;
+    }
+
+    /**
+     * Handle special magic property modificationTime
+     *
+     * @param string $property
+     * @return void
+     */
+    public function __get( $property )
+    {
+        if ( $property === 'modificationTime' )
+        {
+            if ( $this->modificationTime !== null )
+            {
+                return $this->modificationTime;
+            }
+
+            return $this->modificationTime = filemtime( $this->basePath . $this->localPath );
+        }
+
+        return parent::__get( $property );
     }
 }
 
