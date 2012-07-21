@@ -155,7 +155,7 @@ class Base extends DIC
         $this->modules = function( $dic )
         {
             $modules = array();
-            foreach ( glob( __DIR__ . '/../Module/*/Module.php' ) as $moduleFile )
+            foreach ( glob( $dic->srcDir . '/modules/*/Module.php' ) as $moduleFile )
             {
                 $module = include $moduleFile;
                 if ( !$module instanceof Torii\Module )
