@@ -5,12 +5,12 @@
          convertWarningsToExceptions="true"
          processIsolation="false"
          stopOnFailure="false"
-         bootstrap="../src/main/Torii/bootstrap.php"
+         bootstrap="../src/php/Torii/bootstrap.php"
          syntaxCheck="false">
 
     <filter>
       <whitelist>
-          <directory suffix=".php">../src/main/</directory>
+          <directory suffix=".php">../src/php/</directory>
       </whitelist>
   </filter>
 </phpunit>
