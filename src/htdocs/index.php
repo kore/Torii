@@ -8,7 +8,7 @@
 namespace Torii;
 use Qafoo\RMF;
 
-require __DIR__ . '/../main/Torii/bootstrap.php';
+require __DIR__ . '/../php/Torii/bootstrap.php';
 $dic = new DIC\Base();
 $dic->environment = 'development';
 
