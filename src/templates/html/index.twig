@@ -7,9 +7,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <link href="/styles/bootstrap.css" rel="stylesheet">
-    <link href="/styles/bootstrap-responsive.css" rel="stylesheet">
-    <link href="/styles/app.css" rel="stylesheet">
+{% for style in css %}
+    <link href="/styles/{{style.localPath}}" type="text/css" rel="stylesheet" />
+{% endfor %}
 
     <link rel="icon" href="/images/favicon.png" type="image/png" />
 
@@ -53,15 +53,8 @@
         </div>
     </div>
 
-    <script type="text/javascript" src="/scripts/vendor/jquery/jquery-1.7.2.js"></script>
-    <!-- script type="text/javascript" src="/scripts/vendor/jquery/jquery-1.7.2.min.js"></script -->
-
-    <script type="text/javascript" src="/scripts/vendor/bootstrap/bootstrap.js"></script>
-    <!-- script type="text/javascript" src="/scripts/vendor/bootstrap/bootstrap.min.js"></script -->
-
-    <script type="text/javascript" src="/scripts/vendor/jquery/jquery-ui-1.8.21.custom.js"></script>
-    <!-- <script type="text/javascript" src="/scripts/vendor/jquery/jquery-ui-1.8.21.custom.min.js"></script> -->
-
-    <script type="text/javascript" src="/scripts/torii.js"></script>
+{% for script in javaScript %}
+    <script type="text/javascript" src="/scripts/{{script.localPath}}"></script>
+{% endfor %}
 </body>
 </html>

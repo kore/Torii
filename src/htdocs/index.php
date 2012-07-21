@@ -49,6 +49,11 @@ $dispatcher = new RMF\Dispatcher\Simple(
             'GET'  => array( $dic->authController, 'showForgot' ),
             'POST'  => array( $dic->authController, 'forgot' ),
         ),
+
+        // Fallback handling of assets
+        '(^/(?:styles|images|scripts)/)' => array(
+            'GET'  => array( $dic->assetController, 'deliver' ),
+        ),
     ) ),
     $dic->view
 );

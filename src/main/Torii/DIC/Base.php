@@ -27,6 +27,10 @@ class Base extends DIC
     protected $alwaysShared = array(
         'srcDir'         => true,
         'configuration'  => true,
+        'debug'          => true,
+        'javaScript'     => true,
+        'css'            => true,
+        'images'         => true,
         'view'           => true,
         'twig'           => true,
         'dbal'           => true,
@@ -49,6 +53,14 @@ class Base extends DIC
             return substr( __DIR__, 0, strpos( __DIR__, '/src/' ) + 4 );
         };
 
+        $this->debug = function ( $dic )
+        {
+            return (
+                $this->environment === 'development' ||
+                $this->environment === 'testing'
+            );
+        };
+
         $this->configuration = function ( $dic )
         {
             return new Torii\Configuration(
@@ -57,14 +69,47 @@ class Base extends DIC
             );
         };
 
-        $this->twig = function ( $dic )
+        $this->javaScript = function( $dic )
         {
-            return new \Twig_Environment(
+            return new Torii\Assets\Collection\Simple( array(
+                new Torii\Assets\FileSet( $this->srcDir . '/js', 'vendor/jquery/*.js', 'vendor/*/*.min.js' ),
+                new Torii\Assets\FileSet( $this->srcDir . '/js', 'vendor/bootstrap/*.js', 'vendor/*/*.min.js' ),
+                new Torii\Assets\FileSet( $this->srcDir . '/js', '*.js' ),
+            ) );
+        };
+
+        $this->css = function( $dic )
+        {
+            return new Torii\Assets\Collection\Simple( array(
+                new Torii\Assets\FileSet( $this->srcDir . '/css', '*.min.css' ),
+                new Torii\Assets\FileSet( $this->srcDir . '/css', 'app.css' ),
+            ) );
+        };
+
+        $this->images = function( $dic )
+        {
+            return new Torii\Assets\Collection\Simple( array(
+                new Torii\Assets\FileSet( $this->srcDir . '/images', '*.png' ),
+            ) );
+        };
+
+        $this->twigExtension = function( $dic )
+        {
+            return new Torii\View\Twig\Extension( $dic );
+        };
+
+        $this->twig = function( $dic )
+        {
+            $twig = new \Twig_Environment(
                 new \Twig_Loader_Filesystem( $dic->srcDir . '/templates' ),
                 array(
 //                    'cache' => $dic->srcDir . '/cache'
                 )
             );
+
+            $twig->addExtension( $dic->twigExtension );
+
+            return $twig;
         };
 
         $this->view = function( $dic )
@@ -133,6 +178,15 @@ class Base extends DIC
                     $dic->modules
                 )
             );
+        };
+
+        $this->assetController = function( $dic )
+        {
+            return new Torii\Controller\Assets( array(
+                '(/scripts/(?P<path>.*)$)' => $dic->javaScript,
+                '(/styles/(?P<path>.*)$)'  => $dic->css,
+                '(/images/(?P<path>.*)$)'  => $dic->images,
+            ) );
         };
     }
 }
