@@ -11,5 +11,7 @@
         <p>{{exception.message}}</p>
     </div>
 
+    {% if debug %}
     <pre>{{exception}}</pre>
+    {% endif %}
 {% endblock %}
