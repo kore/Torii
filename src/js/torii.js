@@ -1,49 +1,53 @@
-$(document).ready(function() {
-    $( ".column, .trash" ).sortable( {
+/*global jQuery: false */
+
+jQuery( document ).ready(function() {
+    "use strict";
+
+    jQuery( ".column, .trash" ).sortable( {
         scroll: false,
-        opacity: .7,
+        opacity: 0.7,
         connectWith: ".column, .trash",
         cursor: "move"
     } );
 
     // Center (hiffen) trash element
-    $( ".trash" ).offset( {
-        left: $( document ).innerWidth() / 2 - 100 - $( ".trash" ).offset().left
+    jQuery( ".trash" ).offset( {
+        left: jQuery( document ).innerWidth() / 2 - 100 - jQuery( ".trash" ).offset().left
     } );
 
-    $( ".column" ).bind( "sortstart", function(event, ui) {
-        $( ".trash" ).fadeIn( 500 );
+    jQuery( ".column" ).bind( "sortstart", function(event, ui) {
+        jQuery( ".trash" ).fadeIn( 500 );
     } );
 
-    $( ".column, .trash" ).bind( "sortover", function(event, ui) {
-        $( this ).addClass( "drag-over" );
+    jQuery( ".column, .trash" ).bind( "sortover", function(event, ui) {
+        jQuery( this ).addClass( "drag-over" );
     } );
 
-    $( ".column, .trash" ).bind( "sortout", function(event, ui) {
-        $( this ).removeClass( "drag-over" );
+    jQuery( ".column, .trash" ).bind( "sortout", function(event, ui) {
+        jQuery( this ).removeClass( "drag-over" );
     } );
 
-    $( ".trash" ).bind( "sortreceive", function(event, ui) {
+    jQuery( ".trash" ).bind( "sortreceive", function(event, ui) {
         if ( !confirm( "Really remove module?" ) ) {
-            $( ui.sender ).sortable( 'cancel' );
+            jQuery( ui.sender ).sortable( 'cancel' );
         }
     } );
 
-    $( ".column, .trash" ).bind( "sortstop", function(event, ui) {
-        $( ".trash" ).hide();
-        $( ".trash" ).empty();
+    jQuery( ".column, .trash" ).bind( "sortstop", function(event, ui) {
+        jQuery( ".trash" ).hide();
+        jQuery( ".trash" ).empty();
 
         var configuration = [],
             column;
-        $( ".column" ).each( function( columnNr, columnElement ) {
+        jQuery( ".column" ).each( function( columnNr, columnElement ) {
             column = [];
-            $( columnElement ).children( "li" ).each( function( moduleNr, moduleElement ) {
+            jQuery( columnElement ).children( "li" ).each( function( moduleNr, moduleElement ) {
                 column.push( moduleElement.id );
             } );
             configuration.push( column );
         } );
 
-        $.post(
+        jQuery.post(
             "/portal/resort",
             {modules: configuration},
             function ( data, textStatus, xhr ) {
