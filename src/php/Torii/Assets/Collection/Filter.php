@@ -16,7 +16,7 @@ use Torii\Assets\Collection;
  *
  * @version $Revision$
  */
-class Filter extends Collection
+abstract class Filter extends Collection
 {
 }
 
