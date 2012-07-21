@@ -9,7 +9,7 @@ namespace Torii\Assets;
 
 /**
  * @version $Revision$
- * @covers \Torii\FileSet
+ * @covers \Torii\Assets\FileSet
  * @group unittest
  */
 class FileSetTest extends \PHPUnit_Framework_TestCase

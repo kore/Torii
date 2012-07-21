@@ -11,7 +11,7 @@ use Torii\Assets\Struct\File;
 
 /**
  * @version $Revision$
- * @covers \Torii\FileSet
+ * @covers \Torii\Assets\Collection\Simple
  * @group unittest
  */
 class SimpleTest extends \PHPUnit_Framework_TestCase
