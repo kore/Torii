@@ -81,7 +81,8 @@ class Base extends DIC
         $this->css = function( $dic )
         {
             return new Torii\Assets\Collection\Simple( array(
-                new Torii\Assets\FileSet( $this->srcDir . '/css', '*.min.css' ),
+                new Torii\Assets\FileSet( $this->srcDir . '/css', 'bootstrap.min.css' ),
+                new Torii\Assets\FileSet( $this->srcDir . '/css', 'bootstrap-responsive.min.css' ),
                 new Torii\Assets\FileSet( $this->srcDir . '/css', 'app.css' ),
             ) );
         };
