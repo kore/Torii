@@ -1,4 +1,4 @@
-/*global jQuery: false */
+/*global jQuery: false, Mustache: false */
 
 jQuery( document ).ready(function() {
     "use strict";
@@ -94,7 +94,7 @@ jQuery( document ).ready(function() {
                 success();
             }
         } );
-    }
+    };
 
     // Exports
     global.Torii = Torii;
