@@ -223,20 +223,40 @@ class Model
      */
     public function addEntry( $urlId, $link, $date, $title, $description = null, $content = null )
     {
-        $this->dbal->insert(
-            'feed_data',
-            array(
-                'feed_d_url'  => hash( "sha256", $link, true ),
-                'feed_u_id'   => $urlId,
-                'feed_d_time' => $date,
-                'feed_d_data' => json_encode( array(
-                    'link'        => $link,
-                    'title'       => $title,
-                    'description' => $description,
-                    'content'     => $content,
-                ) ),
+        $hash = hash( "sha256", $link );
+        $queryBuilder = $this->dbal->createQueryBuilder();
+        $queryBuilder
+            ->select( 'feed_d_id' )
+            ->from( 'feed_data', 'd' )
+            ->where(
+                $queryBuilder->expr()->andx(
+                    $queryBuilder->expr()->eq( 'feed_d_url', ':hash' ),
+                    $queryBuilder->expr()->eq( 'feed_u_id', ':url' )
+                )
             )
-        );
+            ->setParameter( ':hash', $hash )
+            ->setParameter( ':url', $urlId );
+
+        $statement = $queryBuilder->execute();
+        $result = $statement->fetchAll( \PDO::FETCH_ASSOC );
+
+        if ( !count( $result ) )
+        {
+            $this->dbal->insert(
+                'feed_data',
+                array(
+                    'feed_d_url'  => $hash,
+                    'feed_u_id'   => $urlId,
+                    'feed_d_time' => $date,
+                    'feed_d_data' => json_encode( array(
+                        'link'        => $link,
+                        'title'       => $title,
+                        'description' => $description,
+                        'content'     => $content,
+                    ) ),
+                )
+            );
+        }
     }
 
     /**
