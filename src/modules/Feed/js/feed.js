@@ -32,16 +32,11 @@
         $.get(
             "/module/" + id + "/getList",
             function( data ) {
-                $( target ).empty();
-                $.each( data, function( key, url ) {
-                    $( target ).append(
-                        "<tr>" +
-                            "<td>" + url.url + "</td>" +
-                            "<td>" + url.status + "</td>" +
-                            "<td>Remove</td>" +
-                        "</tr>"
-                    );
-                } );
+                Torii.showTemplate(
+                    target,
+                    "/templates/feed/urls.mustache",
+                    {urls: data}
+                );
             },
             "json"
         );
