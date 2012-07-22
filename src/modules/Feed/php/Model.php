@@ -175,14 +175,13 @@ class Model
         $queryBuilder
             ->select( 'd.feed_d_id', 'd.feed_d_data' )
             ->from( 'feed_m_u_rel', 'mrel' )
-            ->from( 'feed_data', 'd' )
             ->join(
                 'mrel',
-                'feed_data', 'dj',
-                $queryBuilder->expr()->eq( 'mrel.feed_u_id', 'dj.feed_u_id' )
+                'feed_data', 'd',
+                $queryBuilder->expr()->eq( 'mrel.feed_u_id', 'd.feed_u_id' )
             )
             ->leftJoin(
-                'd',
+                'mrel',
                 'feed_m_d_rel', 'drel',
                 $queryBuilder->expr()->andx(
                     $queryBuilder->expr()->eq( 'drel.feed_d_id', 'd.feed_d_id' ),
@@ -198,11 +197,6 @@ class Model
 
         $statement = $queryBuilder->execute();
         $result = $statement->fetchAll( \PDO::FETCH_ASSOC );
-
-        if ( !$result )
-        {
-            return array();
-        }
 
         return array_map(
             function ( $row )
