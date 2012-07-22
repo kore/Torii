@@ -122,9 +122,9 @@ class Model
             ->setParameter( ':module', $module );
 
         $statement = $queryBuilder->execute();
-        $result = $statement->fetch( \PDO::FETCH_ASSOC );
+        $result = $statement->fetchAll( \PDO::FETCH_ASSOC );
 
-        if ( !$result )
+        if ( !count( $result ) )
         {
             $this->dbal->insert( 'feed_module', array(
                 'feed_m_id'       => $module,
