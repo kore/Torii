@@ -30,9 +30,11 @@ $dispatcher = new RMF\Dispatcher\Simple(
         ),
 
         // Torii module dispatching
-        '(^/module/(?P<type>[A-Za-z_-]+)(?P<path>/.*)?$)' => array(
-            'POST' => array( $dic->mainController, 'dispatch' ),
-            'GET'  => array( $dic->mainController, 'dispatch' ),
+        '(^/module/(?P<module>[A-Za-z0-9_-]+)(?P<path>/.*)?$)' => array(
+            'PUT'    => array( $dic->mainController, 'dispatch' ),
+            'DELETE' => array( $dic->mainController, 'dispatch' ),
+            'POST'   => array( $dic->mainController, 'dispatch' ),
+            'GET'    => array( $dic->mainController, 'dispatch' ),
         ),
 
         // Auth related actions

@@ -191,13 +191,38 @@ class Main
      */
     public function dispatch( RMF\Request $request, Struct\User $user )
     {
-        if ( !isset( $this->modules[$request->variables['type']] ) )
+        $module = $this->getModuleConfig( $user, $request->variables['module'] );
+
+        if ( !isset( $this->modules[$module->type] ) )
         {
-            throw new \RuntimeException( "Invalid module: " . $request->variables['type'] );
+            throw new \RuntimeException( "Invalid module: " . $module->type );
         }
 
-        $module = $this->modules[$request->variables['type']];
-        return $module->handle( $request, $user );
+        $moduleHandler = $this->modules[$module->type];
+        return $moduleHandler->handle( $request, $user, $module );
+    }
+
+    /**
+     * Get Module configuration from ID and user
+     *
+     * @param Struct\User $user
+     * @param string $moduleId
+     * @return Struct\Module
+     */
+    protected function getModuleConfig( Struct\User $user, $moduleId )
+    {
+        foreach ( $user->settings->modules as $column )
+        {
+            foreach ( $column as $module )
+            {
+                if ( $module->id === $moduleId )
+                {
+                    return $module;
+                }
+            }
+        }
+
+        throw new \RuntimeException( "Invalid module $moduleId" );
     }
 }
 

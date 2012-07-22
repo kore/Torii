@@ -56,8 +56,9 @@ abstract class Module
      *
      * @param RMF\Request $request
      * @param Struct\User $user
-     * @return Struct\Response
+     * @param Struct\ModuleConfiguration $module
+     * @return mixed
      */
-    abstract public function handle( RMF\Request $request, Struct\User $user );
+    abstract public function handle( RMF\Request $request, Struct\User $user, Struct\ModuleConfiguration $module );
 }
 
