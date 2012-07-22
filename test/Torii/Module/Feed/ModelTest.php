@@ -100,5 +100,19 @@ class ModelTest extends DatabaseTest
             $model->getUrlList( "module_1" )
         );
     }
+
+    /**
+     * @depends testAddUrl
+     */
+    public function testGetPendingUrl()
+    {
+        $model = new Model( $this->getDbal() );
+        $model->addUrl( "module_1", "http://example.com" );
+
+        $this->assertEquals(
+            array( 'http://example.com' ),
+            $model->getPending( 300 )
+        );
+    }
 }
 

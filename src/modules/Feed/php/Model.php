@@ -121,6 +121,35 @@ class Model
     }
 
     /**
+     * Get pending feeds
+     *
+     * @param int $age
+     * @return void
+     */
+    public function getPending( $age )
+    {
+        $queryBuilder = $this->dbal->createQueryBuilder();
+        $queryBuilder
+            ->select( 'feed_u_url' )
+            ->from( 'feed_url', 'u' )
+            ->where(
+                $queryBuilder->expr()->lt( 'feed_u_update', ':update' )
+            )
+            ->setParameter( ':update', time() - $age );
+
+        $statement = $queryBuilder->execute();
+        $result = $statement->fetchAll( \PDO::FETCH_ASSOC );
+
+        return array_map(
+            function ( $row )
+            {
+                return $row['feed_u_url'];
+            },
+            $result
+        );
+    }
+
+    /**
      * Ensures module exists in database
      *
      * @param string $module
