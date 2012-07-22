@@ -65,6 +65,16 @@ hr {
     color: #000000;
 }
 
+.modal .table tbody tr:hover td,
+.modal .table tbody tr:hover th {
+    background-color: #e0e0e0;
+}
+
+.modal .table-striped tbody tr:nth-child(2n+1) td,
+.modal .table-striped tbody tr:nth-child(2n+1) th {
+    background-color: #eeeeef;;
+}
+
 /**
  * Common module styles
  */
