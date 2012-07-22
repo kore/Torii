@@ -73,6 +73,13 @@
                         module: id
                     },
                     function () {
+                        $( target ).find( "li a" ).on( "mousedown", function( event ) {
+                            var link = event.target;
+                            $( link ).attr(
+                                "href",
+                                "/module/" + id + "/redirect/" + escape( $( link ).attr( "href" ) )
+                            );
+                        } );
                     }
                 );
             },
