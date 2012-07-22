@@ -77,10 +77,12 @@ class Extension extends MimeTypeGuesser
         '.svg'     => 'image/svg+xml',
 
         // Plain text and code
+        '.min.css' => 'text/css',
         '.css'     => 'text/css',
         '.html'    => 'text/html',
         '.htm'     => 'text/html',
         '.js'      => 'text/javascript',
+        '.min.js'  => 'text/javascript',
         '.asc'     => 'text/plain',
         '.c'       => 'text/plain',
         '.h'       => 'text/plain',
