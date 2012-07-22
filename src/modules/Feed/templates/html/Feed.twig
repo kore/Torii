@@ -19,23 +19,24 @@
     <div class="modal-body">
         <table class="table table-striped">
             <thead>
-                <th>
-                    <td>Url</td>
-                    <td>Status</td>
-                    <td>Options</td>
-                </th>
+                <tr>
+                    <th>Url</th>
+                    <th>Status</th>
+                    <th>Options</th>
+                </tr>
             </thead>
             <tbody>
             </tbody>
             <tfoot>
-                <th>
+                <tr>
                     <td colspan="3">
                         <form class="form-horizontal">
+                            <input type="hidden" name="id" value="{{module.id}}" />
                             <input type="text" class="input-xlarge" name="url" placeholder="Feed URL" />
                             <button type="submit" class="btn">Add Feed</button>
                         </form>
                     </td>
-                </th>
+                </tr>
             </tfoot>
         </table>
     </div>

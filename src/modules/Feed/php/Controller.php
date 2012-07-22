@@ -40,11 +40,12 @@ class Controller
      *
      * @param RMF\Request $request
      * @param Struct\User $user
+     * @param Struct\ModuleConfiguration $module
      * @return Struct\Response
      */
-    public function addUrl( RMF\Request $request, Struct\User $user )
+    public function addUrl( RMF\Request $request, Struct\User $user, Struct\ModuleConfiguration $module )
     {
-        $this->model->addUrl( $request->body['url'] );
+        $this->model->addUrl( $module->id, $request->body['url'] );
     }
 
     /**
@@ -52,11 +53,12 @@ class Controller
      *
      * @param RMF\Request $request
      * @param Struct\User $user
+     * @param Struct\ModuleConfiguration $module
      * @return Struct\Response
      */
-    public function getUrlList( RMF\Request $request, Struct\User $user )
+    public function getUrlList( RMF\Request $request, Struct\User $user, Struct\ModuleConfiguration $module )
     {
-        return array();
+        return $this->model->getUrlList( $module->id );
     }
 
     /**
@@ -64,11 +66,12 @@ class Controller
      *
      * @param RMF\Request $request
      * @param Struct\User $user
+     * @param Struct\ModuleConfiguration $module
      * @return Struct\Response
      */
-    public function getFeedData( RMF\Request $request, Struct\User $user )
+    public function getFeedData( RMF\Request $request, Struct\User $user, Struct\ModuleConfiguration $module )
     {
-        return array();
+        $this->model->getUnread( $module->id );
     }
 }
 

@@ -7,13 +7,17 @@
     };
 
     Feed.addUrl = function( event ) {
-        var input = $( ".feed-settings form input[name=url]" );
+        var input = $( event.target ).find( "input[name=url]" ),
+            id = $( event.target ).find( "input[name=id]" ).val();
+
         event.stopPropagation( true );
 
         $.post(
-            "/module/Feed/add",
+            "/module/" + id + "/add",
             {url: input.val() },
-            Feed.updateUrlList,
+            function () {
+                Feed.updateUrlList( event );
+            },
             "json"
         );
         
@@ -22,7 +26,25 @@
     };
 
     Feed.updateUrlList = function( event ) {
-        // @TODO: Implement
+        var id = $( event.target ).find( "input[name=id]" ).val(),
+            target = $( "#feed-settings-" + id ).find( "tbody" );
+
+        $.get(
+            "/module/" + id + "/getList",
+            function( data ) {
+                $( target ).empty();
+                $.each( data, function( key, url ) {
+                    $( target ).append(
+                        "<tr>" +
+                            "<td>" + url.url + "</td>" +
+                            "<td>" + url.status + "</td>" +
+                            "<td>Remove</td>" +
+                        "</tr>"
+                    );
+                } );
+            },
+            "json"
+        );
     };
 
     // Exports
