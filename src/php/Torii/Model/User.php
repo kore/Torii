@@ -17,18 +17,30 @@ use Torii\Struct;
 class User
 {
     /**
+     * Doctrine DB Abstraction layer
+     *
+     * @var \Doctrine\DBAL\Connection
+     */
+    protected $dbal;
+
+    /**
+     * Hash
+     *
+     * @var User\Hash
+     */
+    protected $hash;
+
+    /**
      * Construct from user gateway
      *
      * @param \Doctrine\DBAL\Connection $dbal
      * @param User\Hash $hash
-     * @param mixed $id
      * @return void
      */
-    public function __construct( \Doctrine\DBAL\Connection $dbal, User\Hash $hash, $id = null )
+    public function __construct( \Doctrine\DBAL\Connection $dbal, User\Hash $hash )
     {
         $this->dbal = $dbal;
         $this->hash = $hash;
-        $this->id   = $id;
     }
 
     /**
