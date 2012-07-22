@@ -20,6 +20,17 @@ use Torii\Assets;
 class Module extends \Torii\Module
 {
     /**
+     * Mapping of routes to actions
+     *
+     * @var array
+     */
+    protected $mapping = array(
+        '(^/add)'     => 'addUrl',
+        '(^/getList)' => 'getUrlList',
+        '(^/update)'  => 'getFeedData',
+    );
+
+    /**
      * Get module summary
      *
      * @return Struct\Module
@@ -43,7 +54,24 @@ class Module extends \Torii\Module
      */
     public function handle( RMF\Request $request, Struct\User $user )
     {
-        throw new \RuntimeException( '@TODO: Implement' );
+        require __DIR__ . '/php/Controller.php';
+        require __DIR__ . '/php/Model.php';
+
+        $controller = new Controller(
+            new Model(
+                $this->dic->dbal
+            )
+        );
+
+        foreach ( $this->mapping as $regexp => $action )
+        {
+            if ( preg_match( $regexp, $request->variables['path'] ) )
+            {
+                return $controller->$action( $request, $user );
+            }
+        }
+
+        throw new \RuntimeException( "No route found for ". $request->variables['path'] );
     }
 
     /**
