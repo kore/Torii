@@ -33,11 +33,13 @@ CREATE TABLE `feed_url` (
 DROP TABLE IF EXISTS `feed_data`;
 CREATE TABLE `feed_data` (
   `feed_d_id` INT AUTO_INCREMENT NOT NULL,
+  `feed_d_url` VARCHAR(32) NOT NULL,
   `feed_u_id` INT NOT NULL,
   `feed_d_time` BIGINT NOT NULL,
   `feed_d_data` TEXT NOT NULL,
   `changed` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`feed_d_id`),
+  UNIQUE KEY (`feed_d_url`),
   KEY(`feed_d_time`)
 ) ENGINE=InnoDB DEFAULT CHARSET=ascii;
 

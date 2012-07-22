@@ -44,13 +44,13 @@ class Model
         $queryBuilder
             ->select( 'u.feed_u_id', 'u.feed_u_url', 'u.feed_u_update', 'u.feed_u_status' )
             ->from( 'feed_m_u_rel', 'rel' )
-            ->where(
-                $queryBuilder->expr()->eq( 'rel.feed_m_id', ':module' )
-            )
-            ->leftJoin(
+            ->join(
                 'rel',
                 'feed_url', 'u',
                 $queryBuilder->expr()->eq( 'rel.feed_u_id', 'u.feed_u_id' )
+            )
+            ->where(
+                $queryBuilder->expr()->eq( 'rel.feed_m_id', ':module' )
             )
             ->setParameter( ':module', $module );
 
@@ -74,17 +74,6 @@ class Model
             },
             $result
         );
-    }
-
-    /**
-     * Get unread feed entries for module
-     *
-     * @param string $module
-     * @return Struct\Entry[]
-     */
-    public function getUnread( $module )
-    {
-        return array();
     }
 
     /**
@@ -170,6 +159,88 @@ class Model
             ),
             array(
                 'feed_u_id' => $urlId
+            )
+        );
+    }
+
+    /**
+     * Get unread feed entries for module
+     *
+     * @param string $module
+     * @return Struct\Entry[]
+     */
+    public function getUnread( $module, $count = 10 )
+    {
+        $queryBuilder = $this->dbal->createQueryBuilder();
+        $queryBuilder
+            ->select( 'd.feed_d_id', 'd.feed_d_data' )
+            ->from( 'feed_m_u_rel', 'mrel' )
+            ->from( 'feed_data', 'd' )
+            ->join(
+                'mrel',
+                'feed_data', 'dj',
+                $queryBuilder->expr()->eq( 'mrel.feed_u_id', 'dj.feed_u_id' )
+            )
+            ->leftJoin(
+                'd',
+                'feed_m_d_rel', 'drel',
+                $queryBuilder->expr()->andx(
+                    $queryBuilder->expr()->eq( 'drel.feed_d_id', 'd.feed_d_id' ),
+                    $queryBuilder->expr()->eq( 'drel.feed_m_id', ':module' )
+                )
+            )
+            ->where(
+                $queryBuilder->expr()->eq( 'mrel.feed_m_id', ':module' )
+            )
+            ->orderBy( 'd.feed_d_time', 'DESC' )
+            ->setMaxResults( $count )
+            ->setParameter( ':module', $module );
+
+        $statement = $queryBuilder->execute();
+        $result = $statement->fetchAll( \PDO::FETCH_ASSOC );
+
+        if ( !$result )
+        {
+            return array();
+        }
+
+        return array_map(
+            function ( $row )
+            {
+                return Struct\FeedEntry::create(
+                    $row['feed_d_id'],
+                    json_decode( $row['feed_d_data'], true )
+                );
+            },
+            $result
+        );
+    }
+
+    /**
+     * Update URL status
+     *
+     * @param mixed $urlId
+     * @param string $link
+     * @param int $date
+     * @param string $title
+     * @param string $description
+     * @param string $content
+     * @return void
+     */
+    public function addEntry( $urlId, $link, $date, $title, $description = null, $content = null )
+    {
+        $this->dbal->insert(
+            'feed_data',
+            array(
+                'feed_d_url'  => hash( "sha256", $link, true ),
+                'feed_u_id'   => $urlId,
+                'feed_d_time' => $date,
+                'feed_d_data' => json_encode( array(
+                    'link'        => $link,
+                    'title'       => $title,
+                    'description' => $description,
+                    'content'     => $content,
+                ) ),
             )
         );
     }

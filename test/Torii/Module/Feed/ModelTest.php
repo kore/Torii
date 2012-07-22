@@ -150,5 +150,41 @@ class ModelTest extends DatabaseTest
             $model->getPending( 300 )
         );
     }
+
+    /**
+     * @depends testAddUrl
+     */
+    public function testGetUnread()
+    {
+        $model = new Model( $this->getDbal() );
+        $model->addUrl( "module_1", "http://example.com" );
+
+        $this->assertEquals(
+            array(),
+            $model->getUnread( 'module_1' )
+        );
+    }
+
+    /**
+     * @depends testGetUnread
+     */
+    public function testAddEntry()
+    {
+        $model = new Model( $this->getDbal() );
+        $model->addUrl( "module_1", "http://example.com" );
+        $model->addEntry(
+            1,
+            'http://example.com/1',
+            12345,
+            'Foo'
+        );
+
+        $this->assertEquals(
+            array(
+                new Struct\FeedEntry( 1, 'http://example.com/1', 'Foo' ),
+            ),
+            $model->getUnread( 'module_1' )
+        );
+    }
 }
 
