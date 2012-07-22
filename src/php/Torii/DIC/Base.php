@@ -25,21 +25,22 @@ class Base extends DIC
      * @var array(string)
      */
     protected $alwaysShared = array(
-        'srcDir'         => true,
-        'configuration'  => true,
-        'debug'          => true,
-        'javaScript'     => true,
-        'templates'      => true,
-        'css'            => true,
-        'images'         => true,
-        'view'           => true,
-        'twig'           => true,
-        'dbal'           => true,
-        'userModel'      => true,
-        'mailMessenger'  => true,
-        'modules'        => true,
-        'authController' => true,
-        'mainController' => true,
+        'srcDir'          => true,
+        'configuration'   => true,
+        'debug'           => true,
+        'mimeTypeGuesser' => true,
+        'javaScript'      => true,
+        'templates'       => true,
+        'css'             => true,
+        'images'          => true,
+        'view'            => true,
+        'twig'            => true,
+        'dbal'            => true,
+        'userModel'       => true,
+        'mailMessenger'   => true,
+        'modules'         => true,
+        'authController'  => true,
+        'mainController'  => true,
     );
 
     /**
@@ -68,6 +69,11 @@ class Base extends DIC
                 $dic->srcDir . '/config/config.ini',
                 $dic->environment
             );
+        };
+
+        $this->mimeTypeGuesser = function( $dic )
+        {
+            return new Torii\Assets\MimeTypeGuesser\Extension();
         };
 
         $this->javaScript = function( $dic )
@@ -192,10 +198,22 @@ class Base extends DIC
         $this->assetController = function( $dic )
         {
             return new Torii\Controller\Assets( array(
-                '(/scripts/(?P<path>.*)$)'   => $dic->javaScript,
-                '(/styles/(?P<path>.*)$)'    => $dic->css,
-                '(/images/(?P<path>.*)$)'    => $dic->images,
-                '(/templates/(?P<path>.*)$)' => $dic->templates,
+                '(/scripts/(?P<path>.*)$)'   => new Torii\Assets\Collection\Filter\MimeType(
+                    $dic->javaScript,
+                    $dic->mimeTypeGuesser
+                ),
+                '(/styles/(?P<path>.*)$)'    => new Torii\Assets\Collection\Filter\MimeType(
+                    $dic->css,
+                    $dic->mimeTypeGuesser
+                ),
+                '(/images/(?P<path>.*)$)'    => new Torii\Assets\Collection\Filter\MimeType(
+                    $dic->images,
+                    $dic->mimeTypeGuesser
+                ),
+                '(/templates/(?P<path>.*)$)' => new Torii\Assets\Collection\Filter\MimeType(
+                    $dic->templates,
+                    $dic->mimeTypeGuesser
+                ),
             ) );
         };
     }
