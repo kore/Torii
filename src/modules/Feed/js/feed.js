@@ -60,6 +60,31 @@
         );
     };
 
+    Feed.refresh = function( id ) {
+        var target = "#" + id + "-content";
+
+        $.get(
+            "/module/" + id + "/update",
+            function( data ) {
+                Torii.showTemplate(
+                    target,
+                    "/templates/feed/entries.mustache",
+                    {   entries: data,
+                        module: id
+                    },
+                    function () {
+                    }
+                );
+            },
+            "json"
+        );
+
+        window.setTimeout(
+            function() { Feed.refresh( id ) },
+            1000 * 60 * 2.5
+        );
+    };
+
     // Exports
     global.Feed = Feed;
 
@@ -68,5 +93,8 @@
 jQuery( document ).ready( function() {
     $( ".feed-settings" ).on( "show", Feed.updateUrlList );
     $( ".feed-settings form" ).on( "submit", Feed.addUrl );
+    $( ".feed-content" ).each( function( key, element ) {
+        Feed.refresh( $( element ).data().id );
+    } );
 } );
 

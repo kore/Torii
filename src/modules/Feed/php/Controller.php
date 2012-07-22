@@ -84,7 +84,7 @@ class Controller
      */
     public function getFeedData( RMF\Request $request, Struct\User $user, Struct\ModuleConfiguration $module )
     {
-        $this->model->getUnread( $module->id );
+        return $this->model->getUnread( $module->id );
     }
 
     /**
