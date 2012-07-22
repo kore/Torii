@@ -227,5 +227,24 @@ class ModelTest extends DatabaseTest
             $model->getUnread( 'module_1' )
         );
     }
+
+    /**
+     * @depends testAddEntry
+     */
+    public function testIgnoreUrlReadd()
+    {
+        $model = new Model( $this->getDbal() );
+        $model->addUrl( "module_1", "http://example.com" );
+
+        $model->addEntry( 1, 'http://example.com/1', 12345, 'Foo' );
+        $model->addEntry( 1, 'http://example.com/1', 12345, 'Foo' );
+
+        $this->assertEquals(
+            array(
+                new Struct\FeedEntry( 1, 'http://example.com/1', 'Foo' ),
+            ),
+            $model->getUnread( 'module_1' )
+        );
+    }
 }
 

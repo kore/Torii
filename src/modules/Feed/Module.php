@@ -45,6 +45,20 @@ class Module extends \Torii\Module
     }
 
     /**
+     * Get module internal controller
+     *
+     * @return Controller
+     */
+    protected function getController()
+    {
+        return new Controller(
+            new Model(
+                $this->dic->dbal
+            )
+        );
+    }
+
+    /**
      * Execute action
      *
      * Should, most probably dispatch to own controller implementation.
@@ -56,17 +70,11 @@ class Module extends \Torii\Module
      */
     public function handle( RMF\Request $request, Struct\User $user, Struct\ModuleConfiguration $module )
     {
-        $controller = new Controller(
-            new Model(
-                $this->dic->dbal
-            )
-        );
-
         foreach ( $this->mapping as $regexp => $action )
         {
             if ( preg_match( $regexp, $request->variables['path'] ) )
             {
-                return $controller->$action( $request, $user, $module );
+                return $this->getController()->$action( $request, $user, $module );
             }
         }
 
@@ -97,6 +105,16 @@ class Module extends \Torii\Module
         $dic->javaScript->addFileSet( new Assets\FileSet( __DIR__ . '/js', '*.js' ) );
         $dic->templates->addFileSet( new Assets\FileSet( __DIR__ . '/mustache', 'feed/*.mustache' ) );
         $dic->images->addFileSet( new Assets\FileSet( __DIR__ . '/images', '*.png' ) );
+    }
+
+    /**
+     * Method triggered by cron job to refresh feed data
+     *
+     * @return void
+     */
+    public function refresh()
+    {
+        $this->getController()->refresh();
     }
 }
 
