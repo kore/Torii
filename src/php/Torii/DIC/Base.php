@@ -29,6 +29,7 @@ class Base extends DIC
         'configuration'  => true,
         'debug'          => true,
         'javaScript'     => true,
+        'templates'      => true,
         'css'            => true,
         'images'         => true,
         'view'           => true,
@@ -75,6 +76,12 @@ class Base extends DIC
                 new Torii\Assets\FileSet( $this->srcDir . '/js', 'vendor/jquery/*.js', 'vendor/*/*.min.js' ),
                 new Torii\Assets\FileSet( $this->srcDir . '/js', 'vendor/bootstrap/*.js', 'vendor/*/*.min.js' ),
                 new Torii\Assets\FileSet( $this->srcDir . '/js', '*.js' ),
+            ) );
+        };
+
+        $this->templates = function( $dic )
+        {
+            return new Torii\Assets\Collection\Simple( array(
             ) );
         };
 
@@ -184,9 +191,10 @@ class Base extends DIC
         $this->assetController = function( $dic )
         {
             return new Torii\Controller\Assets( array(
-                '(/scripts/(?P<path>.*)$)' => $dic->javaScript,
-                '(/styles/(?P<path>.*)$)'  => $dic->css,
-                '(/images/(?P<path>.*)$)'  => $dic->images,
+                '(/scripts/(?P<path>.*)$)'   => $dic->javaScript,
+                '(/styles/(?P<path>.*)$)'    => $dic->css,
+                '(/images/(?P<path>.*)$)'    => $dic->images,
+                '(/templates/(?P<path>.*)$)' => $dic->templates,
             ) );
         };
     }

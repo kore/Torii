@@ -59,7 +59,7 @@ $dispatcher = new RMF\Dispatcher\Simple(
         ),
 
         // Fallback handling of assets
-        '(^/(?:styles|images|scripts)/)' => array(
+        '(^/(?:styles|images|scripts|templates)/)' => array(
             'GET'  => array( $dic->assetController, 'deliver' ),
         ),
     ) ),
