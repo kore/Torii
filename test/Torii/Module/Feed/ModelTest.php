@@ -41,7 +41,7 @@ class ModelTest extends DatabaseTest
 
         $this->assertEquals(
             array(
-                new Struct\Url( "http://example.com" ),
+                new Struct\Url( 1,"http://example.com" ),
             ),
             $model->getUrlList( "module_1" )
         );
@@ -55,8 +55,8 @@ class ModelTest extends DatabaseTest
 
         $this->assertEquals(
             array(
-                new Struct\Url( "http://example.com/1" ),
-                new Struct\Url( "http://example.com/2" ),
+                new Struct\Url( 1, "http://example.com/1" ),
+                new Struct\Url( 2, "http://example.com/2" ),
             ),
             $model->getUrlList( "module_1" )
         );

@@ -42,7 +42,7 @@ class Model
     {
         $queryBuilder = $this->dbal->createQueryBuilder();
         $queryBuilder
-            ->select( 'u.feed_u_url', 'u.feed_u_update', 'u.feed_u_status' )
+            ->select( 'u.feed_u_id', 'u.feed_u_url', 'u.feed_u_update', 'u.feed_u_status' )
             ->from( 'feed_m_u_rel', 'rel' )
             ->where(
                 $queryBuilder->expr()->eq( 'rel.feed_m_id', ':module' )
@@ -66,6 +66,7 @@ class Model
             function ( $urlData )
             {
                 return new Struct\Url(
+                    $urlData['feed_u_id'],
                     $urlData['feed_u_url'],
                     (int) $urlData['feed_u_status'],
                     (int) $urlData['feed_u_update']

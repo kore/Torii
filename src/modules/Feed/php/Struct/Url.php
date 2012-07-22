@@ -17,6 +17,13 @@ use Torii\Struct;
 class Url extends Struct
 {
     /**
+     * URL ID
+     *
+     * @var mixed
+     */
+    public $id;
+
+    /**
      * URL
      *
      * @var string
@@ -40,13 +47,15 @@ class Url extends Struct
     /**
      * Construct
      *
-     * @param string $id
+     * @param mixed $id
+     * @param string $url
      * @param int $status
      * @param int $requested
      * @return void
      */
-    public function __construct( $url, $status = null, $requested = null )
+    public function __construct( $id, $url, $status = null, $requested = null )
     {
+        $this->id        = $id;
         $this->url       = $url;
         $this->status    = $status;
         $this->requested = $requested;
