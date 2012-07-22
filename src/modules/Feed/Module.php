@@ -89,7 +89,7 @@ class Module extends \Torii\Module
         parent::initialize( $dic );
 
         // Register path for custom templates
-        $dic->twig->getLoader()->addPath( __DIR__ . '/templates' );
+        $dic->twig->getLoader()->addPath( __DIR__ . '/twig' );
 
         // Register assets
         $dic->css->addFileSet( new Assets\FileSet( __DIR__ . '/css', '*.css' ) );

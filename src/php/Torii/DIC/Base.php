@@ -102,7 +102,7 @@ class Base extends DIC
         $this->twig = function( $dic )
         {
             $twig = new \Twig_Environment(
-                new \Twig_Loader_Filesystem( $dic->srcDir . '/templates' ),
+                new \Twig_Loader_Filesystem( $dic->srcDir . '/twig' ),
                 array(
 //                    'cache' => $dic->srcDir . '/cache'
                 )
