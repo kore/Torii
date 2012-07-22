@@ -29,6 +29,12 @@ $dispatcher = new RMF\Dispatcher\Simple(
             'POST' => array( $dic->mainController, 'resort' ),
         ),
 
+        // Torii module dispatching
+        '(^/module/(?P<type>[A-Za-z_-]+)(?P<path>/.*)?$)' => array(
+            'POST' => array( $dic->mainController, 'dispatch' ),
+            'GET'  => array( $dic->mainController, 'dispatch' ),
+        ),
+
         // Auth related actions
         '(^/$)' => array(
             'GET'  => array( $dic->authController, 'login' ),

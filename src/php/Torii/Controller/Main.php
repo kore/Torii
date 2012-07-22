@@ -181,5 +181,23 @@ class Main
     {
         return preg_replace( '([^a-z0-9_]+)', '_', strtolower( $title ) ) . '_' . substr( md5( microtime() ), 0, 8 );
     }
+
+    /**
+     * Dispatch request to module
+     *
+     * @param RMF\Request $request
+     * @param Struct\User $user
+     * @return Struct\Response
+     */
+    public function dispatch( RMF\Request $request, Struct\User $user )
+    {
+        if ( !isset( $this->modules[$request->variables['type']] ) )
+        {
+            throw new \RuntimeException( "Invalid module: " . $request->variables['type'] );
+        }
+
+        $module = $this->modules[$request->variables['type']];
+        return $module->handle( $request, $user );
+    }
 }
 
