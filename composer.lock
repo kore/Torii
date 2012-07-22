@@ -1,5 +1,5 @@
 {
-    "hash": "29171e78e61f41341c772106de7353e2",
+    "hash": "b11b921cbab172b8000f919621d170c0",
     "packages": [
         {
             "package": "Qafoo/RMF",
@@ -30,30 +30,6 @@
             "version": "dev-master",
             "source-reference": "b1562a5f85ad30c0815c85df866d179992a91797",
             "commit-date": "1342603300"
-        },
-        {
-            "package": "kriswallsmith/assetic",
-            "version": "dev-master",
-            "alias-pretty-version": "1.1.x-dev",
-            "alias-version": "1.1.9999999.9999999-dev"
-        },
-        {
-            "package": "kriswallsmith/assetic",
-            "version": "dev-master",
-            "source-reference": "5c1c9b658b732a980312e8f29cec4e175c2bb6b2",
-            "commit-date": "1342787613"
-        },
-        {
-            "package": "symfony/process",
-            "version": "dev-master",
-            "alias-pretty-version": "2.1.x-dev",
-            "alias-version": "2.1.9999999.9999999-dev"
-        },
-        {
-            "package": "symfony/process",
-            "version": "dev-master",
-            "source-reference": "ae0635cf7768aeab3c7935389e651498706b87ac",
-            "commit-date": "1342632812"
         },
         {
             "package": "twig/twig",

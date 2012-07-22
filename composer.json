@@ -27,7 +27,6 @@
         "zendframework/zend-stdlib": "2.0.*",
         "zendframework/zend-loader": "2.0.*",
         "zendframework/zend-feed": "2.0.*",
-        "kriswallsmith/assetic": "1.*",
         "doctrine/common": "2.*",
         "doctrine/dbal": "2.*"
     },
