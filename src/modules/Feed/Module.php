@@ -26,6 +26,7 @@ class Module extends \Torii\Module
      */
     protected $mapping = array(
         '(^/add)'     => 'addUrl',
+        '(^/remove)'  => 'removeUrl',
         '(^/getList)' => 'getUrlList',
         '(^/update)'  => 'getFeedData',
     );

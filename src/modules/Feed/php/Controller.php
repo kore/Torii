@@ -49,6 +49,19 @@ class Controller
     }
 
     /**
+     * Remove URL
+     *
+     * @param RMF\Request $request
+     * @param Struct\User $user
+     * @param Struct\ModuleConfiguration $module
+     * @return Struct\Response
+     */
+    public function removeUrl( RMF\Request $request, Struct\User $user, Struct\ModuleConfiguration $module )
+    {
+        $this->model->removeUrl( $module->id, $request->body['url'] );
+    }
+
+    /**
      * Get URL list
      *
      * @param RMF\Request $request

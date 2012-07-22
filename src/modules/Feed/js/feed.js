@@ -16,17 +16,17 @@
             "/module/" + id + "/add",
             {url: input.val() },
             function () {
-                Feed.updateUrlList( event );
+                Feed.updateUrlList( null, id );
             },
             "json"
         );
-        
+
         input.val( null );
-        return false;   
+        return false;
     };
 
-    Feed.updateUrlList = function( event ) {
-        var id = $( event.target ).find( "input[name=id]" ).val(),
+    Feed.updateUrlList = function( event, id ) {
+        var id = id || $( event.target ).find( "input[name=id]" ).val(),
             target = $( "#feed-settings-" + id ).find( "tbody" );
 
         $.get(
@@ -35,8 +35,26 @@
                 Torii.showTemplate(
                     target,
                     "/templates/feed/urls.mustache",
-                    {urls: data}
+                    {   urls: data,
+                        module: id
+                    },
+                    function () {
+                        $( target ).find( "button" ).on( "click", Feed.removeUrl );
+                    }
                 );
+            },
+            "json"
+        );
+    };
+
+    Feed.removeUrl = function( event ) {
+        var data = $( event.target ).data();
+
+        $.post(
+            "/module/" + data.module + "/remove",
+            data,
+            function () {
+                Feed.updateUrlList( null, data.module );
             },
             "json"
         );
