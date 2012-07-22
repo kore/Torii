@@ -59,3 +59,45 @@ jQuery( document ).ready(function() {
     } );
 } );
 
+(function( global ) {
+    "use strict";
+
+    var Torii,
+        templateCache = {};
+
+    Torii = function() {
+    };
+
+    Torii.showTemplate = function( target, template, data, success )
+    {
+        ( function()
+        {
+            if ( templateCache[template] )
+            {
+                var deferred = new jQuery.Deferred();
+                deferred.resolve( templateCache[template] );
+                return deferred.promise();
+            }
+
+            return jQuery.get( template );
+        }() ).then( function( templateData )
+        {
+            templateCache[template] = templateData;
+
+            jQuery( target ).html(
+                Mustache.to_html( templateData, data )
+            );
+
+            // Call optional success function after completion
+            if ( success )
+            {
+                success();
+            }
+        } );
+    }
+
+    // Exports
+    global.Torii = Torii;
+
+}(this));
+
