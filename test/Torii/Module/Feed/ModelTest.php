@@ -206,5 +206,26 @@ class ModelTest extends DatabaseTest
             $model->getUnread( 'module_1' )
         );
     }
+
+    /**
+     * @depends testAddEntry
+     */
+    public function testMergeModules()
+    {
+        $model = new Model( $this->getDbal() );
+        $model->addUrl( "module_1", "http://example.com/1" );
+        $model->addUrl( "module_1", "http://example.com/2" );
+
+        $model->addEntry( 1, 'http://example.com/1/1', 12345, 'Foo' );
+        $model->addEntry( 2, 'http://example.com/2/1', 12346, 'Foo' );
+
+        $this->assertEquals(
+            array(
+                new Struct\FeedEntry( 2, 'http://example.com/2/1', 'Foo' ),
+                new Struct\FeedEntry( 1, 'http://example.com/1/1', 'Foo' ),
+            ),
+            $model->getUnread( 'module_1' )
+        );
+    }
 }
 
