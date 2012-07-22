@@ -86,5 +86,38 @@ class Controller
     {
         $this->model->getUnread( $module->id );
     }
+
+    /**
+     * Method triggered by cron job to refresh feed data
+     *
+     * @return void
+     */
+    public function refresh()
+    {
+        foreach ( $this->model->getPending( 300 ) as $url )
+        {
+            $feed = \Zend\Feed\Reader\Reader::importString(
+                file_get_contents( $url->url )
+            );
+
+            foreach ( $feed as $entry )
+            {
+                $this->model->addEntry(
+                    $url->id,
+                    $entry->getLink(),
+                    $entry->getDateModified()->format( 'U' ),
+                    $entry->getTitle(),
+                    $entry->getDescription(),
+                    $entry->getContent()
+                );
+            }
+
+            $this->model->updateUrl(
+                $url->id,
+                200,
+                time()
+            );
+        }
+    }
 }
 
