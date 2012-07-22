@@ -55,9 +55,6 @@ class Module extends \Torii\Module
      */
     public function handle( RMF\Request $request, Struct\User $user, Struct\ModuleConfiguration $module )
     {
-        require __DIR__ . '/php/Controller.php';
-        require __DIR__ . '/php/Model.php';
-
         $controller = new Controller(
             new Model(
                 $this->dic->dbal
