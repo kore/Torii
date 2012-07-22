@@ -34,6 +34,9 @@ class ModelTest extends DatabaseTest
         );
     }
 
+    /**
+     * @depends testGetNoUrls
+     */
     public function testAddUrl()
     {
         $model = new Model( $this->getDbal() );
@@ -70,6 +73,32 @@ class ModelTest extends DatabaseTest
         $model = new Model( $this->getDbal() );
         $model->addUrl( "module_1", "http://example.com" );
         $model->addUrl( "module_1", "http://example.com" );
+    }
+
+    /**
+     * @depends testAddUrl
+     */
+    public function testRemoveUrl()
+    {
+        $model = new Model( $this->getDbal() );
+        $model->addUrl( "module_1", "http://example.com" );
+        $model->removeurl( "module_1", 1 );
+
+        $this->assertEquals(
+            array(),
+            $model->getUrlList( "module_1" )
+        );
+    }
+
+    public function testRemoveUnknownUrl()
+    {
+        $model = new Model( $this->getDbal() );
+        $model->removeurl( "module_1", 42 );
+
+        $this->assertEquals(
+            array(),
+            $model->getUrlList( "module_1" )
+        );
     }
 }
 

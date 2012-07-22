@@ -106,6 +106,21 @@ class Model
     }
 
     /**
+     * Remove URL from module
+     *
+     * @param string $module
+     * @param string $urlId
+     * @return void
+     */
+    public function removeUrl( $module, $urlId )
+    {
+        $this->dbal->delete( 'feed_m_u_rel', array(
+            'feed_m_id' => $module,
+            'feed_u_id' => $urlId
+        ) );
+    }
+
+    /**
      * Ensures module exists in database
      *
      * @param string $module
