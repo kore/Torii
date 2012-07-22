@@ -24,6 +24,8 @@
         "Qafoo/RMF": "dev-master",
         "twitter/bootstrap": "0.1",
         "twig/twig": "1.6.0",
+        "zendframework/zend-stdlib": "2.0.*",
+        "zendframework/zend-loader": "2.0.*",
         "zendframework/zend-feed": "2.0.*",
         "kriswallsmith/assetic": "1.*",
         "doctrine/common": "2.*",

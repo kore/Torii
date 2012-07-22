@@ -1,5 +1,5 @@
 {
-    "hash": "2fe18aad18b4a58ad69d7743e3a27c5f",
+    "hash": "29171e78e61f41341c772106de7353e2",
     "packages": [
         {
             "package": "Qafoo/RMF",
@@ -28,8 +28,8 @@
         {
             "package": "doctrine/dbal",
             "version": "dev-master",
-            "source-reference": "84cba60d3d780cba3a504826c06f4a0db05e7180",
-            "commit-date": "1342459670"
+            "source-reference": "b1562a5f85ad30c0815c85df866d179992a91797",
+            "commit-date": "1342603300"
         },
         {
             "package": "kriswallsmith/assetic",
@@ -40,8 +40,8 @@
         {
             "package": "kriswallsmith/assetic",
             "version": "dev-master",
-            "source-reference": "d6f89a3170c5280ad554347dc113eb25fdf00ad7",
-            "commit-date": "1339515714"
+            "source-reference": "5c1c9b658b732a980312e8f29cec4e175c2bb6b2",
+            "commit-date": "1342787613"
         },
         {
             "package": "symfony/process",
@@ -52,8 +52,8 @@
         {
             "package": "symfony/process",
             "version": "dev-master",
-            "source-reference": "v2.1.0-BETA3",
-            "commit-date": "1342347231"
+            "source-reference": "ae0635cf7768aeab3c7935389e651498706b87ac",
+            "commit-date": "1342632812"
         },
         {
             "package": "twig/twig",
@@ -65,6 +65,14 @@
         },
         {
             "package": "zendframework/zend-feed",
+            "version": "2.0.0-beta5"
+        },
+        {
+            "package": "zendframework/zend-loader",
+            "version": "2.0.0-beta5"
+        },
+        {
+            "package": "zendframework/zend-stdlib",
             "version": "2.0.0-beta5"
         }
     ],
