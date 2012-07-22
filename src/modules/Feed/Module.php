@@ -68,7 +68,7 @@ class Module extends \Torii\Module
         {
             if ( preg_match( $regexp, $request->variables['path'] ) )
             {
-                return $controller->$action( $request, $user );
+                return $controller->$action( $request, $user, $module );
             }
         }
 
