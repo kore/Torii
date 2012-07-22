@@ -110,7 +110,43 @@ class ModelTest extends DatabaseTest
         $model->addUrl( "module_1", "http://example.com" );
 
         $this->assertEquals(
-            array( 'http://example.com' ),
+            array(
+                new Struct\Url( 1, 'http://example.com' ),
+            ),
+            $model->getPending( 300 )
+        );
+    }
+
+    /**
+     * @depends testAddUrl
+     */
+    public function testUpdateUrl()
+    {
+        $model = new Model( $this->getDbal() );
+        $model->addUrl( "module_1", "http://example.com" );
+
+        $model->updateUrl( 1, 200, time() );
+
+        $this->assertEquals(
+            array(),
+            $model->getPending( 300 )
+        );
+    }
+
+    /**
+     * @depends testAddUrl
+     */
+    public function testUpdateBack()
+    {
+        $model = new Model( $this->getDbal() );
+        $model->addUrl( "module_1", "http://example.com" );
+
+        $model->updateUrl( 1, 200, time() - 400 );
+
+        $this->assertEquals(
+            array(
+                new Struct\Url( 1, 'http://example.com' ),
+            ),
             $model->getPending( 300 )
         );
     }

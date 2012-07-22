@@ -130,7 +130,7 @@ class Model
     {
         $queryBuilder = $this->dbal->createQueryBuilder();
         $queryBuilder
-            ->select( 'feed_u_url' )
+            ->select( 'feed_u_id', 'feed_u_url' )
             ->from( 'feed_url', 'u' )
             ->where(
                 $queryBuilder->expr()->lt( 'feed_u_update', ':update' )
@@ -143,9 +143,34 @@ class Model
         return array_map(
             function ( $row )
             {
-                return $row['feed_u_url'];
+                return new Struct\Url(
+                    $row['feed_u_id'],
+                    $row['feed_u_url']
+                );
             },
             $result
+        );
+    }
+
+    /**
+     * Update URL status
+     *
+     * @param mixed $urlId
+     * @param int $status
+     * @param int $update
+     * @return void
+     */
+    public function updateUrl( $urlId, $status, $update )
+    {
+        $this->dbal->update(
+            'feed_url',
+            array(
+                'feed_u_status' => $status,
+                'feed_u_update' => $update,
+            ),
+            array(
+                'feed_u_id' => $urlId
+            )
         );
     }
 
