@@ -2,7 +2,7 @@
 
 {% block title %}
 <div class="btn-group">
-    <a class="btn btn-inverse btn-mini" href="#"><i class="icon-white icon-cog"></i></a>
+    <a class="btn btn-inverse btn-mini" data-toggle="modal" href="#feed-settings-{{module.id}}"><i class="icon-white icon-cog"></i></a>
     <a class="btn btn-inverse btn-mini" href="#"><i class="icon-white icon-refresh"></i></a>
 </div>
 {{parent()}}
@@ -10,4 +10,37 @@
 {% block content %}
 <ul class="feed">
 </ul>
+
+<div class="modal hide feed-settings" id="feed-settings-{{module.id}}">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h3>Configure: {{module.title}}</h3>
+    </div>
+    <div class="modal-body">
+        <table class="table table-striped">
+            <thead>
+                <th>
+                    <td>Url</td>
+                    <td>Status</td>
+                    <td>Options</td>
+                </th>
+            </thead>
+            <tbody>
+            </tbody>
+            <tfoot>
+                <th>
+                    <td colspan="3">
+                        <form class="form-horizontal">
+                            <input type="text" class="input-xlarge" name="url" placeholder="Feed URL" />
+                            <button type="submit" class="btn">Add Feed</button>
+                        </form>
+                    </td>
+                </th>
+            </tfoot>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn" data-dismiss="modal">Close</a>
+    </div>
+</div>
 {% endblock %}
