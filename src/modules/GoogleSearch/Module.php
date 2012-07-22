@@ -39,9 +39,10 @@ class Module extends \Torii\Module
      *
      * @param RMF\Request $request
      * @param Struct\User $user
-     * @return Struct\Response
+     * @param Struct\ModuleConfiguration $module
+     * @return mixed
      */
-    public function handle( RMF\Request $request, Struct\User $user )
+    public function handle( RMF\Request $request, Struct\User $user, Struct\ModuleConfiguration $module )
     {
         // Nothing to do in here…
     }
