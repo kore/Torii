@@ -5,6 +5,7 @@ jQuery( document ).ready(function() {
 
     jQuery( ".column, .trash" ).sortable( {
         scroll: false,
+        delay: 200,
         opacity: 0.7,
         connectWith: ".column, .trash",
         cursor: "move"
