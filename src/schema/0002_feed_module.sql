@@ -10,7 +10,7 @@ CREATE TABLE `feed_module` (
 -- Table: Feed Module Url relation table
 DROP TABLE IF EXISTS `feed_m_u_rel`;
 CREATE TABLE `feed_m_u_rel` (
-  `feed_m_id` INT AUTO_INCREMENT NOT NULL,
+  `feed_m_id` VARCHAR(32) NOT NULL,
   `feed_u_id` INT NOT NULL,
   `changed` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`feed_m_id`, `feed_u_id`)
@@ -20,11 +20,12 @@ CREATE TABLE `feed_m_u_rel` (
 DROP TABLE IF EXISTS `feed_url`;
 CREATE TABLE `feed_url` (
   `feed_u_id` INT AUTO_INCREMENT NOT NULL,
-  `feed_u_url` VARCHAR(255) NOT NULL,
+  `feed_u_url` VARCHAR(4096) NOT NULL,
   `feed_u_update` BIGINT NOT NULL,
   `feed_u_status` INT NOT NULL,
   `changed` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`feed_u_id`),
+  KEY(`feed_u_url`),
   KEY(`feed_u_update`)
 ) ENGINE=InnoDB DEFAULT CHARSET=ascii;
 
