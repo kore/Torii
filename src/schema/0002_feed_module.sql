@@ -48,9 +48,7 @@ DROP TABLE IF EXISTS `feed_m_d_rel`;
 CREATE TABLE `feed_m_d_rel` (
   `feed_m_id` VARCHAR(32) NOT NULL,
   `feed_d_id` INT NOT NULL,
-  `feed_m_d_read` INT DEFAULT 0,
   `changed` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`feed_m_id`, `feed_d_id`),
-  KEY (`feed_m_d_read`)
+  KEY (`feed_m_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=ascii;
 

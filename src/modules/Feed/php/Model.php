@@ -278,7 +278,6 @@ class Model
             array(
                 'feed_m_id'     => $module,
                 'feed_d_id'     => $entry,
-                'feed_m_d_read' => 1,
             )
         );
     }
