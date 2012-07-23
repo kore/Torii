@@ -80,6 +80,16 @@
                                 "/module/" + id + "/redirect/" + $( link ).data().id + "/" + escape( $( link ).attr( "href" ) )
                             );
                         } );
+
+                        $( target ).find( "li a" ).on( "mouseup", function( event ) {
+                            var link = event.target;
+                            window.setTimeout(
+                                function () {
+                                    $( link ).parent().remove();
+                                },
+                                10
+                            );
+                        } );
                     }
                 );
             },
