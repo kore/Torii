@@ -77,7 +77,7 @@
                             var link = event.target;
                             $( link ).attr(
                                 "href",
-                                "/module/" + id + "/redirect/" + escape( $( link ).attr( "href" ) )
+                                "/module/" + id + "/redirect/" + $( link ).data().id + "/" + escape( $( link ).attr( "href" ) )
                             );
                         } );
                     }
