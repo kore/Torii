@@ -38,6 +38,13 @@ class FeedEntry extends Struct
     public $title;
 
     /**
+     * Entry publish / change date
+     *
+     * @var int
+     */
+    public $date;
+
+    /**
      * Description
      *
      * @var string
@@ -76,6 +83,7 @@ class FeedEntry extends Struct
     public static function create( $id, array $data )
     {
         $entry = new static( $id, $data['link'], $data['title'] );
+
         $entry->description = $data['description'];
         $entry->content     = $data['content'];
 

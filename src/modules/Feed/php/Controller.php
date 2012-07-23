@@ -25,14 +25,23 @@ class Controller
     protected $model;
 
     /**
+     * Parser
+     *
+     * @var Parser
+     */
+    protected $parser;
+
+    /**
      * Construct from model
      *
      * @param Model $model
+     * @param Parser $parser
      * @return void
      */
-    public function __construct( Model $model )
+    public function __construct( Model $model, Parser $parser )
     {
-        $this->model = $model;
+        $this->model  = $model;
+        $this->parser = $parser;
     }
 
     /**
@@ -96,25 +105,23 @@ class Controller
     {
         foreach ( $this->model->getPending( 300 ) as $url )
         {
-            $feed = \Zend\Feed\Reader\Reader::importString(
-                file_get_contents( $url->url )
-            );
+            $feed = $this->parser->parse( $url );
 
-            foreach ( $feed as $entry )
+            foreach ( $feed->entries as $entry )
             {
                 $this->model->addEntry(
                     $url->id,
-                    $entry->getLink(),
-                    $entry->getDateModified()->format( 'U' ),
-                    $entry->getTitle(),
-                    $entry->getDescription(),
-                    $entry->getContent()
+                    $entry->link,
+                    $entry->date,
+                    $entry->title,
+                    $entry->description,
+                    $entry->content
                 );
             }
 
             $this->model->updateUrl(
                 $url->id,
-                200,
+                $feed->status,
                 time()
             );
         }

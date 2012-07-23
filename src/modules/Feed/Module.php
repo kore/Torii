@@ -54,7 +54,8 @@ class Module extends \Torii\Module
         return new Controller(
             new Model(
                 $this->dic->dbal
-            )
+            ),
+            new Parser()
         );
     }
 
