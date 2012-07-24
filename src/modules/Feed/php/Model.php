@@ -184,7 +184,7 @@ class Model
 
         $queryBuilder = $this->dbal->createQueryBuilder();
         $queryBuilder
-            ->select( 'd.feed_d_id', 'd.feed_d_data' )
+            ->select( 'd.feed_d_id', 'd.feed_d_data', 'mrel.feed_m_u_name' )
             ->from( 'feed_m_u_rel', 'mrel' )
             ->join(
                 'mrel',
@@ -211,6 +211,7 @@ class Model
             {
                 return Struct\FeedEntry::create(
                     $row['feed_d_id'],
+                    $row['feed_m_u_name'],
                     json_decode( $row['feed_d_data'], true )
                 );
             },
