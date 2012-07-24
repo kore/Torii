@@ -34,6 +34,7 @@ class Parser
         $entry = new Struct\FeedEntry(
             null,
             $data->getLink(),
+            null,
             $data->getTitle()
         );
 
