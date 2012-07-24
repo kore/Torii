@@ -1,7 +1,9 @@
 <ul class="feed">
 {{#entries}}
     <li>
-        <a href="{{link}}" target="_blank" data-id="{{id}}">{{title}}</a>
+        <a href="{{link}}" target="_blank" data-id="{{id}}">
+            <span class="feed">[{{feed}}]</span> {{title}}
+        </a>
     </li>
 {{/entries}}
 </ul>
