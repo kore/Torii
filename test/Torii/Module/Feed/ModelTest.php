@@ -40,11 +40,11 @@ class ModelTest extends DatabaseTest
     public function testAddUrl()
     {
         $model = new Model( $this->getDbal() );
-        $model->addUrl( "module_1", "http://example.com" );
+        $model->addUrl( "module_1", "test", "http://example.com" );
 
         $this->assertEquals(
             array(
-                new Struct\Url( 1,"http://example.com" ),
+                new Struct\Url( 1, "http://example.com", "test" ),
             ),
             $model->getUrlList( "module_1" )
         );
@@ -53,13 +53,13 @@ class ModelTest extends DatabaseTest
     public function testAddTwoUrls()
     {
         $model = new Model( $this->getDbal() );
-        $model->addUrl( "module_1", "http://example.com/1" );
-        $model->addUrl( "module_1", "http://example.com/2" );
+        $model->addUrl( "module_1", "test1", "http://example.com/1" );
+        $model->addUrl( "module_1", "test2", "http://example.com/2" );
 
         $this->assertEquals(
             array(
-                new Struct\Url( 1, "http://example.com/1" ),
-                new Struct\Url( 2, "http://example.com/2" ),
+                new Struct\Url( 1, "http://example.com/1", "test1" ),
+                new Struct\Url( 2, "http://example.com/2", "test2" ),
             ),
             $model->getUrlList( "module_1" )
         );
@@ -71,8 +71,8 @@ class ModelTest extends DatabaseTest
     public function testAddSameUrl()
     {
         $model = new Model( $this->getDbal() );
-        $model->addUrl( "module_1", "http://example.com" );
-        $model->addUrl( "module_1", "http://example.com" );
+        $model->addUrl( "module_1", "test", "http://example.com" );
+        $model->addUrl( "module_1", "test", "http://example.com" );
     }
 
     /**
@@ -81,7 +81,7 @@ class ModelTest extends DatabaseTest
     public function testRemoveUrl()
     {
         $model = new Model( $this->getDbal() );
-        $model->addUrl( "module_1", "http://example.com" );
+        $model->addUrl( "module_1", "test", "http://example.com" );
         $model->removeurl( "module_1", 1 );
 
         $this->assertEquals(
@@ -107,7 +107,7 @@ class ModelTest extends DatabaseTest
     public function testGetPendingUrl()
     {
         $model = new Model( $this->getDbal() );
-        $model->addUrl( "module_1", "http://example.com" );
+        $model->addUrl( "module_1", "test", "http://example.com" );
 
         $this->assertEquals(
             array(
@@ -123,7 +123,7 @@ class ModelTest extends DatabaseTest
     public function testUpdateUrl()
     {
         $model = new Model( $this->getDbal() );
-        $model->addUrl( "module_1", "http://example.com" );
+        $model->addUrl( "module_1", "test", "http://example.com" );
 
         $model->updateUrl( 1, 200, time() );
 
@@ -139,7 +139,7 @@ class ModelTest extends DatabaseTest
     public function testUpdateBack()
     {
         $model = new Model( $this->getDbal() );
-        $model->addUrl( "module_1", "http://example.com" );
+        $model->addUrl( "module_1", "test", "http://example.com" );
 
         $model->updateUrl( 1, 200, time() - 400 );
 
@@ -157,7 +157,7 @@ class ModelTest extends DatabaseTest
     public function testGetUnread()
     {
         $model = new Model( $this->getDbal() );
-        $model->addUrl( "module_1", "http://example.com" );
+        $model->addUrl( "module_1", "test", "http://example.com" );
 
         $this->assertEquals(
             array(),
@@ -171,7 +171,7 @@ class ModelTest extends DatabaseTest
     public function testAddEntry()
     {
         $model = new Model( $this->getDbal() );
-        $model->addUrl( "module_1", "http://example.com" );
+        $model->addUrl( "module_1", "test", "http://example.com" );
         $model->addEntry(
             1,
             'http://example.com/1',
@@ -193,7 +193,7 @@ class ModelTest extends DatabaseTest
     public function testSortEntries()
     {
         $model = new Model( $this->getDbal() );
-        $model->addUrl( "module_1", "http://example.com" );
+        $model->addUrl( "module_1", "test", "http://example.com" );
 
         $model->addEntry( 1, 'http://example.com/1', 12345, 'Foo' );
         $model->addEntry( 1, 'http://example.com/2', 12346, 'Foo' );
@@ -213,8 +213,8 @@ class ModelTest extends DatabaseTest
     public function testMergeModules()
     {
         $model = new Model( $this->getDbal() );
-        $model->addUrl( "module_1", "http://example.com/1" );
-        $model->addUrl( "module_1", "http://example.com/2" );
+        $model->addUrl( "module_1", "test", "http://example.com/1" );
+        $model->addUrl( "module_1", "test", "http://example.com/2" );
 
         $model->addEntry( 1, 'http://example.com/1/1', 12345, 'Foo' );
         $model->addEntry( 2, 'http://example.com/2/1', 12346, 'Foo' );
@@ -234,7 +234,7 @@ class ModelTest extends DatabaseTest
     public function testIgnoreUrlReadd()
     {
         $model = new Model( $this->getDbal() );
-        $model->addUrl( "module_1", "http://example.com" );
+        $model->addUrl( "module_1", "test", "http://example.com" );
 
         $model->addEntry( 1, 'http://example.com/1', 12345, 'Foo' );
         $model->addEntry( 1, 'http://example.com/1', 12345, 'Foo' );
@@ -253,7 +253,7 @@ class ModelTest extends DatabaseTest
     public function testMarkRead()
     {
         $model = new Model( $this->getDbal() );
-        $model->addUrl( "module_1", "http://example.com" );
+        $model->addUrl( "module_1", "test", "http://example.com" );
 
         $model->addEntry( 1, 'http://example.com/1', 12345, 'Foo' );
         $model->addEntry( 1, 'http://example.com/2', 12346, 'Foo' );

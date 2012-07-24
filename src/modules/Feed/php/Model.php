@@ -42,7 +42,7 @@ class Model
     {
         $queryBuilder = $this->dbal->createQueryBuilder();
         $queryBuilder
-            ->select( 'u.feed_u_id', 'u.feed_u_url', 'u.feed_u_update', 'u.feed_u_status' )
+            ->select( 'u.feed_u_id', 'u.feed_u_url', 'u.feed_u_update', 'u.feed_u_status', 'rel.feed_m_u_name' )
             ->from( 'feed_m_u_rel', 'rel' )
             ->join(
                 'rel',
@@ -68,6 +68,7 @@ class Model
                 return new Struct\Url(
                     $urlData['feed_u_id'],
                     $urlData['feed_u_url'],
+                    $urlData['feed_m_u_name'],
                     (int) $urlData['feed_u_status'],
                     (int) $urlData['feed_u_update']
                 );
@@ -83,14 +84,15 @@ class Model
      * @param string $url
      * @return void
      */
-    public function addUrl( $module, $url )
+    public function addUrl( $module, $name, $url )
     {
         $this->checkModule( $module );
         $urlId = $this->getUrlId( $url );
 
         $this->dbal->insert( 'feed_m_u_rel', array(
-            'feed_m_id' => $module,
-            'feed_u_id' => $urlId
+            'feed_m_id'     => $module,
+            'feed_u_id'     => $urlId,
+            'feed_m_u_name' => $name,
         ) );
     }
 
