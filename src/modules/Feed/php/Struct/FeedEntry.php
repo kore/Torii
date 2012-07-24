@@ -31,6 +31,13 @@ class FeedEntry extends Struct
     public $link;
 
     /**
+     * Feed name
+     *
+     * @var string
+     */
+    public $feed;
+
+    /**
      * Title
      *
      * @var string
@@ -63,13 +70,15 @@ class FeedEntry extends Struct
      *
      * @param mixed $id
      * @param string $link
+     * @param string $feed
      * @param string $title
      * @return void
      */
-    public function __construct( $id, $link, $title )
+    public function __construct( $id, $link, $feed, $title )
     {
         $this->id    = $id;
         $this->link  = $link;
+        $this->feed  = $feed;
         $this->title = $title;
     }
 
@@ -80,9 +89,9 @@ class FeedEntry extends Struct
      * @param array $data
      * @return FeedEntry
      */
-    public static function create( $id, array $data )
+    public static function create( $id, $feed, array $data )
     {
-        $entry = new static( $id, $data['link'], $data['title'] );
+        $entry = new static( $id, $data['link'], $feed, $data['title'] );
 
         $entry->description = $data['description'];
         $entry->content     = $data['content'];
