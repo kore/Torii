@@ -7,21 +7,22 @@
     };
 
     Feed.addUrl = function( event ) {
-        var input = $( event.target ).find( "input[name=url]" ),
+        var name = $( event.target ).find( "input[name=name]" ).val(),
+            url = $( event.target ).find( "input[name=url]" ).val(),
             id = $( event.target ).find( "input[name=id]" ).val();
 
         event.stopPropagation( true );
 
         $.post(
             "/module/" + id + "/add",
-            {url: input.val() },
+            {url: url, name: name},
             function () {
                 Feed.updateUrlList( null, id );
             },
             "json"
         );
 
-        input.val( null );
+        event.target.reset();
         return false;
     };
 

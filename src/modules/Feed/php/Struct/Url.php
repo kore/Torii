@@ -31,6 +31,13 @@ class Url extends Struct
     public $url;
 
     /**
+     * Name
+     *
+     * @var string
+     */
+    public $name;
+
+    /**
      * Last request status
      *
      * @var int
@@ -49,14 +56,16 @@ class Url extends Struct
      *
      * @param mixed $id
      * @param string $url
+     * @param string $name
      * @param int $status
      * @param int $requested
      * @return void
      */
-    public function __construct( $id, $url, $status = null, $requested = null )
+    public function __construct( $id, $url, $name = null, $status = null, $requested = null )
     {
         $this->id        = $id;
         $this->url       = $url;
+        $this->name      = $name;
         $this->status    = $status;
         $this->requested = $requested;
     }

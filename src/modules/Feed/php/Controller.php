@@ -54,7 +54,7 @@ class Controller
      */
     public function addUrl( RMF\Request $request, Struct\User $user, Struct\ModuleConfiguration $module )
     {
-        $this->model->addUrl( $module->id, $request->body['url'] );
+        $this->model->addUrl( $module->id, $request->body['name'], $request->body['url'] );
     }
 
     /**
