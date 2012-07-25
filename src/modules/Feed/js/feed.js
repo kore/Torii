@@ -93,6 +93,32 @@
                         } );
                     }
                 );
+
+                target = "#" + id + " .header-buttons";
+                Torii.showTemplate(
+                    target,
+                    "/templates/feed/buttons.mustache",
+                    {   feeds: _.uniq( _.map(
+                                data,
+                                function( value ) {
+                                    return value.feed;
+                                }
+                            ).sort(), true ),
+                        module: id
+                    },
+                    function () {
+                        $( target ).find( "a.feed-button" ).on( "click", function( event ) {
+                            $.post(
+                                "/module/" + id + "/clear/" + $( event.target ).data().feed,
+                                {},
+                                function () {
+                                    Feed.updateUrlList( null, id );
+                                },
+                                "json"
+                            );
+                        } );
+                    }
+                );
             },
             "json"
         );

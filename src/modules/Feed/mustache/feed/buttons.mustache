@@ -1,0 +1,13 @@
+<a class="btn btn-inverse btn-mini" data-toggle="modal" href="#feed-settings-{{module}}">
+    <i class="icon-white icon-cog"></i>
+</a>
+
+{{#feeds}}
+<a class="btn btn-mini btn-inverse feed-button" href="#" data-feed="{{.}}" title="Mark {{.}} as read">
+    <i class="icon-white icon-check"></i>
+</a>
+{{/feeds}}
+
+<a class="btn btn-inverse btn-mini" href="#">
+    <i class="icon-white icon-refresh"></i>
+</a>
