@@ -10,17 +10,53 @@ namespace Torii\Module\Feed;
 /**
  * Feed parser
  *
+ * Neither feed parser nor HTTP client are injectable, because we could not be
+ * bothered to define interface for them. If you want to exchange something,
+ * create a new parser ;p
+ *
  * @version $Revision$
  */
 class Parser
 {
-    public function parse( $url )
+    /**
+     * Parse Feed behind provided URL
+     *
+     * Returns a Feed instance
+     *
+     * @param Struct\Url $url
+     * @return Struct\Feed
+     */
+    public function parse( Struct\Url $url )
     {
-        $data = \Zend\Feed\Reader\Reader::importString(
-            file_get_contents( $url->url )
-        );
+        $client = new \Buzz\Browser();
+        $client->getClient()->setTimeout( 5 );
 
-        $feed = new Struct\Feed( $url, 200 );
+        $feed = new Struct\Feed( $url );
+        try
+        {
+            $response = $client->get( $url->url );
+            $feed->status = $response->getStatusCode();
+
+            if ( !$response->isOk() )
+            {
+                return $feed;
+            }
+
+            $data = \Zend\Feed\Reader\Reader::importString(
+                $response->getContent()
+            );
+        }
+        catch ( \Zend\Feed\Reader\Exception\RuntimeException $e )
+        {
+            $feed->status = 406;
+            return $feed;
+        }
+        catch ( \RuntimeException $e )
+        {
+            $feed->status = 503;
+            return $feed;
+        }
+
         foreach ( $data as $entry )
         {
             $feed->entries[] = $this->parseEntry( $entry );
@@ -29,6 +65,12 @@ class Parser
         return $feed;
     }
 
+    /**
+     * Converts a single zend feed entry into something sensible
+     *
+     * @param mixed $data
+     * @return Struct\FeedEntry
+     */
     protected function parseEntry( $data )
     {
         $entry = new Struct\FeedEntry(
