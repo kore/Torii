@@ -109,7 +109,7 @@
                     function () {
                         $( target ).find( "a.feed-button" ).on( "click", function( event ) {
                             $.post(
-                                "/module/" + id + "/clear/" + $( event.target ).data().feed,
+                                "/module/" + id + "/clear/" + $( event.currentTarget ).data( "feed" ),
                                 {},
                                 function () {
                                     Feed.updateUrlList( null, id );
