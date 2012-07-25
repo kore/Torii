@@ -1,5 +1,5 @@
 {
-    "hash": "b11b921cbab172b8000f919621d170c0",
+    "hash": "2a1025668615df7b7a71dbfdb3b711fe",
     "packages": [
         {
             "package": "Qafoo/RMF",
@@ -16,8 +16,8 @@
         {
             "package": "doctrine/common",
             "version": "dev-master",
-            "source-reference": "91a2875447a38a638cebbd679fa2081a84d5f7af",
-            "commit-date": "1342444390"
+            "source-reference": "8cb70d80c5c95add69e5055044bb1bd4bf5de987",
+            "commit-date": "1343050234"
         },
         {
             "package": "doctrine/dbal",
@@ -28,8 +28,14 @@
         {
             "package": "doctrine/dbal",
             "version": "dev-master",
-            "source-reference": "b1562a5f85ad30c0815c85df866d179992a91797",
-            "commit-date": "1342603300"
+            "source-reference": "cb59d2b0922748f19c9a1f37fa8d70f2669fb408",
+            "commit-date": "1343019872"
+        },
+        {
+            "package": "kriswallsmith/buzz",
+            "version": "dev-master",
+            "source-reference": "2ba5da13b1b03590f0164b3fb61578078d671fcc",
+            "commit-date": "1341070218"
         },
         {
             "package": "twig/twig",
