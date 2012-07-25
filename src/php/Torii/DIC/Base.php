@@ -82,6 +82,7 @@ class Base extends DIC
                 new Torii\Assets\FileSet( $this->srcDir . '/js', 'vendor/jquery/*.js', 'vendor/*/*.min.js' ),
                 new Torii\Assets\FileSet( $this->srcDir . '/js', 'vendor/bootstrap/*.js', 'vendor/*/*.min.js' ),
                 new Torii\Assets\FileSet( $this->srcDir . '/js', 'vendor/mustache/*.js', 'vendor/*/*.min.js' ),
+                new Torii\Assets\FileSet( $this->srcDir . '/js', 'vendor/underscore/*.js', 'vendor/*/*.min.js' ),
                 new Torii\Assets\FileSet( $this->srcDir . '/js', '*.js' ),
             ) );
         };
