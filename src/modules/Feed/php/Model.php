@@ -189,15 +189,15 @@ class Model
             ->join(
                 'mrel',
                 'feed_data', 'd',
-                $queryBuilder->expr()->eq( 'mrel.feed_u_id', 'd.feed_u_id' )
-            )
-            ->where(
                 $queryBuilder->expr()->andx(
-                    $queryBuilder->expr()->eq( 'mrel.feed_m_id', ':module' ),
+                    $queryBuilder->expr()->eq( 'mrel.feed_u_id', 'd.feed_u_id' ),
                     // @HACK: Doctrine DBAL is buggy currently regarding
                     // building IN() statements :/
                     $this->dbal->quoteIdentifier( 'd.feed_d_id' ) . 'NOT IN( ' . $subSelect . ' )'
                 )
+            )
+            ->where(
+                $queryBuilder->expr()->eq( 'mrel.feed_m_id', ':module' )
             )
             ->orderBy( 'd.feed_d_time', 'DESC' )
             ->setMaxResults( $count )
@@ -283,6 +283,61 @@ class Model
                 'feed_d_id'     => $entry,
             )
         );
+    }
+
+    /**
+     * Clear feed
+     *
+     * @param mixed $urlId
+     * @return void
+     */
+    public function clear( $module, $feed )
+    {
+        $subSelect = $this->dbal->createQueryBuilder();
+        $subSelect
+            ->select( 'feed_d_id' )
+            ->from( 'feed_m_d_rel', 'rel' )
+            ->where(
+                $subSelect->expr()->eq( 'feed_m_id', ':module' )
+            )
+            ->setParameter( ':module', $module );
+
+        $queryBuilder = $this->dbal->createQueryBuilder();
+        $queryBuilder
+            ->select( 'd.feed_d_id' )
+            ->from( 'feed_m_u_rel', 'mrel' )
+            ->join(
+                'mrel',
+                'feed_data', 'd',
+                $queryBuilder->expr()->andx(
+                    $queryBuilder->expr()->eq( 'mrel.feed_u_id', 'd.feed_u_id' ),
+                    // @HACK: Doctrine DBAL is buggy currently regarding
+                    // building IN() statements :/
+                    $this->dbal->quoteIdentifier( 'd.feed_d_id' ) . 'NOT IN( ' . $subSelect . ' )'
+                )
+            )
+            ->where(
+                $queryBuilder->expr()->andx(
+                    $queryBuilder->expr()->eq( 'mrel.feed_m_id', ':module' ),
+                    $queryBuilder->expr()->eq( 'mrel.feed_m_u_name', ':feed' )
+                )
+            )
+            ->setParameter( ':feed', $feed )
+            ->setParameter( ':module', $module );
+
+        $statement = $queryBuilder->execute();
+        $result = $statement->fetchAll( \PDO::FETCH_ASSOC );
+
+        foreach ( $result as $row )
+        {
+            $this->dbal->insert(
+                'feed_m_d_rel',
+                array(
+                    'feed_m_id' => $module,
+                    'feed_d_id' => $row['feed_d_id'],
+                )
+            );
+        }
     }
 
     /**

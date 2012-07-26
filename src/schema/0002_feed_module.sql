@@ -14,7 +14,8 @@ CREATE TABLE `feed_m_u_rel` (
   `feed_u_id` INT NOT NULL,
   `feed_m_u_name` VARCHAR(32) NOT NULL,
   `changed` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  UNIQUE KEY (`feed_m_id`, `feed_u_id`)
+  UNIQUE KEY (`feed_m_id`, `feed_u_id`),
+  KEY (`feed_m_u_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=ascii;
 
 -- Table: Feed Urls (feed_u)
