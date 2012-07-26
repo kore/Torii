@@ -97,7 +97,8 @@ class Main
             $this->user->update( $user );
         }
 
-        return $this->showSettings( $request, $user );
+        header( "Location: /portal" );
+        exit( 0 );
     }
 
     /**
