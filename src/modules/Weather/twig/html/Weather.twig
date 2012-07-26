@@ -1,0 +1,26 @@
+{% extends "html/module.twig" %}
+
+{% block content %}
+<input type="text" id="placename"/>
+<input type="button" id="findweather" value="Find weather"/><br/><br/>
+<hr/>
+
+<div id="weatherholder">
+    <table id="weathertext">
+        <tr>
+            <td colspan="2" id="placetitle"></td>
+        </tr>
+        <tr>
+            <td id="forecastimage">
+                <img src="" id="weatherimage"/>
+            </td>
+            <td id="statustext">
+                <span id="temperature"></span><br/>
+                <span id="condition" class="contents"></span><br/>
+                <span id="dirspeed" class="contents"></span><br/>
+                <span id="humidity" class="contents"></span>
+            </td>
+        </tr>
+    </table>
+</div>
+{% endblock %}
