@@ -30,6 +30,7 @@ class Module extends \Torii\Module
         '(^/getList)'  => 'getUrlList',
         '(^/update)'   => 'getFeedData',
         '(^/redirect)' => 'redirect',
+        '(^/clear)'    => 'clear',
     );
 
     /**

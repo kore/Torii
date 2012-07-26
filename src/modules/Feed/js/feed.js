@@ -112,7 +112,7 @@
                                 "/module/" + id + "/clear/" + $( event.currentTarget ).data( "feed" ),
                                 {},
                                 function () {
-                                    Feed.updateUrlList( null, id );
+                                    Feed.refresh( id );
                                 },
                                 "json"
                             );

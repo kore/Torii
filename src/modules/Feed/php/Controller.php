@@ -117,6 +117,25 @@ class Controller
     }
 
     /**
+     * Clear all URLs of one feed
+     *
+     * @param RMF\Request $request
+     * @param Struct\User $user
+     * @param Struct\ModuleConfiguration $module
+     * @return Struct\Response
+     */
+    public function clear( RMF\Request $request, Struct\User $user, Struct\ModuleConfiguration $module )
+    {
+        if ( !preg_match( '(^/clear/(.+)$)', $request->variables['path'], $match ) )
+        {
+            throw new \RuntimeException( "Invalid URL passed" );
+        }
+
+        $this->model->clear( $request->variables['module'], $match[1] );
+        return array( 'ok' => true );
+    }
+
+    /**
      * Method triggered by cron job to refresh feed data
      *
      * @return void
