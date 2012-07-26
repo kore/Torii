@@ -17,6 +17,12 @@ body {
 
 body > .container-fluid {
     padding: 0px;
+
+    height: 100%;
+
+    background-image: url( "/images/logo-bg.png" );
+    background-position: center center;
+    background-repeat: no-repeat;
 }
 
 .navbar {
