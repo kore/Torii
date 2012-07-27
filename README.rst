@@ -6,6 +6,14 @@ Torii is a simple but powerful portal application which easily allows writing
 and adding new modules. Torii includes full API documentation and an initial
 set of modules for feed aggregation, weather statistics, and more...
 
+Requirements
+===========
+
+- Ant >= 1.8.0
+- PHP >= 5.3
+- MySql >= 5.1
+- Composer
+
 Installation
 ============
 
