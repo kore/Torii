@@ -37,18 +37,27 @@ class ModuleConfiguration extends Struct
     public $title;
 
     /**
+     * Mixed settings, stored per module
+     *
+     * @var array
+     */
+    public $settings;
+
+    /**
      * Construct
      *
      * @param string $id
      * @param string $type
      * @param string $title
+     * @param array $settings
      * @return void
      */
-    public function __construct( $id, $type, $title )
+    public function __construct( $id, $type, $title, array $settings = array() )
     {
-        $this->id    = $id;
-        $this->type  = $type;
-        $this->title = $title;
+        $this->id       = $id;
+        $this->type     = $type;
+        $this->title    = $title;
+        $this->settings = $settings;
     }
 
     /**
@@ -62,7 +71,8 @@ class ModuleConfiguration extends Struct
         return new static(
             $data['id'],
             $data['type'],
-            $data['title']
+            $data['title'],
+            isset( $data['settings'] ) ? $data['settings'] : array()
         );
     }
 }

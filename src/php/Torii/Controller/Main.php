@@ -173,6 +173,34 @@ class Main
     }
 
     /**
+     * Get module settings
+     *
+     * @param RMF\Request $request
+     * @param Struct\User $user
+     * @return Struct\Response
+     */
+    public function getConfig( RMF\Request $request, Struct\User $user )
+    {
+        return $this->getModuleConfig( $user, $request->variables['module'] )->settings;
+    }
+
+    /**
+     * Set module settings
+     *
+     * @param RMF\Request $request
+     * @param Struct\User $user
+     * @return Struct\Response
+     */
+    public function configure( RMF\Request $request, Struct\User $user )
+    {
+        $module = $this->getModuleConfig( $user, $request->variables['module'] );
+        $module->settings = $request->body;
+
+        $this->user->update( $user );
+        return $module->settings;
+    }
+
+    /**
      * Get a random, unique module ID
      *
      * @param string $title

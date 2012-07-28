@@ -28,6 +28,10 @@ $dispatcher = new RMF\Dispatcher\Simple(
         '(^/portal/resort$)' => array(
             'POST' => array( $dic->mainController, 'resort' ),
         ),
+        '(^/portal/config/(?P<module>[A-Za-z0-9_-]+)$)' => array(
+            'GET'  => array( $dic->mainController, 'getConfig' ),
+            'POST' => array( $dic->mainController, 'configure' ),
+        ),
 
         // Torii module dispatching
         '(^/module/(?P<module>[A-Za-z0-9_-]+)(?P<path>/.*)?$)' => array(

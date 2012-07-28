@@ -68,20 +68,16 @@ jQuery( document ).ready(function() {
     Torii = function() {
     };
 
-    Torii.showTemplate = function( target, template, data, success )
-    {
-        ( function()
-        {
-            if ( templateCache[template] )
-            {
+    Torii.showTemplate = function( target, template, data, success ) {
+        ( function() {
+            if ( templateCache[template] ) {
                 var deferred = new jQuery.Deferred();
                 deferred.resolve( templateCache[template] );
                 return deferred.promise();
             }
 
             return jQuery.get( template );
-        }() ).then( function( templateData )
-        {
+        }() ).then( function( templateData ) {
             templateCache[template] = templateData;
 
             jQuery( target ).html(
@@ -89,11 +85,27 @@ jQuery( document ).ready(function() {
             );
 
             // Call optional success function after completion
-            if ( success )
-            {
+            if ( success ) {
                 success();
             }
         } );
+    };
+
+    Torii.getConfig = function( module, callback ) {
+        $.get(
+            "/portal/config/" + module,
+            callback,
+            "json"
+        );
+    };
+
+    Torii.setConfig = function( module, config, callback ) {
+        $.post(
+            "/portal/config/" + module,
+            config,
+            callback,
+            "json"
+        );
     };
 
     // Exports
