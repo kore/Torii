@@ -27,6 +27,13 @@
                 );
             }
         );
+
+        window.setTimeout(
+            function () {
+                Weather.prototype.fetch( id, location );
+            },
+            1000 * 60 * 30
+        );
     };
 
     // Exports
