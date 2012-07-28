@@ -1,9 +1,13 @@
 {% extends "html/module.twig" %}
 
 {% block content %}
+{% if module.settings %}
+<div class="weather-loading" data-module="{{module.id}}" data-location="{{module.settings.location}}">Loading…</div>
+{% else %}
 <form class="form-search weather">
     <input type="hidden" name="module" value="{{module.id}}">
     <input type="text" class="input-large search-query" name="location" placeholder="Location">
     <button type="submit" class="btn">Show</button>
 </form>
+{% endif %}
 {% endblock %}

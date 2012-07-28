@@ -46,10 +46,20 @@ $( document ).ready( function() {
     var weather = new Weather();
 
     $( 'form.weather' ).on( "submit", function( event ) {
-        weather.fetch(
-            $( event.currentTarget ).find( "input[name='module']" ).val(),
-            $( event.currentTarget ).find( "input[name='location']" ).val()
-        );
+        var id = $( event.currentTarget ).find( "input[name='module']" ).val(),
+            location = $( event.currentTarget ).find( "input[name='location']" ).val();
+
+        Torii.setConfig( id, { location: location }, null );
+        weather.fetch( id, location );
+
         return false;
     } );
+
+    $( '.weather-loading' ).each( function ( key, element ) {
+        var id = $( element ).data( "module" ),
+            location = $( element ).data( "location" );
+
+        weather.fetch( id, location );
+    } );
 } );
+
