@@ -18,7 +18,6 @@
                 env:         "store://datatables.org/alltableswithkeys"
             },
             function ( data ) {
-                console.log( data.query.results.weather.rss.channel );
                 Torii.showTemplate(
                     target,
                     "/templates/weather/weather.mustache",
