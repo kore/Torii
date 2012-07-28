@@ -1,26 +1,9 @@
 {% extends "html/module.twig" %}
 
 {% block content %}
-<input type="text" id="placename"/>
-<input type="button" id="findweather" value="Find weather"/><br/><br/>
-<hr/>
-
-<div id="weatherholder">
-    <table id="weathertext">
-        <tr>
-            <td colspan="2" id="placetitle"></td>
-        </tr>
-        <tr>
-            <td id="forecastimage">
-                <img src="" id="weatherimage"/>
-            </td>
-            <td id="statustext">
-                <span id="temperature"></span><br/>
-                <span id="condition" class="contents"></span><br/>
-                <span id="dirspeed" class="contents"></span><br/>
-                <span id="humidity" class="contents"></span>
-            </td>
-        </tr>
-    </table>
-</div>
+<form class="form-search weather">
+    <input type="hidden" name="module" value="{{module.id}}">
+    <input type="text" class="input-large search-query" name="location" placeholder="Location">
+    <button type="submit" class="btn">Show</button>
+</form>
 {% endblock %}

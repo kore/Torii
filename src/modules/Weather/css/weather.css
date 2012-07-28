@@ -1,0 +1,23 @@
+form.weather {
+    margin: 4px auto;
+    text-align: center;
+}
+
+table.weather h2 {
+    font-size: 14px;
+    line-height: 16px;
+}
+
+table.weather h3 {
+    font-size: 12px;
+    line-height: 14px;
+}
+
+table.weather td.image {
+    padding: 0px 4px;
+}
+
+table.weather td {
+    vertical-align: top;
+}
+

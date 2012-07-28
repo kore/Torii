@@ -1,6 +1,14 @@
-$( document ).ready( function() {
-    $( '#findweather' ).on( "click", function() {
-        var query = 'SELECT * FROM weather.bylocation WHERE location="' + $( '#placename' ).val() + '" AND unit="c"';
+(function( global ) {
+    "use strict";
+
+    var Weather;
+
+    Weather = function() {
+    };
+
+    Weather.prototype.fetch = function( id, location ) {
+        var query = 'SELECT * FROM weather.bylocation WHERE location="' + location + '" AND unit="c"',
+            target = $( "#" + id ).find( ".body" );
 
         $.getJSON(
             'http://query.yahooapis.com/v1/public/yql?callback=?',
@@ -10,51 +18,32 @@ $( document ).ready( function() {
                 env:         "store://datatables.org/alltableswithkeys"
             },
             function ( data ) {
-
-                console.log(data);
-
-                var weather = data.query.results.weather.rss.channel;
-
-                $('#weathertext').show();
-                $('#placetitle').html($('#placename').val());
-                $('#weatherimage').attr('src','/images/'+weather.item.condition.code+'.png');
-                $('#temperature').html(weather.item.condition.temp+' &deg;C');
-                $('#condition').html(weather.item.condition.text);
-                var winddirection=parseInt(weather.wind.direction);
-                var direction='';
-                switch(true)
-                {
-                    case (winddirection==0):
-                        direction='N';
-                        break;
-                    case (winddirection<90):
-                        direction='NE';
-                        break;
-                    case (winddirection==90):
-                        direction='E';
-                        break;
-                    case (winddirection<180):
-                        direction='SE';
-                        break;
-                    case (winddirection==180):
-                        direction='S';
-                        break;
-                    case (winddirection<270):
-                        direction='SW';
-                        break;
-                    case (winddirection==270):
-                        direction='W';
-                        break;
-                    case (winddirection<360):
-                        direction='NW';
-                        break;
-                    case (winddirection==360):
-                        direction='N';
-                        break;
-                }
-                $('#dirspeed').html('Wind: '+direction+' at '+weather.wind.speed+' km/h');
-                $('#humidity').html('Humidity: '+weather.atmosphere.humidity+'%');
+                console.log( data.query.results.weather.rss.channel );
+                Torii.showTemplate(
+                    target,
+                    "/templates/weather/weather.mustache",
+                    {   weather: data.query.results.weather.rss.channel,
+                        module: id
+                    }
+                );
             }
         );
+    };
+
+    // Exports
+    global.Weather = Weather;
+
+}(this));
+
+$( document ).ready( function() {
+
+    var weather = new Weather();
+
+    $( 'form.weather' ).on( "submit", function( event ) {
+        weather.fetch(
+            $( event.currentTarget ).find( "input[name='module']" ).val(),
+            $( event.currentTarget ).find( "input[name='location']" ).val()
+        );
+        return false;
     } );
 } );

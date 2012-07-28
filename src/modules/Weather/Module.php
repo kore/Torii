@@ -69,6 +69,7 @@ class Module extends \Torii\Module
         // Register assets
         $dic->css->addFileSet( new Assets\FileSet( __DIR__ . '/css', '*.css' ) );
         $dic->javaScript->addFileSet( new Assets\FileSet( __DIR__ . '/js', '*.js' ) );
+        $dic->templates->addFileSet( new Assets\FileSet( __DIR__ . '/mustache', 'weather/*.mustache' ) );
         $dic->images->addFileSet( new Assets\FileSet( __DIR__ . '/images', '*/*.png' ) );
     }
 }

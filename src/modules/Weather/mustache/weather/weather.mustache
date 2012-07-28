@@ -1,0 +1,36 @@
+<table class="weather">
+    <tr>
+        <td rowspan="3" class="image">
+            <img src="/images/64/{{weather.item.condition.code}}.png" width="64" height="64" alt="{{weather.item.condition.text}}" />
+        </td>
+        <td colspan="4">
+            <h2>{{weather.location.city}} ({{weather.location.region}}), {{weather.location.country}}</h2>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <div class="condition">{{weather.item.condition.text}}, <span class="temperature">{{weather.item.condition.temp}}°{{weather.units.temperature}}</span></div>
+            <div class="wind">Wind: {{weather.wind.speed}} {{weather.units.speed}}</div>
+        </td>
+        <td colspan="2">
+            <div class="sun">Sunrise: {{weather.astronomy.sunrise}}</div>
+            <div class="sun">Sunset: {{weather.astronomy.sunset}}</div>
+        </td>
+    </tr>
+    <tr>
+        <td class="image">
+            <img src="/images/32/{{weather.item.forecast.0.code}}.png" width="32" height="32" alt="{{weather.item.forecast.0.text}}" />
+        </td>
+        <td>
+            <h3>{{weather.item.forecast.0.day}}, {{weather.item.forecast.0.date}}</h3>
+            <div class="condition">{{weather.item.forecast.0.text}}, <span class="temperature">{{weather.item.forecast.0.low}} - {{weather.item.forecast.0.high}}°{{weather.units.temperature}}</span></div>
+        </td>
+        <td class="image">
+            <img src="/images/32/{{weather.item.forecast.1.code}}.png" width="32" height="32" alt="{{weather.item.forecast.1.text}}" />
+        </td>
+        <td>
+            <h3>{{weather.item.forecast.1.day}}, {{weather.item.forecast.1.date}}</h3>
+            <div class="condition">{{weather.item.forecast.1.text}}, <span class="temperature">{{weather.item.forecast.1.low}} - {{weather.item.forecast.1.high}}°{{weather.units.temperature}}</span></div>
+        </td>
+    </tr>
+</table>
