@@ -3,6 +3,14 @@ form.weather {
     text-align: center;
 }
 
+table.weather {
+    width: 100%;
+}
+
+table.weather {
+    padding: 2px;
+}
+
 table.weather h2 {
     font-size: 14px;
     line-height: 16px;
@@ -14,7 +22,7 @@ table.weather h3 {
 }
 
 table.weather td.image {
-    padding: 0px 4px;
+    padding: 2px 4px;
 }
 
 table.weather td {
