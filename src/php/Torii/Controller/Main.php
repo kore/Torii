@@ -173,6 +173,37 @@ class Main
     }
 
     /**
+     * Import portal configuration
+     *
+     * @param RMF\Request $request
+     * @param Struct\User $user
+     * @return Struct\Response
+     */
+    public function import( RMF\Request $request, Struct\User $user )
+    {
+        if ( $_FILES['config']['error'] )
+        {
+            throw new \RuntimeException( "Error while uploading file." );
+        }
+
+        switch ( $request->body['type'] )
+        {
+            case 'torii':
+                $importer = new \Torii\Importer\Torii( $this->user, $this->modules );
+                $importer->import( $user, $_FILES['config']['tmp_name'] );
+                break;
+
+            default:
+                throw new \RuntimeException( "Unknown importer: " . $request->body['type'] );
+        }
+
+        return $this->view( $request, $user );
+
+        header( "Location: /portal" );
+        exit( 0 );
+    }
+
+    /**
      * Get module settings
      *
      * @param RMF\Request $request

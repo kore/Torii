@@ -2,6 +2,7 @@
 
 {% block navItems %}
 <li><a data-toggle="modal" href="#addModule" title="Add Module"><i class="icon-plus icon-white"></i></a></li>
+<li><a data-toggle="modal" href="#import" title="Import portal configuration"><i class="icon-download-alt icon-white"></i></a></li>
 {{parent()}}
 {% endblock %}
 
@@ -63,6 +64,39 @@
         <div class="modal-footer">
             <a href="#" class="btn" data-dismiss="modal">Close</a>
             <button type="submit" name="submit" class="btn">Add Module</button>
+        </div>
+    </form>
+</div>
+
+<div class="modal hide" id="import">
+    <form action="/portal/import" method="POST" class="form-horizontal" enctype="multipart/form-data">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">×</button>
+            <h3>Import portal configuration</h3>
+        </div>
+        <div class="modal-body">
+            <div class="alert alert-block">
+                <h4 class="alert-heading">Warning!</h4>
+                <p>Using the importer will overwrite any existing module configuration.</p>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="type">Type</label>
+                <div class="controls">
+                    <select name="type" size="1" class="large">
+                        <option value="torii">Torii 1</option>
+                    </select>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="config">Configuration</label>
+                <div class="controls">
+                    <input type="file" name="config" />
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="btn" data-dismiss="modal">Close</a>
+            <button type="submit" name="submit" class="btn">Import</button>
         </div>
     </form>
 </div>
