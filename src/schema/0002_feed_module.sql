@@ -41,7 +41,7 @@ CREATE TABLE `feed_data` (
   `feed_d_data` TEXT NOT NULL,
   `changed` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`feed_d_id`),
-  UNIQUE KEY (`feed_d_url`),
+  KEY (`feed_d_url`),
   KEY(`feed_d_time`)
 ) ENGINE=InnoDB DEFAULT CHARSET=ascii;
 
