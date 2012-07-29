@@ -77,14 +77,87 @@ class Parser
             null,
             $data->get_link(),
             null,
-            $data->get_title()
+            $this->decode( $data->get_title() )
         );
 
         $entry->date        = $data->get_date( 'U' ) ?: time();
-        $entry->description = $data->get_description();
-        $entry->content     = $data->get_content();
+        $entry->description = $this->decode( $data->get_description() );
+        $entry->content     = $this->decode( $data->get_content() );
 
         return $entry;
+    }
+
+    /**
+     * Decode all HTML and XML entities in the string
+     *
+     * @param string $string
+     * @return string
+     */
+    protected function decode( $string )
+    {
+        $string = html_entity_decode( $string );
+
+        $string = preg_replace_callback(
+            '(&#(\\d+);)',
+            function ( $matches )
+            {
+                return Parser::codePointToUtf8( $matches[1] );
+            },
+            $string
+        );
+
+        $string = preg_replace_callback(
+            '(&#x([a-fA-F0-9]+);)',
+            function ( $matches )
+            {
+                return Parser::codePointToUtf8( hexdec( $matches[1] ) );
+            },
+            $string
+        );
+
+        return $string;
+    }
+
+    /**
+     * Convert unicode code point to UTF-8 character
+     *
+     * @param int $decimal
+     * @return string
+     */
+    public static function codePointToUtf8( $decimal )
+    {
+        switch ( true )
+        {
+            case $decimal <= 0x007f:
+                return chr( $decimal );
+
+            case $decimal <= 0x07ff:
+                return
+                    chr( 0xc0 | ( $decimal >> 6 ) ) .
+                    chr( 0x80 | ( $decimal & 0x003f ) );
+
+            case $decimal === 0xFEFF:
+                return '';
+
+            case $decimal >= 0xD800 && $decimal <= 0xDFFF:
+                throw new \RuntimeException( "Surrogates are not handled." );
+
+            case $decimal <= 0xffff:
+                return
+                    chr( 0xe0 | ( $decimal >> 12 ) ) .
+                    chr( 0x80 | ( ( $decimal >> 6 ) & 0x003f ) ) .
+                    chr( 0x80 | ( $decimal & 0x003f ) );
+
+            case $decimal <= 0x10ffff:
+                return
+                    chr( 0xf0 | ( $decimal >> 18 ) ) .
+                    chr( 0x80 | ( ( $decimal >> 12 ) & 0x3f ) ) .
+                    chr( 0x80 | ( ( $decimal >> 6 ) & 0x3f ) ) .
+                    chr( 0x80 | ( $decimal & 0x3f ) );
+
+            default:
+                throw new \RuntimeException( "Invalid or unhandled codepoint." );
+        }
     }
 }
 
