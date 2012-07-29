@@ -11,3 +11,21 @@
     color: #ffffff;
 }
 
+.status-ok {
+    color: #46a546;
+}
+
+.status-redirect {
+    color: #ffc40d;
+}
+
+.status-fault {
+    color: #9d261d;
+    font-weight: bold;
+}
+
+.status-error {
+    color: #9d261d;
+    font-weight: bold;
+}
+
