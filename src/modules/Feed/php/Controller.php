@@ -140,14 +140,16 @@ class Controller
      *
      * @return void
      */
-    public function refresh()
+    public function refresh( $verbose = false )
     {
         foreach ( $this->model->getPending( 300 ) as $url )
         {
+            if ( $verbose ) echo "Parsing {$url->url}: ";
             $feed = $this->parser->parse( $url );
 
             foreach ( $feed->entries as $entry )
             {
+                if ( $verbose ) echo ".";
                 $this->model->addEntry(
                     $url->id,
                     $entry->link,
@@ -158,6 +160,7 @@ class Controller
                 );
             }
 
+            if ( $verbose ) echo " {$feed->status}.", PHP_EOL;
             $this->model->updateUrl(
                 $url->id,
                 $feed->status,

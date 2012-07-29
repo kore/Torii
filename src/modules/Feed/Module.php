@@ -115,9 +115,9 @@ class Module extends \Torii\Module
      *
      * @return void
      */
-    public function refresh()
+    public function refresh( $verbose = false )
     {
-        $this->getController()->refresh();
+        $this->getController()->refresh( $verbose );
     }
 }
 

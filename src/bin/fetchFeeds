@@ -13,5 +13,5 @@ require __DIR__ . '/../php/Torii/bootstrap.php';
 $dic = new DIC\Base();
 $dic->environment = 'development';
 
-$dic->modules['Feed']->refresh();
+$dic->modules['Feed']->refresh( true );
 
