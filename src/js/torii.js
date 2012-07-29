@@ -12,9 +12,11 @@ jQuery( document ).ready(function() {
     } );
 
     // Center (hiffen) trash element
-    jQuery( ".trash" ).offset( {
-        left: jQuery( document ).innerWidth() / 2 - 100 - jQuery( ".trash" ).offset().left
-    } );
+    if ( jQuery( ".trash" ).offset() ) {
+        jQuery( ".trash" ).offset( {
+            left: jQuery( document ).innerWidth() / 2 - 100 - jQuery( ".trash" ).offset().left
+        } );
+    }
 
     jQuery( ".column" ).bind( "sortstart", function(event, ui) {
         jQuery( ".trash" ).fadeIn( 500 );
