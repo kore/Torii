@@ -115,7 +115,7 @@
                         module: id
                     },
                     function () {
-                        $( target ).find( "button" ).on( "click", Feed.removeUrl );
+                        $( target ).find( "a.remove" ).on( "click", Feed.removeUrl );
                     }
                 );
             },
