@@ -42,9 +42,14 @@ class Parser
                 return $feed;
             }
 
-            $data = \Zend\Feed\Reader\Reader::importString(
-                $response->getContent()
-            );
+            $reader = new \SimplePie();
+            $reader->set_raw_data( $response->getContent() );
+            $reader->init();
+
+            foreach ( $reader->get_items() as $entry )
+            {
+                $feed->entries[] = $this->parseEntry( $entry );
+            }
         }
         catch ( \Zend\Feed\Reader\Exception\RuntimeException $e )
         {
@@ -57,35 +62,27 @@ class Parser
             return $feed;
         }
 
-        foreach ( $data as $entry )
-        {
-            $feed->entries[] = $this->parseEntry( $entry );
-        }
-
         return $feed;
     }
 
     /**
-     * Converts a single zend feed entry into something sensible
+     * Converts a single feed entry into something sensible
      *
-     * @param mixed $data
+     * @param \SimplePie_Item $entry
      * @return Struct\FeedEntry
      */
-    protected function parseEntry( $data )
+    protected function parseEntry( \SimplePie_Item $data )
     {
         $entry = new Struct\FeedEntry(
             null,
-            $data->getLink(),
+            $data->get_link(),
             null,
-            $data->getTitle()
+            $data->get_title()
         );
 
-        $entry->date        = $data->getDateModified() ?
-            $data->getDateModified()->format( 'U' ) :
-            time();
-
-        $entry->description = $data->getDescription();
-        $entry->content     = $data->getContent();
+        $entry->date        = $data->get_date( 'U' ) ?: time();
+        $entry->description = $data->get_description();
+        $entry->content     = $data->get_content();
 
         return $entry;
     }

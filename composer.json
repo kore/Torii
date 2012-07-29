@@ -24,6 +24,7 @@
         "Qafoo/RMF": "dev-master",
         "twitter/bootstrap": "0.1",
         "twig/twig": "1.6.0",
+        "simplepie/simplepie": "*",
         "kriswallsmith/buzz": "*",
         "doctrine/common": "2.*",
         "doctrine/dbal": "2.*"

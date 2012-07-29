@@ -1,5 +1,5 @@
 {
-    "hash": "8c658eb89077cc267346ee00d4dc3977",
+    "hash": "4ffbd73f4bad3a416378d6ef1fed49e8",
     "packages": [
         {
             "package": "Qafoo/RMF",
@@ -36,6 +36,12 @@
             "version": "dev-master",
             "source-reference": "2ba5da13b1b03590f0164b3fb61578078d671fcc",
             "commit-date": "1341070218"
+        },
+        {
+            "package": "simplepie/simplepie",
+            "version": "dev-master",
+            "source-reference": "09288e5bc2f630310c8f875fe8f81e8c24b5765b",
+            "commit-date": "1341729612"
         },
         {
             "package": "twig/twig",
