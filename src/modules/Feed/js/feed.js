@@ -137,7 +137,8 @@
     };
 
     Feed.refresh = function( id ) {
-        var target = "#" + id + "-content";
+        var target = "#" + id + "-content",
+            buttonTarget = "#" + id + " .header-buttons";
 
         $.get(
             "/module/" + id + "/update",
@@ -169,9 +170,8 @@
                     }
                 );
 
-                target = "#" + id + " .header-buttons";
                 Torii.showTemplate(
-                    target,
+                    buttonTarget,
                     "/templates/feed/buttons.mustache",
                     {   feeds: _.uniq( _.map(
                                 data,
@@ -182,7 +182,7 @@
                         module: id
                     },
                     function () {
-                        $( target ).find( "a.feed-button" ).on( "click", function( event ) {
+                        $( buttonTarget ).find( "a.feed-button" ).on( "click", function( event ) {
                             $.post(
                                 "/module/" + id + "/clear/" + $( event.currentTarget ).data( "feed" ),
                                 {},
