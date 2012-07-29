@@ -106,6 +106,10 @@ hr {
     float: right;
 }
 
+.module .header .btn-group > .btn {
+    padding: 1px 2px;
+}
+
 .module .body {
     padding: 3px 4px;
     color: #ffffff;
