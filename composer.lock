@@ -1,5 +1,5 @@
 {
-    "hash": "2a1025668615df7b7a71dbfdb3b711fe",
+    "hash": "8c658eb89077cc267346ee00d4dc3977",
     "packages": [
         {
             "package": "Qafoo/RMF",
@@ -44,18 +44,6 @@
         {
             "package": "twitter/bootstrap",
             "version": "0.1"
-        },
-        {
-            "package": "zendframework/zend-feed",
-            "version": "2.0.0-beta5"
-        },
-        {
-            "package": "zendframework/zend-loader",
-            "version": "2.0.0-beta5"
-        },
-        {
-            "package": "zendframework/zend-stdlib",
-            "version": "2.0.0-beta5"
         }
     ],
     "packages-dev": null,
