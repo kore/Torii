@@ -1,5 +1,5 @@
 {
-    "hash": "8c658eb89077cc267346ee00d4dc3977",
+    "hash": "f4aba39223cea67f44d8d041e4519646",
     "packages": [
         {
             "package": "Qafoo/RMF",
@@ -44,6 +44,18 @@
         {
             "package": "twitter/bootstrap",
             "version": "0.1"
+        },
+        {
+            "package": "zendframework/zendframework",
+            "version": "dev-master",
+            "alias-pretty-version": "2.0.x-dev",
+            "alias-version": "2.0.9999999.9999999-dev"
+        },
+        {
+            "package": "zendframework/zendframework",
+            "version": "dev-master",
+            "source-reference": "8c4328f2ac0001a3b5f1c10166b2a5c35b6f2e73",
+            "commit-date": "1343526705"
         }
     ],
     "packages-dev": null,
