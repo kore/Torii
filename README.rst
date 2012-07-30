@@ -32,7 +32,7 @@ need to adapt the database connection settings in ``build.properties`` and
 Lighttpd Example
 ----------------
 
-Example configuration for the lighttd webserver::
+Example configuration for the lighttpd webserver::
 
     $HTTP["host"] =~ "torii$" {
         server.document-root = "/path/to/torii/htdocs"
