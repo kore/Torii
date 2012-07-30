@@ -6,6 +6,12 @@
         "type": "vcs",
         "url":  "https://github.com/Qafoo/REST-Micro-Framework"
     }, {
+        "type": "vcs",
+        "url":  "https://github.com/Arbitracker/XML"
+    }, {
+        "type": "vcs",
+        "url":  "https://github.com/Arbitracker/Periodic"
+    }, {
         "type": "composer",
         "url":  "http://packages.zendframework.com/"
     }, {
@@ -21,6 +27,7 @@
         }
     } ],
     "require":      {
+        "Arbit/Periodic": "dev-master",
         "Qafoo/RMF": "dev-master",
         "twitter/bootstrap": "0.1",
         "twig/twig": "1.6.0",

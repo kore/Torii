@@ -1,6 +1,18 @@
 {
-    "hash": "f4aba39223cea67f44d8d041e4519646",
+    "hash": "e5ad23a33615bf0612ed6d2483cdda6e",
     "packages": [
+        {
+            "package": "Arbit/Periodic",
+            "version": "dev-master",
+            "source-reference": "e28496ca6de1415aff133c97d3f35b340a60621e",
+            "commit-date": "1343677975"
+        },
+        {
+            "package": "Arbit/XML",
+            "version": "dev-master",
+            "source-reference": "cca2e65b92913b644c90957f1db1879f13797b5b",
+            "commit-date": "1343582287"
+        },
         {
             "package": "Qafoo/RMF",
             "version": "dev-master",
@@ -54,8 +66,8 @@
         {
             "package": "zendframework/zendframework",
             "version": "dev-master",
-            "source-reference": "8c4328f2ac0001a3b5f1c10166b2a5c35b6f2e73",
-            "commit-date": "1343526705"
+            "source-reference": "d96c0465e8713055c29a58f460c0742d506d765b",
+            "commit-date": "1343678077"
         }
     ],
     "packages-dev": null,
@@ -64,6 +76,7 @@
     ],
     "minimum-stability": "dev",
     "stability-flags": {
+        "arbit/periodic": 20,
         "qafoo/rmf": 20
     }
 }
