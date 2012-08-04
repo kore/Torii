@@ -1,5 +1,9 @@
 {% extends "html/index.twig" %}
 
+{% block navItems %}
+<li><a href="/auth/logout" title="Logout"><i class="icon-off icon-white"></i></a></li>
+{% endblock %}
+
 {% block content %}
 <div class="box well">
     {% for error in errors %}
