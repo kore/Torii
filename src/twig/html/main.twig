@@ -2,8 +2,16 @@
 
 {% block navItems %}
 <li><a data-toggle="modal" href="#addModule" title="Add Module"><i class="icon-plus icon-white"></i></a></li>
-<li><a data-toggle="modal" href="#import" title="Import portal configuration"><i class="icon-download-alt icon-white"></i></a></li>
-<li><a href="/portal/settings" title="Settings"><i class="icon-cog icon-white"></i></a></li>
+<li class="dropdown" id="menu1">
+    <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="#" title="Settings">
+        <i class="icon-cog icon-white"></i>
+    </a>
+    <ul class="dropdown-menu">
+        <li><a data-toggle="modal" href="#import" title="Import portal configuration"><i class="icon-download-alt"></i> Import configuration</a></li>
+        <li class="divider"></li>
+        <li><a href="/portal/settings" title="Settings"><i class="icon-cog"></i> General settings</a></li>
+    </ul>
+</li>
 <li><a href="/auth/logout" title="Logout"><i class="icon-off icon-white"></i></a></li>
 {% endblock %}
 
