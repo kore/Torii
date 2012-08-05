@@ -4,8 +4,8 @@
         {
             "package": "Arbit/Periodic",
             "version": "dev-master",
-            "source-reference": "43894f1bde98c15828e22ff1656a015526f49933",
-            "commit-date": "1344161567"
+            "source-reference": "398b18fc08d792f6e51b120df36a5e8d757ea9e9",
+            "commit-date": "1344163855"
         },
         {
             "package": "Arbit/XML",
