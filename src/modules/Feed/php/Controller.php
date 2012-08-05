@@ -8,6 +8,7 @@
 namespace Torii\Module\Feed;
 
 use Qafoo\RMF;
+use Arbit\Periodic;
 use Torii\Struct;
 
 /**
@@ -136,20 +137,20 @@ class Controller
     }
 
     /**
-     * Method triggered by cron job to refresh feed data
+     * Update feeds
      *
+     * @param Periodic\Logger $logger
      * @return void
      */
-    public function refresh( $verbose = false )
+    public function refresh( Periodic\Logger $logger )
     {
         foreach ( $this->model->getPending( 300 ) as $url )
         {
-            if ( $verbose ) echo "Parsing {$url->url}: ";
+            $logger->log( "Update {$url->url}" );
             $feed = $this->parser->parse( $url );
 
             foreach ( $feed->entries as $entry )
             {
-                if ( $verbose ) echo ".";
                 $this->model->addEntry(
                     $url->id,
                     $entry->link,
@@ -160,7 +161,7 @@ class Controller
                 );
             }
 
-            if ( $verbose ) echo " {$feed->status}.", PHP_EOL;
+            $logger->log( "Done -- status: {$feed->status}" );
             $this->model->updateUrl(
                 $url->id,
                 $feed->status,

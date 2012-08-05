@@ -8,6 +8,7 @@
 namespace Torii\Module\Feed;
 
 use Qafoo\RMF;
+use Arbit\Periodic;
 use Torii\Struct;
 use Torii\DIC;
 use Torii\Assets;
@@ -17,7 +18,7 @@ use Torii\Assets;
  *
  * @version $Revision$
  */
-class Module extends \Torii\Module
+class Module extends \Torii\Module implements \Torii\Cronable
 {
     /**
      * Mapping of routes to actions
@@ -111,13 +112,14 @@ class Module extends \Torii\Module
     }
 
     /**
-     * Method triggered by cron job to refresh feed data
+     * Run something in the module. Usually refresh some data.
      *
+     * @param Periodic\Logger $logger
      * @return void
      */
-    public function refresh( $verbose = false )
+    public function refresh( Periodic\Logger $logger )
     {
-        $this->getController()->refresh( $verbose );
+        $this->getController()->refresh( $logger );
     }
 }
 

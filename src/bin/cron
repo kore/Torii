@@ -1,0 +1,79 @@
+#!/usr/bin/env php
+<?php
+/**
+ * This file is part of Torii
+ *
+ * @version $Revision$
+ */
+
+namespace Torii;
+
+use Arbit\Periodic;
+
+// @TODO: Migrate this to use periodic
+require __DIR__ . '/../php/Torii/bootstrap.php';
+$dic = new DIC\Base();
+$dic->environment = 'development';
+
+// Read passed command line options.
+$options = getopt( 'vh', array( 'verbose', 'help' ) );
+
+// Ensure commands could been parsed
+if ( $options === false )
+{
+    echo "Could not parse passed commands. Try --help for help.\n";
+    exit( 1 );
+}
+
+// Echo help, if requested
+if ( isset( $options['h'] ) ||
+     isset( $options['help'] ) )
+{
+    echo <<<EOHELP
+Cron runner
+
+Runs all tasks scheduled since the last call.
+Usage: ${argv[0]} [options]
+
+Options:
+
+-h / --help     Display this help output
+-v / --verbose  Verbose output, print info messages
+
+EOHELP;
+    exit( 0 );
+}
+
+try
+{
+    // Instantiate logger
+    $logger = new Periodic\Logger\Cli();
+
+    // Set logger verbose, if requested
+    if ( !isset( $options['v'] ) &&
+         !isset( $options['verbose'] ) )
+    {
+        $logger->setMapping( Periodic\Logger::INFO, Periodic\Logger\Cli::SILENCE );
+    }
+
+    // Instantiate task factory
+    $taskFactory = new Periodic\TaskFactory(
+        __DIR__ . '/../tasks',
+        $dic->commandRegistry
+    );
+
+    // Instantiate executor
+    $executor = new Periodic\Executor(
+        file_get_contents( __DIR__ . '/../crontab' ),
+        $taskFactory,
+        $logger,
+        __DIR__ . '/../var'
+    );
+    $executor->run();
+}
+catch ( Exception $e )
+{
+    echo $e->getMessage();
+    exit( 3 );
+}
+

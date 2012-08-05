@@ -1,0 +1,20 @@
+# Torii cron tab
+#
+# Uses the same syntax like vixie-cron for the cron definitions, and associates
+# optionally grouped tasks with the schedule definitions.
+#
+# The tasks are specified as <group>:<task>, while no tasks of the same group
+# will be executed in parallel. The task definitions can be found in the
+# directory tasks/. The task name is the name of the respective task definition
+# file without the extension.
+#
+# To execute the cron jobs run `./bin/cron`. You might want to add this to your
+# real crontab, like this:
+#
+# # * * * * * ./bin/cron
+#
+# The Torii cron runner (periodic) will ensure that the tasks are not executed
+# twice in parallel or called too often.
+
+# Update feeds regularly
+*/2 * * * * module:feed

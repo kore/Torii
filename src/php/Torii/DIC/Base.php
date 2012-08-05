@@ -27,6 +27,7 @@ class Base extends DIC
     protected $alwaysShared = array(
         'srcDir'          => true,
         'configuration'   => true,
+        'commandRegistry' => true,
         'debug'           => true,
         'mimeTypeGuesser' => true,
         'javaScript'      => true,
@@ -69,6 +70,17 @@ class Base extends DIC
                 $dic->srcDir . '/config/config.ini',
                 $dic->environment
             );
+        };
+
+        $this->commandRegistry = function ( $dic )
+        {
+            $commandRegistry = new \Arbit\Periodic\CommandRegistry();
+            $commandRegistry->registerCommand(
+                'torii.module',
+                new Torii\Command\Module( $dic->modules )
+            );
+
+            return $commandRegistry;
         };
 
         $this->mimeTypeGuesser = function( $dic )
