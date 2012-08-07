@@ -79,6 +79,18 @@ class Base extends DIC
                 'torii.module',
                 new Torii\Command\Module( $dic->modules )
             );
+            $commandRegistry->registerCommand(
+                'torii.assets',
+                new Torii\Command\AssetWriter(
+                    $dic->srcDir . '/htdocs/',
+                    array(
+                        '/scripts/'   => $dic->javaScript,
+                        '/styles/'    => $dic->css,
+                        '/images/'    => $dic->images,
+                        '/templates/' => $dic->templates,
+                    )
+                )
+            );
 
             return $commandRegistry;
         };
