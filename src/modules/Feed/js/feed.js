@@ -173,12 +173,21 @@
                 Torii.showTemplate(
                     buttonTarget,
                     "/templates/feed/buttons.mustache",
-                    {   feeds: _.uniq( _.map(
-                                data,
-                                function( value ) {
-                                    return value.feed;
-                                }
-                            ).sort(), true ),
+                    {   feeds: _.uniq(
+                            _.map(
+                                    data,
+                                    function( value ) {
+                                        return {
+                                            feed:    value.feed,
+                                            favicon: value.favicon == "" ? null : value.favicon,
+                                        };
+                                    }
+                            ),
+                            false,
+                            function ( value ) {
+                                return value.feed;
+                            }
+                        ),
                         module: id
                     },
                     function () {

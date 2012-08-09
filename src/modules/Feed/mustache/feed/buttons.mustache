@@ -3,8 +3,13 @@
 </a>
 
 {{#feeds}}
-<a class="btn btn-mini btn-inverse feed-button" href="#" data-feed="{{.}}" title="Mark {{.}} as read">
+<a class="btn btn-mini btn-inverse feed-button" href="#" data-feed="{{feed}}" title="Mark {{feed}} as read">
+    {{^favicon}}
     <i class="icon-white icon-check"></i>
+    {{/favicon}}
+    {{#favicon}}
+    <img src="/images/favicons/{{favicon}}" width="16" height="16" alt="{{feed}}" />
+    {{/favicon}}
 </a>
 {{/feeds}}
 

@@ -184,7 +184,7 @@ class Model
 
         $queryBuilder = $this->dbal->createQueryBuilder();
         $queryBuilder
-            ->select( 'd.feed_d_id', 'd.feed_d_data', 'mrel.feed_m_u_name' )
+            ->select( 'd.feed_d_id', 'd.feed_d_data', 'mrel.feed_m_u_name', 'u.feed_u_favicon' )
             ->from( 'feed_m_u_rel', 'mrel' )
             ->join(
                 'mrel',
@@ -195,6 +195,11 @@ class Model
                     // building IN() statements :/
                     $this->dbal->quoteIdentifier( 'd.feed_d_id' ) . 'NOT IN( ' . $subSelect . ' )'
                 )
+            )
+            ->join(
+                'mrel',
+                'feed_url', 'u',
+                $queryBuilder->expr()->eq( 'mrel.feed_u_id', 'u.feed_u_id' )
             )
             ->where(
                 $queryBuilder->expr()->eq( 'mrel.feed_m_id', ':module' )
@@ -212,6 +217,7 @@ class Model
                 return Struct\FeedEntry::create(
                     $row['feed_d_id'],
                     $row['feed_m_u_name'],
+                    $row['feed_u_favicon'],
                     json_decode( $row['feed_d_data'], true )
                 );
             },

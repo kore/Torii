@@ -38,6 +38,13 @@ class FeedEntry extends Struct
     public $feed;
 
     /**
+     * Favicon
+     *
+     * @var string
+     */
+    public $favicon;
+
+    /**
      * Title
      *
      * @var string
@@ -86,13 +93,16 @@ class FeedEntry extends Struct
      * Create from ID and data array
      *
      * @param mixed $id
+     * @param string $feed
+     * @param string $favicon
      * @param array $data
      * @return FeedEntry
      */
-    public static function create( $id, $feed, array $data )
+    public static function create( $id, $feed, $favicon, array $data )
     {
         $entry = new static( $id, $data['link'], $feed, $data['title'] );
 
+        $entry->favicon     = $favicon;
         $entry->description = $data['description'];
         $entry->content     = $data['content'];
 
