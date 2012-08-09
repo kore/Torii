@@ -66,7 +66,7 @@ class ModelTest extends DatabaseTest
     }
 
     /**
-     * @expectedException \PDOException
+     * @expectedException \Doctrine\DBAL\DBALException
      */
     public function testAddSameUrl()
     {
