@@ -144,7 +144,7 @@ class Controller
      */
     public function refresh( Periodic\Logger $logger )
     {
-        foreach ( $this->model->getPending( 300 ) as $url )
+        foreach ( $this->model->getPending( 15 * 60 ) as $url )
         {
             $logger->log( "Update {$url->url}" );
             $feed = $this->parser->parse( $url );
