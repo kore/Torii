@@ -94,7 +94,7 @@ jQuery( document ).ready(function() {
     };
 
     Torii.getConfig = function( module, callback ) {
-        $.get(
+        jQuery.get(
             "/portal/config/" + module,
             callback,
             "json"
@@ -102,7 +102,7 @@ jQuery( document ).ready(function() {
     };
 
     Torii.setConfig = function( module, config, callback ) {
-        $.post(
+        jQuery.post(
             "/portal/config/" + module,
             config,
             callback,
