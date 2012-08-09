@@ -109,6 +109,19 @@ class Module extends \Torii\Module implements \Torii\Cronable
         $dic->javaScript->addFileSet( new Assets\FileSet( __DIR__ . '/js', '*.js' ) );
         $dic->templates->addFileSet( new Assets\FileSet( __DIR__ . '/mustache', 'feed/*.mustache' ) );
         $dic->images->addFileSet( new Assets\FileSet( __DIR__ . '/images', '*.png' ) );
+        $dic->images->addFileSet( new Assets\FileSet( __DIR__ . '/images', 'favicons/*' ) );
+    }
+
+    /**
+     * Get favicon fetcher command
+     *
+     * @return \Arbit\Periodic\Command
+     */
+    public function getFaviconCommand()
+    {
+        return new Command\FaviconFetcher(
+            new Model( $this->dic->dbal )
+        );
     }
 
     /**
