@@ -23,6 +23,7 @@ DROP TABLE IF EXISTS `feed_url`;
 CREATE TABLE `feed_url` (
   `feed_u_id` INT AUTO_INCREMENT NOT NULL,
   `feed_u_url` VARCHAR(4096) NOT NULL,
+  `feed_u_favicon` VARCHAR(255) NULL,
   `feed_u_update` BIGINT NOT NULL,
   `feed_u_status` INT NOT NULL,
   `changed` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,

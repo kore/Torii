@@ -292,5 +292,42 @@ class ModelTest extends DatabaseTest
             $model->getUnread( 'module_1' )
         );
     }
+
+    /**
+     * @depends testAddEntry
+     */
+    public function testGetUrlsWithoutFavicon()
+    {
+        $model = new Model( $this->getDbal() );
+        $model->addUrl( "module_1", "test1", "http://example.com/1" );
+        $model->addUrl( "module_1", "test2", "http://example.com/2" );
+
+        $this->assertEquals(
+            array(
+                new Struct\Url( 1, 'http://example.com/1' ),
+                new Struct\Url( 2, 'http://example.com/2' ),
+            ),
+            $model->getUrlsWithoutFavicon()
+        );
+    }
+
+    /**
+     * @depends testGetUrlsWithoutFavicon
+     */
+    public function testUpdateFavicon()
+    {
+        $model = new Model( $this->getDbal() );
+        $model->addUrl( "module_1", "test1", "http://example.com/1" );
+        $model->addUrl( "module_1", "test2", "http://example.com/2" );
+
+        $model->updateFavicon( 2, 'example.ico' );
+
+        $this->assertEquals(
+            array(
+                new Struct\Url( 1, 'http://example.com/1' ),
+            ),
+            $model->getUrlsWithoutFavicon()
+        );
+    }
 }
 

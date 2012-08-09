@@ -404,5 +404,60 @@ class Model
 
         return $this->dbal->lastInsertId();
     }
+
+    /**
+     * Get URLs which do not yet have a favicon assigned
+     *
+     * @return Struct\Url[]
+     */
+    public function getUrlsWithoutFavicon()
+    {
+        $queryBuilder = $this->dbal->createQueryBuilder();
+        $queryBuilder
+            ->select( 'feed_u_id', 'feed_u_url' )
+            ->from( 'feed_url', 'u' )
+            ->where(
+                $queryBuilder->expr()->eq( 'feed_u_favicon', '""' )
+            );
+
+        $statement = $queryBuilder->execute();
+        $result = $statement->fetchAll( \PDO::FETCH_ASSOC );
+
+        if ( !$result )
+        {
+            return array();
+        }
+
+        return array_map(
+            function ( $urlData )
+            {
+                return new Struct\Url(
+                    $urlData['feed_u_id'],
+                    $urlData['feed_u_url']
+                );
+            },
+            $result
+        );
+    }
+
+    /**
+     * Update favicon for URL
+     *
+     * @param mixed $urlId
+     * @param string $favicon
+     * @return void
+     */
+    public function updateFavicon( $urlId, $favicon )
+    {
+        $this->dbal->update(
+            'feed_url',
+            array(
+                'feed_u_favicon' => $favicon,
+            ),
+            array(
+                'feed_u_id' => $urlId
+            )
+        );
+    }
 }
 
