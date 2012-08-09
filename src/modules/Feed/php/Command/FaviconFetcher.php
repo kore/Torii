@@ -93,11 +93,17 @@ class FaviconFetcher extends Periodic\Command
         {
             // First try to fetch common favicon.ico
             $response = $client->get( $baseUrl. '/favicon.ico' );
-            if ( $response->isOk() )
+            if ( $response->isOk() && ( $content = $response->getContent() ) )
             {
-                $name = $name . '.ico';
-                file_put_contents( $target . $name, $response->getContent() );
-                return $name;
+                // Check for those dickheads, which serve 404 responses with
+                // status code 200 and deliver HTML
+                if ( ( stripos( $content, '<html' ) === false ) &&
+                     ( stripos( $content, '<xml' ) === false ) )
+                {
+                    $name = $name . '.ico';
+                    file_put_contents( $target . $name, $content );
+                    return $name;
+                }
             }
 
             // Load root and try to locate favicon
