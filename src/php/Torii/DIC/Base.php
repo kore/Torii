@@ -88,7 +88,8 @@ class Base extends DIC
                         '/styles/'    => $dic->css,
                         '/images/'    => $dic->images,
                         '/templates/' => $dic->templates,
-                    )
+                    ),
+                    $dic->debug
                 )
             );
 

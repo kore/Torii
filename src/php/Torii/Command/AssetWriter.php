@@ -33,16 +33,25 @@ class AssetWriter extends Periodic\Command
     protected $assets;
 
     /**
+     * Is development mode
+     *
+     * @var bool
+     */
+    protected $development;
+
+    /**
      * Construct
      *
-     * @param array $target
+     * @param string $target
      * @param array $assets
+     * @param bool $development
      * @return void
      */
-    public function __construct( $target, array $assets )
+    public function __construct( $target, array $assets, $development = false )
     {
-        $this->target = $target;
-        $this->assets = $assets;
+        $this->target      = $target;
+        $this->assets      = $assets;
+        $this->development = $development;
     }
 
     /**
@@ -59,6 +68,12 @@ class AssetWriter extends Periodic\Command
      */
     public function run( XML\Node $configuration, Periodic\Logger $logger )
     {
+        if ( $this->development )
+        {
+            $logger->log( "Skip asset writing in development mode." );
+            return Periodic\Executor::SUCCESS;
+        }
+
         $writer = new Assets\Writer();
         foreach ( $this->assets as $path => $collection )
         {
