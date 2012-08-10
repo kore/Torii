@@ -423,7 +423,7 @@ class Model
             ->select( 'feed_u_id', 'feed_u_url' )
             ->from( 'feed_url', 'u' )
             ->where(
-                $queryBuilder->expr()->eq( 'feed_u_favicon', '""' )
+                $queryBuilder->expr()->isNull( 'feed_u_favicon' )
             );
 
         $statement = $queryBuilder->execute();
