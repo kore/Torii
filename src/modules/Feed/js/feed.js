@@ -6,6 +6,8 @@
     Feed = function() {
     };
 
+    Feed.config = {};
+
     Feed.statusMap = {
         0:   "Not Fetched",
         100: "Continue",
@@ -220,8 +222,26 @@
 jQuery( document ).ready( function() {
     $( ".feed-list" ).on( "show", Feed.updateUrlList );
     $( ".feed-list form" ).on( "submit", Feed.addUrl );
+
+
+    $( '.feed-settings' ).on( "submit", function( event ) {
+        var id = $( event.currentTarget ).find( "input[name='id']" ).val(),
+            data = {
+                count:   $( event.currentTarget ).find( "input[name='count']" ).val(),
+                scriber: $( event.currentTarget ).find( "input[name='scriber']" ).is( ":checked" )
+            };
+
+        Feed.config[id] = data;
+        Torii.setConfig( id, data, null );
+        return false;
+    } );
+
     $( ".feed-content" ).each( function( key, element ) {
-        Feed.refresh( $( element ).data().id );
+        var id = $( element ).data().id;
+        Torii.getConfig( id, function( data ) {
+            Feed.config[id] = data;
+            Feed.refresh( id );
+        } );
     } );
 } );
 

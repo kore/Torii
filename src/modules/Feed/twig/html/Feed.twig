@@ -52,4 +52,32 @@
         <a href="#" class="btn" data-dismiss="modal">Close</a>
     </div>
 </div>
+
+<div class="modal hide feed-settings" id="feed-settings-{{module.id}}">
+    <form class="form-horizontal">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">×</button>
+            <h3>Configure: {{module.title}}</h3>
+        </div>
+        <div class="modal-body">
+            <input type="hidden" name="id" value="{{module.id}}" />
+            <div class="control-group">
+                <label class="control-label" for="type">Feed item count</label>
+                <div class="controls">
+                    <input type="text" class="input-text" name="count" value="{{module.settings.count}}" />
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="config">Show Scriber</label>
+                <div class="controls">
+                    <input type="checkbox" {% if module.settings.scriber == "true" %}checked="checked"{% endif %} name="scriber" /> Show scriber of feed entry
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="btn" data-dismiss="modal">Cancel</a>
+            <button type="submit" name="submit" class="btn">Store Configuration</button>
+        </div>
+    </form>
+</div>
 {% endblock %}
