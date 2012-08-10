@@ -2,8 +2,6 @@
 
 {% block title %}
 <div class="btn-group header-buttons">
-    <a class="btn btn-inverse btn-mini" data-toggle="modal" href="#feed-settings-{{module.id}}"><i class="icon-white icon-list"></i></a>
-    <a class="btn btn-inverse btn-mini" href="#"><i class="icon-white icon-refresh"></i></a>
 </div>
 {{parent()}}
 {% endblock %}
@@ -11,7 +9,7 @@
 <div class="feed-content" id="{{module.id}}-content" data-id="{{module.id}}">
 </div>
 
-<div class="modal hide feed-settings" id="feed-settings-{{module.id}}">
+<div class="modal hide feed-list" id="feed-list-{{module.id}}">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">×</button>
         <h3>Configure: {{module.title}}</h3>

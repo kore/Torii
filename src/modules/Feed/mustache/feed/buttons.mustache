@@ -1,7 +1,3 @@
-<a class="btn btn-inverse btn-mini" data-toggle="modal" href="#feed-settings-{{module}}">
-    <i class="icon-white icon-list"></i>
-</a>
-
 {{#feeds}}
 <a class="btn btn-mini btn-inverse feed-button" href="#" data-feed="{{feed}}" title="Mark {{feed}} as read">
     {{^favicon}}
@@ -15,6 +11,27 @@
 </a>
 {{/feeds}}
 
-<a class="btn btn-inverse btn-mini" href="#">
-    <i class="icon-white icon-refresh"></i>
+<a class="btn btn-inverse btn-mini dropdown-toggle" data-toggle="dropdown" data-target="#" href="#" title="Settings">
+    <i class="icon-cog icon-white"></i>
 </a>
+
+<ul class="dropdown-menu">
+    <li>
+        <a class="" data-toggle="modal" href="#feed-settings-{{module}}">
+            <i class="icon icon-cog"></i> Module settings
+        </a>
+    </li>
+    <li>
+        <a class="" data-toggle="modal" href="#feed-list-{{module}}">
+            <i class="icon icon-list"></i> Manage feed list
+        </a>
+    </li>
+    <li class="divider"></li>
+    <li>
+        <a class="" href="#">
+            <i class="icon icon-refresh"></i> Refresh
+        </a>
+    </li>
+</ul>
+
+

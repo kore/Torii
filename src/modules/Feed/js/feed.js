@@ -88,8 +88,7 @@
 
     Feed.updateUrlList = function( event, id ) {
         var id = id || $( event.target ).find( "input[name=id]" ).val(),
-            target = $( "#feed-settings-" + id ).find( "tbody" );
-
+            target = $( "#feed-list-" + id ).find( "tbody" );
         $.get(
             "/module/" + id + "/getList",
             function( data ) {
@@ -124,7 +123,7 @@
     };
 
     Feed.removeUrl = function( event ) {
-        var data = $( event.target ).data();
+        var data = $( event.delegateTarget ).data();
 
         $.post(
             "/module/" + data.module + "/remove",
@@ -219,8 +218,8 @@
 }(this));
 
 jQuery( document ).ready( function() {
-    $( ".feed-settings" ).on( "show", Feed.updateUrlList );
-    $( ".feed-settings form" ).on( "submit", Feed.addUrl );
+    $( ".feed-list" ).on( "show", Feed.updateUrlList );
+    $( ".feed-list form" ).on( "submit", Feed.addUrl );
     $( ".feed-content" ).each( function( key, element ) {
         Feed.refresh( $( element ).data().id );
     } );
