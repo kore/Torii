@@ -94,7 +94,8 @@ class Controller
      */
     public function getFeedData( RMF\Request $request, Struct\User $user, Struct\ModuleConfiguration $module )
     {
-        return $this->model->getUnread( $module->id );
+        $count = isset( $module->settings['count'] ) ? $module->settings['count'] : 10;
+        return $this->model->getUnread( $module->id, $count );
     }
 
     /**
