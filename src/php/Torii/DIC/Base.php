@@ -59,8 +59,8 @@ class Base extends DIC
         $this->debug = function ( $dic )
         {
             return (
-                $this->environment === 'development' ||
-                $this->environment === 'testing'
+                $dic->environment === 'development' ||
+                $dic->environment === 'testing'
             );
         };
 
@@ -108,11 +108,11 @@ class Base extends DIC
         $this->javaScript = function( $dic )
         {
             return new Torii\Assets\Collection\Simple( array(
-                new Torii\Assets\FileSet( $this->srcDir . '/js', 'vendor/jquery/*.js', 'vendor/*/*.min.js' ),
-                new Torii\Assets\FileSet( $this->srcDir . '/js', 'vendor/bootstrap/*.js', 'vendor/*/*.min.js' ),
-                new Torii\Assets\FileSet( $this->srcDir . '/js', 'vendor/mustache/*.js', 'vendor/*/*.min.js' ),
-                new Torii\Assets\FileSet( $this->srcDir . '/js', 'vendor/underscore/*.js', 'vendor/*/*.min.js' ),
-                new Torii\Assets\FileSet( $this->srcDir . '/js', '*.js' ),
+                new Torii\Assets\FileSet( $dic->srcDir . '/js', 'vendor/jquery/*.js', 'vendor/*/*.min.js' ),
+                new Torii\Assets\FileSet( $dic->srcDir . '/js', 'vendor/bootstrap/*.js', 'vendor/*/*.min.js' ),
+                new Torii\Assets\FileSet( $dic->srcDir . '/js', 'vendor/mustache/*.js', 'vendor/*/*.min.js' ),
+                new Torii\Assets\FileSet( $dic->srcDir . '/js', 'vendor/underscore/*.js', 'vendor/*/*.min.js' ),
+                new Torii\Assets\FileSet( $dic->srcDir . '/js', '*.js' ),
             ) );
         };
 
@@ -125,16 +125,16 @@ class Base extends DIC
         $this->css = function( $dic )
         {
             return new Torii\Assets\Collection\Simple( array(
-                new Torii\Assets\FileSet( $this->srcDir . '/css', 'bootstrap.min.css' ),
-                new Torii\Assets\FileSet( $this->srcDir . '/css', 'bootstrap-responsive.min.css' ),
-                new Torii\Assets\FileSet( $this->srcDir . '/css', 'app.css' ),
+                new Torii\Assets\FileSet( $dic->srcDir . '/css', 'bootstrap.min.css' ),
+                new Torii\Assets\FileSet( $dic->srcDir . '/css', 'bootstrap-responsive.min.css' ),
+                new Torii\Assets\FileSet( $dic->srcDir . '/css', 'app.css' ),
             ) );
         };
 
         $this->images = function( $dic )
         {
             return new Torii\Assets\Collection\Simple( array(
-                new Torii\Assets\FileSet( $this->srcDir . '/images', '*.png' ),
+                new Torii\Assets\FileSet( $dic->srcDir . '/images', '*.png' ),
             ) );
         };
 
