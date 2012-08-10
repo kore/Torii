@@ -144,11 +144,13 @@
         $.get(
             "/module/" + id + "/update",
             function( data ) {
+                console.log( data );
                 Torii.showTemplate(
                     target,
                     "/templates/feed/entries.mustache",
                     {   entries: data,
-                        module: id
+                        module: id,
+                        scriber: Feed.config[id].scriber === "true"
                     },
                     function () {
                         $( target ).find( "li a" ).on( "mousedown", function( event ) {

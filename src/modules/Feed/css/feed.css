@@ -35,3 +35,11 @@
     background-color: #ffffff;
 }
 
+ul.feed h4 {
+}
+
+ul.feed p.scriber {
+    max-height: 70px;
+    overflow: hidden;
+}
+

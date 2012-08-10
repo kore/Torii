@@ -2,7 +2,13 @@
 {{#entries}}
     <li>
         <a href="{{link}}" target="_blank" data-id="{{id}}">
+            {{^scriber}}
             <span class="feed">[{{feed}}]</span> {{title}}
+            {{/scriber}}
+            {{#scriber}}
+            <h4><span class="feed">[{{feed}}]</span> {{title}}</h4>
+            <p class="scriber">{{{description}}}</p>
+            {{/scriber}}
         </a>
     </li>
 {{/entries}}
