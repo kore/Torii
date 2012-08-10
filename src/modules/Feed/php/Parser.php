@@ -84,8 +84,8 @@ class Parser
             $data->getDateModified()->format( 'U' ) :
             time();
 
-        $entry->description = $data->getDescription();
-        $entry->content     = $data->getContent();
+        $entry->content     = $data->getContent() ?: $data->getDescription();
+        $entry->description = strip_tags( $data->getDescription() ?: $data->getContent() );
 
         return $entry;
     }
