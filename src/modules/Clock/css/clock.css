@@ -1,0 +1,15 @@
+div.time {
+    font-size: 24px;
+    font-weight: bold;
+
+    text-align: center;
+
+    margin: 5px 0px;
+}
+
+div.date {
+    font-size: 16px;
+    text-align: center;
+
+    margin: 5px 0px;
+}
