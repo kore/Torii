@@ -144,7 +144,6 @@
         $.get(
             "/module/" + id + "/update",
             function( data ) {
-                console.log( data );
                 Torii.showTemplate(
                     target,
                     "/templates/feed/entries.mustache",
