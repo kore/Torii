@@ -33,6 +33,7 @@
         "twig/twig": "1.6.0",
         "kriswallsmith/buzz": "*",
         "zendframework/zendframework": "dev-master",
+        "sabre/vobject" : "dev-master",
         "doctrine/common": "2.*",
         "doctrine/dbal": "2.*"
     },

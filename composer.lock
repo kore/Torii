@@ -1,5 +1,5 @@
 {
-    "hash": "1e1134e42b9254fb23cf6fb5c056646d",
+    "hash": "ab89a79c752f4f49055ec6b56dd1df82",
     "packages": [
         {
             "package": "Arbit/Periodic",
@@ -50,6 +50,12 @@
             "commit-date": "1341070218"
         },
         {
+            "package": "sabre/vobject",
+            "version": "dev-master",
+            "source-reference": "3caefe0f7af0e1b79a8454e1d74679986b45334b",
+            "commit-date": "1344618603"
+        },
+        {
             "package": "twig/twig",
             "version": "1.6.0"
         },
@@ -78,6 +84,7 @@
     "stability-flags": {
         "arbit/periodic": 20,
         "qafoo/rmf": 20,
-        "zendframework/zendframework": 20
+        "zendframework/zendframework": 20,
+        "sabre/vobject": 20
     }
 }
