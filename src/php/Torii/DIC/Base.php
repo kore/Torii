@@ -26,6 +26,7 @@ class Base extends DIC
      */
     protected $alwaysShared = array(
         'srcDir'          => true,
+        'environment'     => true,
         'configuration'   => true,
         'commandRegistry' => true,
         'debug'           => true,
@@ -54,6 +55,22 @@ class Base extends DIC
         $this->srcDir = function ( $dic )
         {
             return substr( __DIR__, 0, strpos( __DIR__, '/src/' ) + 4 );
+        };
+
+        $this->environment = function ( $dic )
+        {
+            if ( !is_file( $file = $dic->srcDir . '/../build.properties.local' ) )
+            {
+                return 'production';
+            }
+
+            $config = @parse_ini_file( $file );
+            if ( !isset( $config['commons.env'] ) )
+            {
+                return 'production';
+            }
+
+            return $config['commons.env'];
         };
 
         $this->debug = function ( $dic )

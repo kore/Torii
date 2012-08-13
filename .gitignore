@@ -2,3 +2,4 @@
 .pear
 build
 src/library/*
+build.properties.local

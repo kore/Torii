@@ -13,7 +13,6 @@ use Arbit\Periodic;
 // @TODO: Migrate this to use periodic
 require __DIR__ . '/../php/Torii/bootstrap.php';
 $dic = new DIC\Base();
-$dic->environment = 'development';
 
 // Read passed command line options.
 $options = getopt( 'vh', array( 'verbose', 'help' ) );

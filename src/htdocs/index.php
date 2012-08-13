@@ -10,7 +10,6 @@ use Qafoo\RMF;
 
 require __DIR__ . '/../php/Torii/bootstrap.php';
 $dic = new DIC\Base();
-$dic->environment = 'development';
 
 $dispatcher = new RMF\Dispatcher\Simple(
     new RMF\Router\Regexp( array(

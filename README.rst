@@ -29,6 +29,14 @@ After that configure your webserver properly, and you should done. You might
 need to adapt the database connection settings in ``build.properties`` and
 ``src/config/config.ini``.
 
+Development
+===========
+
+To set the application to development mode create a file
+``build.properties.local`` containing ``commons.env = development`` in the
+project root (just beside the ``build.properties`` file). You can set other
+local build envrionment variables there, too.
+
 Lighttpd Example
 ----------------
 
