@@ -7,7 +7,7 @@ and adding new modules. Torii includes full API documentation and an initial
 set of modules for feed aggregation, weather statistics, and more...
 
 Requirements
-===========
+============
 
 - Ant >= 1.8.0
 - PHP >= 5.3
@@ -28,6 +28,14 @@ To install Torii, clone the repository and run the following commands::
 After that configure your webserver properly, and you should done. You might
 need to adapt the database connection settings in ``build.properties`` and
 ``src/config/config.ini``.
+
+Configuration
+=============
+
+To configure your Torii instance copy the ``src/config/config.ini.dist`` to
+``srtc/config/config.ini`` and edit the settings there. If you change the
+database connection settings you might also want to do this in your
+``build.properties.local`` -- see `Development`_ for details.
 
 Development
 ===========
