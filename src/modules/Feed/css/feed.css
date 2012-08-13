@@ -35,6 +35,10 @@
     background-color: #ffffff;
 }
 
+ul.feed a {
+    display: block;
+}
+
 ul.feed h4 {
 }
 
