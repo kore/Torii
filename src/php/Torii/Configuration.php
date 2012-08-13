@@ -36,6 +36,12 @@ class Configuration
      */
     public function __construct( $iniFile, $environment )
     {
+        if ( !is_file( $iniFile ) &&
+             is_file( $iniFile . '.dist' ) )
+        {
+            $iniFile = $iniFile . '.dist';
+        }
+
         $this->parseIniFile( $iniFile, $environment );
     }
 
