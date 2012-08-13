@@ -3,8 +3,8 @@ Torii
 =====
 
 Torii is a simple but powerful portal application which easily allows writing
-and adding new modules. Torii includes full API documentation and an initial
-set of modules for feed aggregation, weather statistics, and more...
+and adding new modules. Torii includes an initial set of modules for feed
+aggregation, weather statistics, and more...
 
 Requirements
 ============
@@ -26,8 +26,8 @@ To install Torii, clone the repository and run the following commands::
     ant install
 
 After that configure your webserver properly, and you should done. You might
-need to adapt the database connection settings in ``build.properties`` and
-``src/config/config.ini``.
+need to adapt the database connection settings -- see `Configuration`_ for
+details.
 
 Lighttpd Example
 ----------------
@@ -44,7 +44,7 @@ Example configuration for the lighttpd webserver::
     }
 
 Configuration
-=============
+-------------
 
 To configure your Torii instance copy the ``src/config/config.ini.dist`` to
 ``srtc/config/config.ini`` and edit the settings there. If you change the
@@ -57,7 +57,11 @@ Development
 To set the application to development mode create a file
 ``build.properties.local`` containing ``commons.env = development`` in the
 project root (just beside the ``build.properties`` file). You can set other
-local build envrionment variables there, too.
+local build environment variables there, too.
+
+To run the tests for Torii just execute ``ant`` in the project root (where the
+``build.xml`` file resides). The first run may take a while, but subsequent
+runs will be a lot faster.
 
 
 ..
