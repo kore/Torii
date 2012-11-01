@@ -510,9 +510,49 @@ class Model
      *
      * @return void
      */
-    public function cleanOldData()
+    public function cleanOldData( $old = null )
     {
-        return;
+        $old = $old ?: time() - 30 * 24 * 60 * 60;
+
+        $subSelect = $this->dbal->createQueryBuilder();
+        $subSelect
+            ->select( 'feed_u_id' )
+            ->from( 'feed_url', 'url' );
+
+        $queryBuilder = $this->dbal->createQueryBuilder();
+        $queryBuilder
+            ->delete( 'feed_data' )
+            ->where(
+                $queryBuilder->expr()->orx(
+                    $this->dbal->quoteIdentifier( 'feed_u_id' ) . ' NOT IN( ' . $subSelect . ' )',
+                    $queryBuilder->expr()->lte( 'feed_d_time', ':time' )
+                )
+            )
+            ->setParameter( ':time', $old );
+
+        $queryBuilder->execute();
+    }
+
+    /**
+     * Clean unused read markers
+     *
+     * @return void
+     */
+    public function cleanUnusedReadMarkers( $old = null )
+    {
+        $subSelect = $this->dbal->createQueryBuilder();
+        $subSelect
+            ->select( 'feed_d_id' )
+            ->from( 'feed_data', 'data' );
+
+        $queryBuilder = $this->dbal->createQueryBuilder();
+        $queryBuilder
+            ->delete( 'feed_m_d_rel' )
+            ->where(
+                $this->dbal->quoteIdentifier( 'feed_d_id' ) . ' NOT IN( ' . $subSelect . ' )'
+            );
+
+        $queryBuilder->execute();
     }
 }
 

@@ -54,6 +54,8 @@ class Cleanup extends Periodic\Command
         $this->model->cleanUnusedFeeds();
         $logger->log( "Cleaning up old feed entries." );
         $this->model->cleanOldData();
+        $logger->log( "Cleaning up unused read markers." );
+        $this->model->cleanUnusedReadMarkers();
 
         return Periodic\Executor::SUCCESS;
     }
