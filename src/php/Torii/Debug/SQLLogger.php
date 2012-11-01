@@ -79,10 +79,11 @@ class SQLLogger implements \Doctrine\DBAL\Logging\SQLLogger
             file_put_contents(
                 $this->logFile,
                 sprintf(
-                    "[%s] Query took %.2fs seconds:\n%s\n\n",
+                    "[%s] Query took %.2fs seconds:\n%s\n%s\n\n",
                     date( 'r' ),
                     $time,
-                    $this->lastQuery['sql']
+                    $this->lastQuery['sql'],
+                    var_export( $this->lastQuery['params'], true )
                 ),
                 \FILE_APPEND
             );
