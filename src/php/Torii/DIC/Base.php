@@ -113,6 +113,10 @@ class Base extends DIC
                 'torii.feed.favicons',
                 $dic->modules['Feed']->getFaviconCommand()
             );
+            $commandRegistry->registerCommand(
+                'torii.feed.cleanup',
+                $dic->modules['Feed']->getCleanupCommand()
+            );
 
             return $commandRegistry;
         };

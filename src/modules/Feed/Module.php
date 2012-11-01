@@ -125,6 +125,18 @@ class Module extends \Torii\Module implements \Torii\Cronable
     }
 
     /**
+     * Get cleanup command
+     *
+     * @return \Arbit\Periodic\Command
+     */
+    public function getCleanupCommand()
+    {
+        return new Command\Cleanup(
+            new Model( $this->dic->dbal )
+        );
+    }
+
+    /**
      * Run something in the module. Usually refresh some data.
      *
      * @param Periodic\Logger $logger
