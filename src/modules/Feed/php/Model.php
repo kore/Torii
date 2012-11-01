@@ -166,12 +166,12 @@ class Model
     }
 
     /**
-     * Get unread feed entries for module
+     * Get IDs of items already read for the given feed
      *
      * @param string $module
-     * @return Struct\Entry[]
+     * @return int[]
      */
-    public function getUnread( $module, $count = 10 )
+    protected function getReadDataIds( $module )
     {
         $subSelect = $this->dbal->createQueryBuilder();
         $subSelect
@@ -181,6 +181,26 @@ class Model
                 $subSelect->expr()->eq( 'feed_m_id', ':module' )
             )
             ->setParameter( ':module', $module );
+        $statement = $subSelect->execute();
+        $result = $statement->fetchAll( \PDO::FETCH_ASSOC );
+        return array_map(
+            function ( $row )
+            {
+                return $row['feed_d_id'];
+            },
+            $result
+        );
+    }
+
+    /**
+     * Get unread feed entries for module
+     *
+     * @param string $module
+     * @return Struct\Entry[]
+     */
+    public function getUnread( $module, $count = 10 )
+    {
+        $read = $this->getReadDataIds( $module );
 
         $queryBuilder = $this->dbal->createQueryBuilder();
         $queryBuilder
@@ -193,7 +213,7 @@ class Model
                     $queryBuilder->expr()->eq( 'mrel.feed_u_id', 'd.feed_u_id' ),
                     // @HACK: Doctrine DBAL is buggy currently regarding
                     // building IN() statements :/
-                    $this->dbal->quoteIdentifier( 'd.feed_d_id' ) . 'NOT IN( ' . $subSelect . ' )'
+                    $this->dbal->quoteIdentifier( 'd.feed_d_id' ) . ' NOT IN( ' . implode( ', ', $read ) . ' )'
                 )
             )
             ->join(
@@ -299,14 +319,7 @@ class Model
      */
     public function clear( $module, $feed )
     {
-        $subSelect = $this->dbal->createQueryBuilder();
-        $subSelect
-            ->select( 'feed_d_id' )
-            ->from( 'feed_m_d_rel', 'rel' )
-            ->where(
-                $subSelect->expr()->eq( 'feed_m_id', ':module' )
-            )
-            ->setParameter( ':module', $module );
+        $read = $this->getReadDataIds( $module );
 
         $queryBuilder = $this->dbal->createQueryBuilder();
         $queryBuilder
@@ -319,7 +332,7 @@ class Model
                     $queryBuilder->expr()->eq( 'mrel.feed_u_id', 'd.feed_u_id' ),
                     // @HACK: Doctrine DBAL is buggy currently regarding
                     // building IN() statements :/
-                    $this->dbal->quoteIdentifier( 'd.feed_d_id' ) . 'NOT IN( ' . $subSelect . ' )'
+                    $this->dbal->quoteIdentifier( 'd.feed_d_id' ) . ' NOT IN( ' . implode( ', ', $read ) . ' )'
                 )
             )
             ->where(
