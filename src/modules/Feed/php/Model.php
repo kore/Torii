@@ -482,5 +482,37 @@ class Model
             )
         );
     }
+
+    /**
+     * Clean unused feed URLs
+     *
+     * @return void
+     */
+    public function cleanUnusedFeeds()
+    {
+        $subSelect = $this->dbal->createQueryBuilder();
+        $subSelect
+            ->select( 'feed_u_id' )
+            ->from( 'feed_m_u_rel', 'rel' );
+
+        $queryBuilder = $this->dbal->createQueryBuilder();
+        $queryBuilder
+            ->delete( 'feed_url' )
+            ->where(
+                $this->dbal->quoteIdentifier( 'feed_u_id' ) . ' NOT IN( ' . $subSelect . ' )'
+            );
+
+        $queryBuilder->execute();
+    }
+
+    /**
+     * Clean old feed data
+     *
+     * @return void
+     */
+    public function cleanOldData()
+    {
+        return;
+    }
 }
 
