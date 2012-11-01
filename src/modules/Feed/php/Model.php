@@ -168,6 +168,10 @@ class Model
     /**
      * Get IDs of items already read for the given feed
      *
+     * This is not executed as a subquery, because this extraction into an
+     * extra query speeds up the query execution A LOT. Stupidity, but works
+     * better,
+     *
      * @param string $module
      * @return int[]
      */
