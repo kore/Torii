@@ -184,10 +184,18 @@ class Base extends DIC
 
         $this->dbal = function( $dic )
         {
-            return \Doctrine\DBAL\DriverManager::getConnection(
+            $connection = \Doctrine\DBAL\DriverManager::getConnection(
                 $dic->configuration->database,
                 new \Doctrine\DBAL\Configuration()
             );
+            $connection->getConfiguration()->setSQLLogger(
+                new Torii\Debug\SQLLogger(
+                    $dic->srcDir . '/var/slow.log',
+                    .1
+                )
+            );
+
+            return $connection;
         };
 
         $this->userModel = function( $dic )
