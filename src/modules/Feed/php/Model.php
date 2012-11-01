@@ -193,7 +193,7 @@ class Model
                 return $row['feed_d_id'];
             },
             $result
-        );
+        ) ?: array( 0 );
     }
 
     /**
