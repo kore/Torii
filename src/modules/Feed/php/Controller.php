@@ -149,6 +149,7 @@ class Controller
         {
             $logger->log( "Update {$url->url}" );
             $feed = $this->parser->parse( $url );
+            $feed->entries = array_slice( $feed->entries, 0, 50 );
 
             foreach ( $feed->entries as $entry )
             {

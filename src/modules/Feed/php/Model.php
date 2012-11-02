@@ -510,27 +510,69 @@ class Model
      *
      * @return void
      */
-    public function cleanOldData( $old = null )
+    public function cleanOldData()
     {
-        $old = $old ?: time() - 30 * 24 * 60 * 60;
-
         $subSelect = $this->dbal->createQueryBuilder();
         $subSelect
             ->select( 'feed_u_id' )
             ->from( 'feed_url', 'url' );
 
+        $statement = $subSelect->execute();
+        $result = $statement->fetchAll( \PDO::FETCH_ASSOC );
+        $urls = array_map(
+            function ( $row )
+            {
+                return $row['feed_u_id'];
+            },
+            $result
+        ) ?: array( 0 );
+
+        // Remove feed data for feeds no longer existing
         $queryBuilder = $this->dbal->createQueryBuilder();
         $queryBuilder
             ->delete( 'feed_data' )
             ->where(
-                $queryBuilder->expr()->orx(
-                    $this->dbal->quoteIdentifier( 'feed_u_id' ) . ' NOT IN( ' . $subSelect . ' )',
-                    $queryBuilder->expr()->lte( 'feed_d_time', ':time' )
-                )
-            )
-            ->setParameter( ':time', $old );
-
+                $this->dbal->quoteIdentifier( 'feed_u_id' ) . ' NOT IN( ' . implode( ', ', $urls ) . ' )'
+            );
         $queryBuilder->execute();
+
+        // Only keep the 50 most recent feed data rows per URL
+        foreach ( $urls as $urlId )
+        {
+            $queryBuilder = $this->dbal->createQueryBuilder();
+            $queryBuilder
+                ->select( 'feed_d_id' )
+                ->from( 'feed_data', 'data' )
+                ->where(
+                    $queryBuilder->expr()->eq( 'data.feed_u_id', ':url' )
+                )
+                ->setParameter( ':url', $urlId )
+                ->orderBy( 'data.feed_d_time' )
+                ->setMaxResults( 32768 )
+                ->setFirstResult( 50 );
+            $queryBuilder->execute();
+
+            $statement = $queryBuilder->execute();
+            $result = $statement->fetchAll( \PDO::FETCH_ASSOC );
+            $dataIds = array_map(
+                function ( $row )
+                {
+                    return $row['feed_d_id'];
+                },
+                $result
+            );
+
+            if ( count( $dataIds ) )
+            {
+                $queryBuilder = $this->dbal->createQueryBuilder();
+                $queryBuilder
+                    ->delete( 'feed_data' )
+                    ->where(
+                        $this->dbal->quoteIdentifier( 'feed_d_id' ) . ' IN( ' . implode( ', ', $dataIds ) . ' )'
+                    );
+                $queryBuilder->execute();
+            }
+        }
     }
 
     /**
@@ -538,7 +580,7 @@ class Model
      *
      * @return void
      */
-    public function cleanUnusedReadMarkers( $old = null )
+    public function cleanUnusedReadMarkers()
     {
         $subSelect = $this->dbal->createQueryBuilder();
         $subSelect
