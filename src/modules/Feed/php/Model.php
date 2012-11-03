@@ -547,7 +547,7 @@ class Model
                     $queryBuilder->expr()->eq( 'data.feed_u_id', ':url' )
                 )
                 ->setParameter( ':url', $urlId )
-                ->orderBy( 'data.feed_d_time' )
+                ->orderBy( 'data.feed_d_time', 'DESC' )
                 ->setMaxResults( 32768 )
                 ->setFirstResult( 50 );
             $queryBuilder->execute();
