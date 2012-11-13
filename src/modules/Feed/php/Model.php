@@ -235,14 +235,23 @@ class Model
         $statement = $queryBuilder->execute();
         $result = $statement->fetchAll( \PDO::FETCH_ASSOC );
 
+
         return array_map(
             function ( $row )
             {
+                $data = json_decode( $row['feed_d_data'], true );
+                if ( $data === null )
+                {
+                    throw new \RuntimeException(
+                        "JSON parse error for ${row['feed_m_u_name']}: ${row['feed_d_data']}."
+                    );
+                }
+
                 return Struct\FeedEntry::create(
                     $row['feed_d_id'],
                     $row['feed_m_u_name'],
                     $row['feed_u_favicon'],
-                    json_decode( $row['feed_d_data'], true )
+                    $data
                 );
             },
             $result
