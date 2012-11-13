@@ -195,7 +195,7 @@ class Base extends DIC
             $connection->getConfiguration()->setSQLLogger(
                 new Torii\Debug\SQLLogger(
                     $dic->srcDir . '/var/slow.log',
-                    .1
+                    1.
                 )
             );
 
