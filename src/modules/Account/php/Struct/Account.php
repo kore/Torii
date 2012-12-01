@@ -52,6 +52,13 @@ class Account extends Struct
     public $pin;
 
     /**
+     * Account transactions
+     *
+     * @var AccountInfo
+     */
+    public $transactions = null;
+
+    /**
      * Construct
      *
      * @param string $id

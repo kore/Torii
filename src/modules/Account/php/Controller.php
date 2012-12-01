@@ -85,9 +85,7 @@ class Controller
      */
     public function getAccountData( RMF\Request $request, Struct\User $user, Struct\ModuleConfiguration $module )
     {
-        $accounts = $this->model->getAccountData( $module->id );
-
-        return array();
+        return $this->model->getAccountData( $module->id );
     }
 
     /**

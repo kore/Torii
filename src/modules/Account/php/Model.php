@@ -81,6 +81,24 @@ class Model
     }
 
     /**
+     * Get Accounts data for module
+     *
+     * @param string $module
+     * @return Struct\Account[]
+     */
+    public function getAccountData( $module )
+    {
+        $accounts = $this->getAccountList( $module );
+        foreach ( $accounts as $account )
+        {
+            $transactions = include $this->getAccountFileName( $account ) . '.php';
+            $account->transactions = $transactions->accountInfo[0];
+        }
+
+        return $accounts;
+    }
+
+    /**
      * Get all accounts
      *
      * @return Struct\Account[]
