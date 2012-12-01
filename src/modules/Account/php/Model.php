@@ -50,7 +50,7 @@ class Model
     {
         $queryBuilder = $this->dbal->createQueryBuilder();
         $queryBuilder
-            ->select( 'a.account_a_id', 'a.account_a_name', 'a.account_a_blz', 'a.account_a_knr', 'a.account_a_pin' )
+            ->select( 'a.account_a_id', 'a.account_a_name', 'a.account_a_blz', 'a.account_a_knr' )
             ->from( 'account_account', 'a' )
             ->where(
                 $queryBuilder->expr()->eq( 'a.account_m_id', ':module' )
@@ -73,7 +73,7 @@ class Model
                     $accountData['account_a_name'],
                     $accountData['account_a_blz'],
                     $accountData['account_a_knr'],
-                    $accountData['account_a_pin']
+                    null
                 );
             },
             $result
