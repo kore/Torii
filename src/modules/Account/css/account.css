@@ -20,6 +20,14 @@ table.account th.name {
     font-weight: normal;
 }
 
+table.account th.name a {
+    color: white;
+}
+
+table.account tr.transaction {
+    display: none;
+}
+
 table.account .noted {
     color: #555753;
 }

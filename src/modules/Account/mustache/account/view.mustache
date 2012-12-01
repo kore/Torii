@@ -1,18 +1,22 @@
 <table class="account">
 {{#accounts}}
     <tr>
-        <th class="name" colspan="2"><strong>{{name}}</strong> ({{knr}})</th>
+        <th class="name" colspan="2">
+            <a href="#" onclick="jQuery( '.account_{{knr}}' ).toggle(); return false;">
+                <strong>{{name}}</strong> ({{knr}})
+            </a>
+        </th>
         <th class="value {{transactions.status.sign}}">{{transactions.status.value}} {{transactions.status.currency}}</th>
     </tr>
     {{#transactions.notedTransactions}}
-    <tr class="account_{{knr}} noted">
+    <tr class="transaction account_{{knr}} noted">
         <td>{{date}}</th>
         <td>{{name}}</th>
         <th>{{value}} {{currency}}</th>
     </tr>
     {{/transactions.notedTransactions}}
     {{#transactions.transactions}}
-    <tr class="account_{{knr}}">
+    <tr class="transaction account_{{knr}}">
         <td class="date">{{formatted}}</th>
         <td>{{name}}</th>
         <td class="value {{sign}}">{{value}} {{currency}}</td>
