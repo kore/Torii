@@ -18,7 +18,7 @@ use Torii\Assets;
  *
  * @version $Revision$
  */
-class Module extends \Torii\Module
+class Module extends \Torii\Module implements \Torii\Cronable
 {
     /**
      * Mapping of routes to actions
@@ -54,7 +54,8 @@ class Module extends \Torii\Module
     {
         return new Controller(
             new Model(
-                $this->dic->dbal
+                $this->dic->dbal,
+                $this->dic->srcDir . '/var/account/'
             )
         );
     }
@@ -106,6 +107,17 @@ class Module extends \Torii\Module
         $dic->javaScript->addFileSet( new Assets\FileSet( __DIR__ . '/js', '*.js' ) );
         $dic->templates->addFileSet( new Assets\FileSet( __DIR__ . '/mustache', 'account/*.mustache' ) );
         $dic->images->addFileSet( new Assets\FileSet( __DIR__ . '/images', '*.png' ) );
+    }
+
+    /**
+     * Run something in the module. Usually refresh some data.
+     *
+     * @param Periodic\Logger $logger
+     * @return void
+     */
+    public function refresh( Periodic\Logger $logger )
+    {
+        $this->getController()->refresh( $logger );
     }
 }
 

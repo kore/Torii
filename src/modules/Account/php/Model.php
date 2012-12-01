@@ -22,14 +22,22 @@ class Model
     protected $dbal;
 
     /**
+     * Storage directory
+     *
+     * @var string
+     */
+    protected $storageDir;
+
+    /**
      * Construct from user gateway
      *
      * @param \Doctrine\DBAL\Connection $dbal
      * @return void
      */
-    public function __construct( \Doctrine\DBAL\Connection $dbal )
+    public function __construct( \Doctrine\DBAL\Connection $dbal, $storageDir )
     {
         $this->dbal = $dbal;
+        $this->storageDir = $storageDir;
     }
 
     /**
@@ -48,6 +56,41 @@ class Model
                 $queryBuilder->expr()->eq( 'a.account_m_id', ':module' )
             )
             ->setParameter( ':module', $module );
+
+        $statement = $queryBuilder->execute();
+        $result = $statement->fetchAll( \PDO::FETCH_ASSOC );
+
+        if ( !$result )
+        {
+            return array();
+        }
+
+        return array_map(
+            function ( $accountData )
+            {
+                return new Struct\Account(
+                    $accountData['account_a_id'],
+                    $accountData['account_a_name'],
+                    $accountData['account_a_blz'],
+                    $accountData['account_a_knr'],
+                    $accountData['account_a_pin']
+                );
+            },
+            $result
+        );
+    }
+
+    /**
+     * Get all accounts
+     *
+     * @return Struct\Account[]
+     */
+    public function getAllAccounts()
+    {
+        $queryBuilder = $this->dbal->createQueryBuilder();
+        $queryBuilder
+            ->select( 'a.account_a_id', 'a.account_a_name', 'a.account_a_blz', 'a.account_a_knr', 'a.account_a_pin' )
+            ->from( 'account_account', 'a' );
 
         $statement = $queryBuilder->execute();
         $result = $statement->fetchAll( \PDO::FETCH_ASSOC );
@@ -106,6 +149,58 @@ class Model
             'account_m_id' => $module,
             'account_a_id' => $accountId
         ) );
+    }
+
+    /**
+     * Update transactions for given account
+     *
+     * @param Struct\Account $account
+     * @return void
+     */
+    public function updateTransactions(Struct\Account $account)
+    {
+        $accountFile = $this->getAccountFileName( $account );
+        file_put_contents(
+            $pinFile = $accountFile . '.pin',
+            "PIN_{$account->blz}_{$account->knr} = {$account->pin}\n"
+        );
+/*
+        shell_exec(
+            'aqbanking-cli -n -P ' . escapeshellarg( $pinFile ) . ' request ' .
+            ' -b ' . escapeshellarg( $account->blz ) .
+            ' -a ' . escapeshellarg( $account->knr ) .
+            ' --transactions > ' . escapeshellarg( $accountFile )
+        ); */
+        unlink( $pinFile );
+
+        $parser = new \CTXParser\Parser();
+        $transactions = $parser->parse( $accountFile );
+
+        file_put_contents(
+            $accountFile . '.php',
+            "<?php\n\nreturn " . var_export( $transactions, true ) . ";\n"
+        );
+    }
+
+    /**
+     * Get account storage file name
+     *
+     * @param Struct\Account $account
+     * @return string
+     */
+    protected function getAccountFileName( Struct\Account $account )
+    {
+        if ( !is_dir( $this->storageDir ) )
+        {
+            mkdir( $this->storageDir, 0777, true );
+        }
+
+        return sprintf(
+            "%s/%s_%s.ctx",
+            $this->storageDir,
+            $account->blz,
+            $account->knr
+        );
     }
 }
 

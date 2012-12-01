@@ -18,6 +18,7 @@
 
 # Update feeds regularly
 */2 * * * * module:feed
+0 * * * * module:account
 0 1 * * * feed:favicons
 0 1 * * * feed:cleanup
 10 1 * * * core:assets

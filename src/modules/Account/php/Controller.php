@@ -85,7 +85,27 @@ class Controller
      */
     public function getAccountData( RMF\Request $request, Struct\User $user, Struct\ModuleConfiguration $module )
     {
-        $accounts = $this->model->getAccountList( $module->id );
+        $accounts = $this->model->getAccountData( $module->id );
+
+        return array();
+    }
+
+    /**
+     * Refresh data in background
+     *
+     * @param Periodic\Logger $logger
+     * @return void
+     */
+    public function refresh( Periodic\Logger $logger )
+    {
+        $accounts = $this->model->getAllAccounts();
+
+        foreach ( $accounts as $account )
+        {
+            $logger->log( "Updating {$account->knr} for {$account->blz}" );
+            $this->model->updateTransactions( $account );
+            $logger->log( "Done" );
+        }
 
         return array();
     }
