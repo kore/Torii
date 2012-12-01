@@ -21,6 +21,7 @@ table.account th.name {
 }
 
 table.account th.name a {
+    display: block;
     color: white;
 }
 
