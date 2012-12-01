@@ -73,7 +73,7 @@
                 Torii.showTemplate(
                     target,
                     "/templates/account/view.mustache",
-                    {   entries: data,
+                    {   accounts: data,
                         module: id
                     }
                 );

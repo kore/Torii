@@ -1,7 +1,22 @@
-<ul class="account">
-{{#entries}}
-    <li>
-        <span class="account">[{{account}}]</span> {{title}}
-    </li>
-{{/entries}}
-</ul>
+<table class="account">
+{{#accounts}}
+    <tr>
+        <th colspan="2"><strong>{{name}}</strong> ({{knr}})</th>
+        <th>{{transactions.status.value}} {{transactions.status.currency}}</th>
+    </tr>
+    {{#transactions.notedTransactions}}
+    <tr class="account_{{knr}} noted">
+        <td>{{date}}</th>
+        <td>{{name}}</th>
+        <th>{{value}} {{currency}}</th>
+    </tr>
+    {{/transactions.notedTransactions}}
+    {{#transactions.transactions}}
+    <tr class="account_{{knr}}">
+        <td>{{date}}</th>
+        <td>{{name}}</th>
+        <td>{{value}} {{currency}}</td>
+    </tr>
+    {{/transactions.transactions}}
+{{/accounts}}
+</table>
