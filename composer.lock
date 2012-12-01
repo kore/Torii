@@ -1,79 +1,478 @@
 {
-    "hash": "ab89a79c752f4f49055ec6b56dd1df82",
+    "hash": "20b723687b32d8078a3c4aa1a7251d49",
     "packages": [
         {
-            "package": "Arbit/Periodic",
+            "name": "Arbit/Periodic",
             "version": "dev-master",
-            "source-reference": "398b18fc08d792f6e51b120df36a5e8d757ea9e9",
-            "commit-date": "1344163855"
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Arbitracker/Periodic",
+                "reference": "398b18fc08d792f6e51b120df36a5e8d757ea9e9"
+            },
+            "require": {
+                "arbit/xml": "*"
+            },
+            "time": "1344163855",
+            "type": "library",
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "Arbit\\Periodic": "src/php/"
+                }
+            },
+            "description": "Periodic is a fully unit tested PHP based task runner. It is supposed to deliver a basic implementation for managing all kinds of recurring tasks and events inside your web application."
         },
         {
-            "package": "Arbit/XML",
+            "name": "Arbit/XML",
             "version": "dev-master",
-            "source-reference": "cca2e65b92913b644c90957f1db1879f13797b5b",
-            "commit-date": "1343582287"
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Arbitracker/XML",
+                "reference": "cca2e65b92913b644c90957f1db1879f13797b5b"
+            },
+            "time": "1343582287",
+            "type": "library",
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "Arbit\\Xml": "src/php/"
+                }
+            },
+            "description": "XML reader with a SimpleXML like API."
         },
         {
-            "package": "Qafoo/RMF",
+            "name": "Qafoo/RMF",
             "version": "dev-master",
-            "source-reference": "852d993d45952dbc86e2bfd78addad540bd85998",
-            "commit-date": "1342375436"
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Qafoo/REST-Micro-Framework",
+                "reference": "852d993d45952dbc86e2bfd78addad540bd85998"
+            },
+            "time": "1342375436",
+            "type": "library",
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "Qafoo\\RMF": "src/main/"
+                }
+            },
+            "description": "Very simple VC framework which makes it easy to build HTTP applications / REST webservices"
         },
         {
-            "package": "doctrine/common",
+            "name": "doctrine/common",
             "version": "dev-master",
-            "alias-pretty-version": "2.4.x-dev",
-            "alias-version": "2.4.9999999.9999999-dev"
+            "source": {
+                "type": "git",
+                "url": "https://github.com/doctrine/common",
+                "reference": "39b56dfd6982b1fb291f5838803b9feaf0115b17"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/doctrine/common/zipball/39b56dfd6982b1fb291f5838803b9feaf0115b17",
+                "reference": "39b56dfd6982b1fb291f5838803b9feaf0115b17",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "time": "1343902400",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.4.x-dev"
+                }
+            },
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "Doctrine\\Common": "lib/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jonathan Wage",
+                    "email": "jonwage@gmail.com",
+                    "homepage": "http://www.jwage.com/",
+                    "role": null
+                },
+                {
+                    "name": "Guilherme Blanco",
+                    "email": "guilhermeblanco@gmail.com",
+                    "homepage": null,
+                    "role": null
+                },
+                {
+                    "name": "Roman Borschel",
+                    "email": "roman@code-factory.org",
+                    "homepage": null,
+                    "role": null
+                },
+                {
+                    "name": "Benjamin Eberlei",
+                    "email": "kontakt@beberlei.de",
+                    "homepage": null,
+                    "role": null
+                },
+                {
+                    "name": "Johannes Schmitt",
+                    "email": "schmittjoh@gmail.com",
+                    "homepage": "https://github.com/schmittjoh",
+                    "role": null
+                }
+            ],
+            "description": "Common Library for Doctrine projects",
+            "homepage": "http://www.doctrine-project.org",
+            "keywords": [
+                "collections",
+                "spl",
+                "eventmanager",
+                "annotations",
+                "persistence"
+            ]
         },
         {
-            "package": "doctrine/common",
+            "name": "doctrine/dbal",
             "version": "dev-master",
-            "source-reference": "39b56dfd6982b1fb291f5838803b9feaf0115b17",
-            "commit-date": "1343902400"
+            "source": {
+                "type": "git",
+                "url": "https://github.com/doctrine/dbal",
+                "reference": "43191656cb96ca07dd7f11c0a4941de0d9f267d2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/doctrine/dbal/zipball/43191656cb96ca07dd7f11c0a4941de0d9f267d2",
+                "reference": "43191656cb96ca07dd7f11c0a4941de0d9f267d2",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2",
+                "doctrine/common": ">=2.3-dev,<2.5-dev"
+            },
+            "time": "1343549870",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.4.x-dev"
+                }
+            },
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "Doctrine\\DBAL": "lib/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jonathan Wage",
+                    "email": "jonwage@gmail.com",
+                    "homepage": "http://www.jwage.com/",
+                    "role": null
+                },
+                {
+                    "name": "Guilherme Blanco",
+                    "email": "guilhermeblanco@gmail.com",
+                    "homepage": null,
+                    "role": null
+                },
+                {
+                    "name": "Roman Borschel",
+                    "email": "roman@code-factory.org",
+                    "homepage": null,
+                    "role": null
+                },
+                {
+                    "name": "Benjamin Eberlei",
+                    "email": "kontakt@beberlei.de",
+                    "homepage": null,
+                    "role": null
+                }
+            ],
+            "description": "Database Abstraction Layer",
+            "homepage": "http://www.doctrine-project.org",
+            "keywords": [
+                "database",
+                "persistence",
+                "dbal",
+                "queryobject"
+            ]
         },
         {
-            "package": "doctrine/dbal",
+            "name": "kore/CTXParser",
             "version": "dev-master",
-            "alias-pretty-version": "2.4.x-dev",
-            "alias-version": "2.4.9999999.9999999-dev"
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kore/CTXParser",
+                "reference": "5af417337aa6b2025e54b65ff6af96f8b0e15a5c"
+            },
+            "time": "1354370518",
+            "type": "library",
+            "installation-source": "source",
+            "autoload": {
+                "classmap": [
+                    "src"
+                ]
+            },
+            "authors": [
+                {
+                    "name": "Kore Nordmann",
+                    "email": "mail@kore-nordmann.de"
+                }
+            ],
+            "description": "Parser for CTX files"
         },
         {
-            "package": "doctrine/dbal",
+            "name": "kriswallsmith/buzz",
             "version": "dev-master",
-            "source-reference": "43191656cb96ca07dd7f11c0a4941de0d9f267d2",
-            "commit-date": "1343549870"
+            "source": {
+                "type": "git",
+                "url": "http://github.com/kriswallsmith/Buzz.git",
+                "reference": "2ba5da13b1b03590f0164b3fb61578078d671fcc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/kriswallsmith/Buzz/zipball/2ba5da13b1b03590f0164b3fb61578078d671fcc",
+                "reference": "2ba5da13b1b03590f0164b3fb61578078d671fcc",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "suggest": {
+                "ext-curl": "*"
+            },
+            "time": "1341070218",
+            "type": "library",
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "Buzz": "lib/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kris Wallsmith",
+                    "email": "kris.wallsmith@gmail.com",
+                    "homepage": "http://kriswallsmith.net/",
+                    "role": null
+                }
+            ],
+            "description": "Lightweight HTTP client",
+            "homepage": "https://github.com/kriswallsmith/Buzz",
+            "keywords": [
+                "curl",
+                "http client"
+            ]
         },
         {
-            "package": "kriswallsmith/buzz",
+            "name": "sabre/vobject",
             "version": "dev-master",
-            "source-reference": "2ba5da13b1b03590f0164b3fb61578078d671fcc",
-            "commit-date": "1341070218"
+            "source": {
+                "type": "git",
+                "url": "https://github.com/evert/sabre-vobject",
+                "reference": "3caefe0f7af0e1b79a8454e1d74679986b45334b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/evert/sabre-vobject/zipball/3caefe0f7af0e1b79a8454e1d74679986b45334b",
+                "reference": "3caefe0f7af0e1b79a8454e1d74679986b45334b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.1"
+            },
+            "time": "1344618603",
+            "type": "library",
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "Sabre\\VObject": "lib/"
+                }
+            },
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Evert Pot",
+                    "email": "evert@rooftopsolutions.nl",
+                    "homepage": "http://www.rooftopsolutions.nl/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "The VObject library for PHP allows you to easily parse and manipulate iCalendar and vCard objects",
+            "homepage": "https://github.com/evert/sabre-vobject",
+            "keywords": [
+                "iCalendar",
+                "VObject",
+                "vCard"
+            ]
         },
         {
-            "package": "sabre/vobject",
+            "name": "twig/twig",
+            "version": "1.6.0",
+            "source": {
+                "type": "git",
+                "url": "git://github.com/fabpot/Twig.git",
+                "reference": "v1.6.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/fabpot/Twig/zipball/v1.6.0",
+                "reference": "v1.6.0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.4"
+            },
+            "time": "2012-02-03 18:34:52",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-0": {
+                    "Twig_": "lib/"
+                }
+            },
+            "license": [
+                "BSD"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com",
+                    "homepage": null,
+                    "role": null
+                },
+                {
+                    "name": "Armin Ronacher",
+                    "email": "armin.ronacher@active-4.com",
+                    "homepage": null,
+                    "role": null
+                }
+            ],
+            "description": "Twig, the flexible, fast, and secure template language for PHP",
+            "homepage": "http://twig.sensiolabs.org",
+            "keywords": [
+                "templating"
+            ]
+        },
+        {
+            "name": "twitter/bootstrap",
+            "version": "0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/twitter/bootstrap/",
+                "reference": "origin/master"
+            },
+            "type": "library",
+            "installation-source": "source"
+        },
+        {
+            "name": "zendframework/zendframework",
             "version": "dev-master",
-            "source-reference": "3caefe0f7af0e1b79a8454e1d74679986b45334b",
-            "commit-date": "1344618603"
-        },
-        {
-            "package": "twig/twig",
-            "version": "1.6.0"
-        },
-        {
-            "package": "twitter/bootstrap",
-            "version": "0.1"
-        },
-        {
-            "package": "zendframework/zendframework",
-            "version": "dev-master",
-            "alias-pretty-version": "2.0.x-dev",
-            "alias-version": "2.0.9999999.9999999-dev"
-        },
-        {
-            "package": "zendframework/zendframework",
-            "version": "dev-master",
-            "source-reference": "59741466a4f993fbbd03f96ecd703042692fd405",
-            "commit-date": "1344082487"
+            "source": {
+                "type": "git",
+                "url": "git://github.com/zendframework/zf2.git",
+                "reference": "59741466a4f993fbbd03f96ecd703042692fd405"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/zendframework/zf2/zipball/59741466a4f993fbbd03f96ecd703042692fd405",
+                "reference": "59741466a4f993fbbd03f96ecd703042692fd405",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "replace": {
+                "zendframework/zend-acl": "self.version",
+                "zendframework/zend-authentication": "self.version",
+                "zendframework/zend-barcode": "self.version",
+                "zendframework/zend-cache": "self.version",
+                "zendframework/zend-captcha": "self.version",
+                "zendframework/zend-code": "self.version",
+                "zendframework/zend-config": "self.version",
+                "zendframework/zend-console": "self.version",
+                "zendframework/zend-crypt": "self.version",
+                "zendframework/zend-db": "self.version",
+                "zendframework/zend-di": "self.version",
+                "zendframework/zend-dom": "self.version",
+                "zendframework/zend-eventmanager": "self.version",
+                "zendframework/zend-feed": "self.version",
+                "zendframework/zend-file": "self.version",
+                "zendframework/zend-filter": "self.version",
+                "zendframework/zend-form": "self.version",
+                "zendframework/zend-http": "self.version",
+                "zendframework/zend-inputfilter": "self.version",
+                "zendframework/zend-json": "self.version",
+                "zendframework/zend-ldap": "self.version",
+                "zendframework/zend-loader": "self.version",
+                "zendframework/zend-log": "self.version",
+                "zendframework/zend-mail": "self.version",
+                "zendframework/zend-markup": "self.version",
+                "zendframework/zend-math": "self.version",
+                "zendframework/zend-memory": "self.version",
+                "zendframework/zend-mime": "self.version",
+                "zendframework/zend-modulemanager": "self.version",
+                "zendframework/zend-mvc": "self.version",
+                "zendframework/zend-navigation": "self.version",
+                "zendframework/zend-paginator": "self.version",
+                "zendframework/zend-progressbar": "self.version",
+                "zendframework/zend-serializer": "self.version",
+                "zendframework/zend-server": "self.version",
+                "zendframework/zend-servicemanager": "self.version",
+                "zendframework/zend-session": "self.version",
+                "zendframework/zend-soap": "self.version",
+                "zendframework/zend-stdlib": "self.version",
+                "zendframework/zend-tag": "self.version",
+                "zendframework/zend-text": "self.version",
+                "zendframework/zend-uri": "self.version",
+                "zendframework/zend-validator": "self.version",
+                "zendframework/zend-view": "self.version",
+                "zendframework/zend-xmlrpc": "self.version",
+                "zendframework/zend-escaper": "self.version",
+                "zendframework/zend-i18n": "self.version"
+            },
+            "require-dev": {
+                "doctrine/common": ">=2.1"
+            },
+            "suggest": {
+                "doctrine/common": "Doctrine\\Common >=2.1 for annotation features",
+                "ext-intl": "ext/intl for i18n features",
+                "zendframework/zendservice-recaptcha": "ZendService\\ReCaptcha for rendering ReCaptchas in Zend\\Captcha and/or Zend\\Form",
+                "zendframework/zendpdf": "ZendPdf for creating PDF representations of barcodes",
+                "pecl-weakref": "Implementation of weak references for Zend\\Stdlib\\CallbackHandler"
+            },
+            "time": "1344082487",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0-dev"
+                }
+            },
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "Zend": "library/"
+                }
+            },
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "Zend Framework 2",
+            "homepage": "http://framework.zend.com/",
+            "keywords": [
+                "framework",
+                "zf2"
+            ]
         }
     ],
     "packages-dev": null,
@@ -85,6 +484,7 @@
         "arbit/periodic": 20,
         "qafoo/rmf": 20,
         "zendframework/zendframework": 20,
-        "sabre/vobject": 20
+        "sabre/vobject": 20,
+        "kore/ctxparser": 20
     }
 }

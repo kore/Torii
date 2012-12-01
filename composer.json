@@ -12,6 +12,9 @@
         "type": "vcs",
         "url":  "https://github.com/Arbitracker/Periodic"
     }, {
+        "type": "vcs",
+        "url":  "https://github.com/kore/CTXParser"
+    }, {
         "type": "composer",
         "url":  "http://packages.zendframework.com/"
     }, {
@@ -34,6 +37,7 @@
         "kriswallsmith/buzz": "*",
         "zendframework/zendframework": "dev-master",
         "sabre/vobject" : "dev-master",
+        "kore/CTXParser" : "dev-master",
         "doctrine/common": "2.*",
         "doctrine/dbal": "2.*"
     },
