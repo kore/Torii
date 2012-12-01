@@ -91,8 +91,7 @@ class Model
         $accounts = $this->getAccountList( $module );
         foreach ( $accounts as $account )
         {
-            $transactions = include $this->getAccountFileName( $account ) . '.php';
-            $account->transactions = $transactions->accountInfo[0];
+            $account->transactions = include $this->getAccountFileName( $account ) . '.php';
         }
 
         return $accounts;
@@ -182,21 +181,24 @@ class Model
             $pinFile = $accountFile . '.pin',
             "PIN_{$account->blz}_{$account->knr} = {$account->pin}\n"
         );
-/*
+
         shell_exec(
             'aqbanking-cli -n -P ' . escapeshellarg( $pinFile ) . ' request ' .
             ' -b ' . escapeshellarg( $account->blz ) .
             ' -a ' . escapeshellarg( $account->knr ) .
             ' --transactions > ' . escapeshellarg( $accountFile )
-        ); */
+        );
         unlink( $pinFile );
 
         $parser = new \CTXParser\Parser();
         $transactions = $parser->parse( $accountFile );
 
+        $visitor = new \CTXParser\Visitor\Simplified();
+        $transactions = $visitor->visit( $transactions );
+
         file_put_contents(
             $accountFile . '.php',
-            "<?php\n\nreturn " . var_export( $transactions, true ) . ";\n"
+            "<?php\n\nreturn " . var_export( $transactions->accounts[0], true ) . ";\n"
         );
     }
 
