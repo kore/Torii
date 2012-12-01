@@ -208,9 +208,9 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kore/CTXParser",
-                "reference": "5af417337aa6b2025e54b65ff6af96f8b0e15a5c"
+                "reference": "68b2124ff09a60df2962acd232a57a52526be326"
             },
-            "time": "1354370518",
+            "time": "1354390946",
             "type": "library",
             "installation-source": "source",
             "autoload": {
