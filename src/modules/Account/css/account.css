@@ -11,21 +11,29 @@
     color: #ffffff;
 }
 
-.status-ok {
-    color: #46a546;
+table.account {
+    width: 100%;
 }
 
-.status-redirect {
-    color: #ffc40d;
+table.account th.name {
+    text-align: left;
+    font-weight: normal;
 }
 
-.status-fault {
-    color: #9d261d;
-    font-weight: bold;
+table.account .noted {
+    color: #555753;
 }
 
-.status-error {
-    color: #9d261d;
-    font-weight: bold;
+table.account .date,
+table.account .value {
+    text-align: right;
+}
+
+table.account .positive {
+    color: #4e9a06;
+}
+
+table.account .negative {
+    color: #a40000;
 }
 
