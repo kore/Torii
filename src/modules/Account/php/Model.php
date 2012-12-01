@@ -182,12 +182,32 @@ class Model
             "PIN_{$account->blz}_{$account->knr} = {$account->pin}\n"
         );
 
+        // Obviously only works for Sparkassen in Westfalia.
+        // @TODO: Come up with a generic approach.
+        shell_exec(
+            'aqhbci-tool4 -n adduser -s https://hbci-pintan-wf.s-hbci.de/PinTanServlet' .
+            ' -N ' . escapeshellarg( $account->blz . '_' . $account->knr ) .
+            ' -b ' . escapeshellarg( $account->blz ) .
+            ' -u ' . escapeshellarg( $account->knr ) .
+            ' -t pintan'
+        );
+        shell_exec(
+            'aqhbci-tool4 -n -P ' . escapeshellarg( $pinFile ) .
+            ' adduserflags -f forceSsl3' .
+            ' -c ' . escapeshellarg( $account->knr )
+        );
+        shell_exec(
+            'aqhbci-tool4 -n -P ' . escapeshellarg( $pinFile ) .
+            ' getsysid' .
+            ' -c ' . escapeshellarg( $account->knr )
+        );
         shell_exec(
             'aqbanking-cli -n -P ' . escapeshellarg( $pinFile ) . ' request ' .
             ' -b ' . escapeshellarg( $account->blz ) .
             ' -a ' . escapeshellarg( $account->knr ) .
             ' --transactions > ' . escapeshellarg( $accountFile )
         );
+
         unlink( $pinFile );
 
         $parser = new \CTXParser\Parser();
