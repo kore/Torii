@@ -72,7 +72,7 @@
             function( data ) {
                 Torii.showTemplate(
                     target,
-                    "/templates/account/entries.mustache",
+                    "/templates/account/view.mustache",
                     {   entries: data,
                         module: id
                     }
