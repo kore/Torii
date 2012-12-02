@@ -2,6 +2,11 @@
 Torii
 =====
 
+.. image::  https://secure.travis-ci.org/kore/Torii.png
+   :alt:    Travis Status
+   :target: https://secure.travis-ci.org/kore/Torii 
+   :align:  right
+
 Torii is a simple but powerful portal application which easily allows writing
 and adding new modules. Torii includes an initial set of modules for feed
 aggregation, weather statistics, and more...

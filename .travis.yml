@@ -1,0 +1,12 @@
+language: php
+
+php:
+  - 5.4
+
+services:
+  - mysql
+
+before_script:
+  - mysql -e 'create database torii_testing;'
+
+script: ant
