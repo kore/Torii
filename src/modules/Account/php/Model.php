@@ -29,6 +29,13 @@ class Model
     protected $storageDir;
 
     /**
+     * Handler for different banks to fetch tarnsaction data
+     *
+     * @var BankHandlerDispatcher
+     */
+    protected $bankHandler;
+
+    /**
      * Construct from user gateway
      *
      * @param \Doctrine\DBAL\Connection $dbal
@@ -38,6 +45,7 @@ class Model
     {
         $this->dbal = $dbal;
         $this->storageDir = $storageDir;
+        $this->bankHandler = new BankHandlerDispatcher();
     }
 
     /**
@@ -91,7 +99,7 @@ class Model
         $accounts = $this->getAccountList( $module );
         foreach ( $accounts as $account )
         {
-            $account->transactions = include $this->getAccountFileName( $account ) . '.php';
+            $account->transactions = include $this->getAccountFileName( $account );
         }
 
         return $accounts;
@@ -177,47 +185,11 @@ class Model
     public function updateTransactions(Struct\Account $account)
     {
         $accountFile = $this->getAccountFileName( $account );
-        file_put_contents(
-            $pinFile = $accountFile . '.pin',
-            "PIN_{$account->blz}_{$account->knr} = {$account->pin}\n"
-        );
 
-        // Obviously only works for Sparkassen in Westfalia.
-        // @TODO: Come up with a generic approach.
-        shell_exec(
-            'aqhbci-tool4 -n adduser -s https://hbci-pintan-wf.s-hbci.de/PinTanServlet' .
-            ' -N ' . escapeshellarg( $account->blz . '_' . $account->knr ) .
-            ' -b ' . escapeshellarg( $account->blz ) .
-            ' -u ' . escapeshellarg( $account->knr ) .
-            ' -t pintan'
-        );
-        shell_exec(
-            'aqhbci-tool4 -n -P ' . escapeshellarg( $pinFile ) .
-            ' adduserflags -f forceSsl3' .
-            ' -c ' . escapeshellarg( $account->knr )
-        );
-        shell_exec(
-            'aqhbci-tool4 -n -P ' . escapeshellarg( $pinFile ) .
-            ' getsysid' .
-            ' -c ' . escapeshellarg( $account->knr )
-        );
-        shell_exec(
-            'aqbanking-cli -n -P ' . escapeshellarg( $pinFile ) . ' request ' .
-            ' -b ' . escapeshellarg( $account->blz ) .
-            ' -a ' . escapeshellarg( $account->knr ) .
-            ' --transactions > ' . escapeshellarg( $accountFile )
-        );
-
-        unlink( $pinFile );
-
-        $parser = new \CTXParser\Parser();
-        $transactions = $parser->parse( $accountFile );
-
-        $visitor = new \CTXParser\Visitor\Simplified();
-        $transactions = $visitor->visit( $transactions );
+        $transactions = $this->bankHandler->fetchTransactions( $account, $accountFile );
 
         file_put_contents(
-            $accountFile . '.php',
+            $accountFile,
             "<?php\n\nreturn " . var_export( $transactions->accounts[0], true ) . ";\n"
         );
     }
@@ -236,7 +208,7 @@ class Model
         }
 
         return sprintf(
-            "%s/%s_%s.ctx",
+            "%s/%s_%s.php",
             $this->storageDir,
             $account->blz,
             $account->knr
