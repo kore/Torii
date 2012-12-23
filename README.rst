@@ -26,7 +26,6 @@ To install Torii, clone the repository and run the following commands::
 
     git submodule init
     git submodule update
-    composer.phar install
     ant -Dcommons.env=testing install
     ant install
 
