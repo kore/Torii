@@ -46,7 +46,13 @@ class Controller
      */
     public function addAccount( RMF\Request $request, Struct\User $user, Struct\ModuleConfiguration $module )
     {
-        $this->model->addAccount( $module->id, $request->body['name'], $request->body['blz'], $request->body['knr'], $request->body['pin'] );
+        $this->model->addAccount(
+            $module->id,
+            trim( $request->body['name'] ),
+            trim( $request->body['blz'] ),
+            trim( $request->body['knr'] ),
+            trim( $request->body['pin'] )
+        );
     }
 
     /**
