@@ -25,6 +25,7 @@ table.account th.name a {
     color: white;
 }
 
+table.account tr.account,
 table.account tr.transaction {
     display: none;
 }

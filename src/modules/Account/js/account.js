@@ -72,16 +72,20 @@
             function( data ) {
 
                 jQuery.each( data, function( key, account ) {
-                    account.transactions.status.sign = account.transactions.status.value < 0 ? "negative" : "positive";
-                    account.transactions.status.value = account.transactions.status.value.toFixed( 2 );
+                    jQuery.each( account.transactions, function( key, account ) {
+                        account.status.sign = account.status.value < 0 ? "negative" : "positive";
+                        account.status.value = account.status.value.toFixed( 2 );
 
-                    jQuery.each( account.transactions.transactions, function( key, transaction ) {
-                        var date = new Date( transaction.date * 1000 );
-                        transaction.sign = transaction.value < 0 ? "negative" : "positive";
-                        transaction.value = transaction.value.toFixed( 2 );
-                        transaction.formatted = date.getDate() + "." + ( date.getMonth() + 1 ) + ".";
+                        jQuery.each( account.transactions, function( key, transaction ) {
+                            var date = new Date( transaction.date * 1000 );
+                            transaction.sign = transaction.value < 0 ? "negative" : "positive";
+                            transaction.value = transaction.value.toFixed( 2 );
+                            transaction.formatted = date.getDate() + "." + ( date.getMonth() + 1 ) + ".";
+                        } );
                     } );
                 } );
+
+                console.log(data);
 
                 Torii.showTemplate(
                     target,
