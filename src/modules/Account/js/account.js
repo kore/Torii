@@ -85,8 +85,6 @@
                     } );
                 } );
 
-                console.log(data);
-
                 Torii.showTemplate(
                     target,
                     "/templates/account/view.mustache",
