@@ -32,29 +32,33 @@ class SparkasseWestfalia extends BankHandler
         );
 
         // Ensure user is created, action seems idempotent
-        shell_exec(
-            'aqhbci-tool4 -n adduser -s https://hbci-pintan-wf.s-hbci.de/PinTanServlet' .
+        $this->exec(
+            'aqhbci-tool4 --noninteractive --acceptvalidcerts' .
+            ' adduser -s https://hbci-pintan-wf.s-hbci.de/PinTanServlet' .
             ' -N ' . escapeshellarg( $account->blz . '_' . $account->knr ) .
             ' -b ' . escapeshellarg( $account->blz ) .
             ' -u ' . escapeshellarg( $account->knr ) .
             ' -t pintan'
         );
-        shell_exec(
-            'aqhbci-tool4 -n -P ' . escapeshellarg( $pinFile ) .
+        $this->exec(
+            'aqhbci-tool4 --noninteractive --acceptvalidcerts' .
+            ' -P ' . escapeshellarg( $pinFile ) .
             ' adduserflags -f forceSsl3' .
             ' -c ' . escapeshellarg( $account->knr )
         );
-        shell_exec(
-            'aqhbci-tool4 -n -P ' . escapeshellarg( $pinFile ) .
+        $this->exec(
+            'aqhbci-tool4 --noninteractive --acceptvalidcerts' .
+            ' -P ' . escapeshellarg( $pinFile ) .
             ' getsysid' .
             ' -c ' . escapeshellarg( $account->knr )
         );
 
         // Actually fetch data
-        shell_exec(
-            'aqbanking-cli -n -P ' . escapeshellarg( $pinFile ) . ' request ' .
+        $this->exec(
+            'aqbanking-cli --noninteractive --acceptvalidcerts' .
+            ' -P ' . escapeshellarg( $pinFile ) .
+            ' request ' .
             ' -b ' . escapeshellarg( $account->blz ) .
-            ' -a ' . escapeshellarg( $account->knr ) .
             ' --transactions > ' . escapeshellarg( $accountFile . '.ctx' )
         );
 
@@ -64,6 +68,14 @@ class SparkasseWestfalia extends BankHandler
         $transactions = $parser->parse( $accountFile . '.ctx' );
 
         $visitor = new \CTXParser\Visitor\Simplified();
-        return $visitor->visit( $transactions );
+        $transactions = $visitor->visit( $transactions );
+
+        // Only return accounts which actually contain data
+        return array_values( array_filter(
+            $transactions->accounts,
+            function ( $account ) {
+                return $account->status !== null;
+            }
+        ) );
     }
 }

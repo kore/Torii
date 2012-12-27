@@ -190,7 +190,7 @@ class Model
 
         file_put_contents(
             $accountFile,
-            "<?php\n\nreturn " . var_export( $transactions->accounts[0], true ) . ";\n"
+            "<?php\n\nreturn " . var_export( $transactions, true ) . ";\n"
         );
     }
 
