@@ -29,3 +29,15 @@
     font-weight: bold;
 }
 
+.calendar-content h3 {
+    font-size: 1em;
+}
+
+.calendar-content ul.calendar .calendar {
+    color: #babdb6;
+}
+
+.calendar-content ul.calendar .date {
+    font-weight: bold;
+}
+
