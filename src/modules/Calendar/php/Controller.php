@@ -122,11 +122,13 @@ class Controller
             $entries = array();
             foreach ( $moduleUrls as $url )
             {
+                $logger->log( "Fetch calendar from URL: " . $url->url );
                 $entries = array_merge(
                     $entries,
                     $this->parser->parse( $url )->entries
                 );
                 $this->model->updateUrl( $url->id, $url->status, $url->requested );
+                $logger->log( "Status for " . $url->url . ": " . $url->status );
             }
 
             usort(
