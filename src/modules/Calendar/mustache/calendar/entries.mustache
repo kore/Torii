@@ -1,0 +1,11 @@
+{{#dates}}
+    <h3>{{day}}</h3>
+    <ul class="calendar">
+    {{#entries}}
+        <li>
+            <span class="calendar">[{{calendar}}]</span> <span class="date">{{date}}</span> {{summary}}<br />
+            <a class="location" href="https://maps.google.com/?q={{location}}">{{location}}</a>
+        </li>
+    {{/entries}}
+    </ul>
+{{/dates}}
