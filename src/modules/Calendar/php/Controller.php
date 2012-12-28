@@ -128,7 +128,7 @@ class Controller
                     $this->parser->parse( $url )->entries
                 );
                 $this->model->updateUrl( $url->id, $url->status, $url->requested );
-                $logger->log( "Status for " . $url->url . ": " . $url->status );
+                $logger->log( "Status: " . $url->status );
             }
 
             usort(
