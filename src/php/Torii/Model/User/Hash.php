@@ -31,4 +31,3 @@ abstract class Hash
      */
     abstract public function verifyPassword( $password, $hash );
 }
-

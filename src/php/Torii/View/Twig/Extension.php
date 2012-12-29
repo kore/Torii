@@ -58,4 +58,3 @@ class Extension extends \Twig_Extension
         );
     }
 }
-

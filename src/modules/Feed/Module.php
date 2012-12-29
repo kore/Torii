@@ -74,10 +74,8 @@ class Module extends \Torii\Module implements \Torii\Cronable
      */
     public function handle( RMF\Request $request, Struct\User $user, Struct\ModuleConfiguration $module )
     {
-        foreach ( $this->mapping as $regexp => $action )
-        {
-            if ( preg_match( $regexp, $request->variables['path'] ) )
-            {
+        foreach ( $this->mapping as $regexp => $action ) {
+            if ( preg_match( $regexp, $request->variables['path'] ) ) {
                 return $this->getController()->$action( $request, $user, $module );
             }
         }
@@ -150,4 +148,3 @@ class Module extends \Torii\Module implements \Torii\Cronable
 
 // Important for registration
 return new Module();
-

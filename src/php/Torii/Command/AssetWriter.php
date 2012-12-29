@@ -68,15 +68,13 @@ class AssetWriter extends Periodic\Command
      */
     public function run( XML\Node $configuration, Periodic\Logger $logger )
     {
-        if ( $this->development )
-        {
+        if ( $this->development ) {
             $logger->log( "Skip asset writing in development mode." );
             return Periodic\Executor::SUCCESS;
         }
 
         $writer = new Assets\Writer();
-        foreach ( $this->assets as $path => $collection )
-        {
+        foreach ( $this->assets as $path => $collection ) {
             $logger->log( "Writing assets in $path." );
             $writer->write( $collection, $this->target . $path );
         }
@@ -84,4 +82,3 @@ class AssetWriter extends Periodic\Command
         return Periodic\Executor::SUCCESS;
     }
 }
-

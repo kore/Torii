@@ -68,14 +68,12 @@ class Model
         $statement = $queryBuilder->execute();
         $result = $statement->fetchAll( \PDO::FETCH_ASSOC );
 
-        if ( !$result )
-        {
+        if ( !$result ) {
             return array();
         }
 
         return array_map(
-            function ( $accountData )
-            {
+            function ( $accountData ) {
                 return new Struct\Account(
                     $accountData['account_a_id'],
                     $accountData['account_a_name'],
@@ -97,8 +95,7 @@ class Model
     public function getAccountData( $module )
     {
         $accounts = $this->getAccountList( $module );
-        foreach ( $accounts as $account )
-        {
+        foreach ( $accounts as $account ) {
             $account->transactions = include $this->getAccountFileName( $account );
         }
 
@@ -120,14 +117,12 @@ class Model
         $statement = $queryBuilder->execute();
         $result = $statement->fetchAll( \PDO::FETCH_ASSOC );
 
-        if ( !$result )
-        {
+        if ( !$result ) {
             return array();
         }
 
         return array_map(
-            function ( $accountData )
-            {
+            function ( $accountData ) {
                 return new Struct\Account(
                     $accountData['account_a_id'],
                     $accountData['account_a_name'],
@@ -202,8 +197,7 @@ class Model
      */
     protected function getAccountFileName( Struct\Account $account )
     {
-        if ( !is_dir( $this->storageDir ) )
-        {
+        if ( !is_dir( $this->storageDir ) ) {
             mkdir( $this->storageDir, 0777, true );
         }
 
@@ -215,4 +209,3 @@ class Model
         );
     }
 }
-

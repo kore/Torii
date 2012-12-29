@@ -37,8 +37,7 @@ class BankHandlerDispatcher extends BankHandler
      */
     public function fetchTransactions( Struct\Account $account, $accountFile )
     {
-        if ( !isset($this->handler[ $account->blz] ) )
-        {
+        if ( !isset($this->handler[ $account->blz] ) ) {
             throw new \OutOfBoundsException(
                 "No handler available for bank " . $account->blz
             );

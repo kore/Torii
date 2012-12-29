@@ -90,4 +90,3 @@ class SQLLogger implements \Doctrine\DBAL\Logging\SQLLogger
         }
     }
 }
-

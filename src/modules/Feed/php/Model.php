@@ -57,14 +57,12 @@ class Model
         $statement = $queryBuilder->execute();
         $result = $statement->fetchAll( \PDO::FETCH_ASSOC );
 
-        if ( !$result )
-        {
+        if ( !$result ) {
             return array();
         }
 
         return array_map(
-            function ( $urlData )
-            {
+            function ( $urlData ) {
                 return new Struct\Url(
                     $urlData['feed_u_id'],
                     $urlData['feed_u_url'],
@@ -132,8 +130,7 @@ class Model
         $result = $statement->fetchAll( \PDO::FETCH_ASSOC );
 
         return array_map(
-            function ( $row )
-            {
+            function ( $row ) {
                 return new Struct\Url(
                     $row['feed_u_id'],
                     $row['feed_u_url']
@@ -188,8 +185,7 @@ class Model
         $statement = $subSelect->execute();
         $result = $statement->fetchAll( \PDO::FETCH_ASSOC );
         return array_map(
-            function ( $row )
-            {
+            function ( $row ) {
                 return $row['feed_d_id'];
             },
             $result
@@ -237,11 +233,9 @@ class Model
 
 
         return array_map(
-            function ( $row )
-            {
+            function ( $row ) {
                 $data = json_decode( $row['feed_d_data'], true );
-                if ( $data === null )
-                {
+                if ( $data === null ) {
                     throw new \RuntimeException(
                         "JSON parse error for ${row['feed_m_u_name']}: ${row['feed_d_data']}."
                     );
@@ -288,8 +282,7 @@ class Model
         $statement = $queryBuilder->execute();
         $result = $statement->fetchAll( \PDO::FETCH_ASSOC );
 
-        if ( !count( $result ) )
-        {
+        if ( !count( $result ) ) {
             $this->dbal->insert(
                 'feed_data',
                 array(
@@ -360,8 +353,7 @@ class Model
         $statement = $queryBuilder->execute();
         $result = $statement->fetchAll( \PDO::FETCH_ASSOC );
 
-        foreach ( $result as $row )
-        {
+        foreach ( $result as $row ) {
             $this->dbal->insert(
                 'feed_m_d_rel',
                 array(
@@ -392,8 +384,7 @@ class Model
         $statement = $queryBuilder->execute();
         $result = $statement->fetchAll( \PDO::FETCH_ASSOC );
 
-        if ( !count( $result ) )
-        {
+        if ( !count( $result ) ) {
             $this->dbal->insert( 'feed_module', array(
                 'feed_m_id'       => $module,
                 'feed_m_settings' => '{}',
@@ -423,8 +414,7 @@ class Model
         $statement = $queryBuilder->execute();
         $result = $statement->fetch( \PDO::FETCH_ASSOC );
 
-        if ( $result )
-        {
+        if ( $result ) {
             return $result['feed_u_id'];
         }
 
@@ -455,14 +445,12 @@ class Model
         $statement = $queryBuilder->execute();
         $result = $statement->fetchAll( \PDO::FETCH_ASSOC );
 
-        if ( !$result )
-        {
+        if ( !$result ) {
             return array();
         }
 
         return array_map(
-            function ( $urlData )
-            {
+            function ( $urlData ) {
                 return new Struct\Url(
                     $urlData['feed_u_id'],
                     $urlData['feed_u_url']
@@ -529,8 +517,7 @@ class Model
         $statement = $subSelect->execute();
         $result = $statement->fetchAll( \PDO::FETCH_ASSOC );
         $urls = array_map(
-            function ( $row )
-            {
+            function ( $row ) {
                 return $row['feed_u_id'];
             },
             $result
@@ -546,8 +533,7 @@ class Model
         $queryBuilder->execute();
 
         // Only keep the 50 most recent feed data rows per URL
-        foreach ( $urls as $urlId )
-        {
+        foreach ( $urls as $urlId ) {
             $queryBuilder = $this->dbal->createQueryBuilder();
             $queryBuilder
                 ->select( 'feed_d_id' )
@@ -564,15 +550,13 @@ class Model
             $statement = $queryBuilder->execute();
             $result = $statement->fetchAll( \PDO::FETCH_ASSOC );
             $dataIds = array_map(
-                function ( $row )
-                {
+                function ( $row ) {
                     return $row['feed_d_id'];
                 },
                 $result
             );
 
-            if ( count( $dataIds ) )
-            {
+            if ( count( $dataIds ) ) {
                 $queryBuilder = $this->dbal->createQueryBuilder();
                 $queryBuilder
                     ->delete( 'feed_data' )
@@ -606,4 +590,3 @@ class Model
         $queryBuilder->execute();
     }
 }
-

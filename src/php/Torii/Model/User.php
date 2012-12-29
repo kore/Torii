@@ -46,7 +46,7 @@ class User
     /**
      * Log user in
      *
-     * Returns false if credentials are wrong or user is disabled. Returns User 
+     * Returns false if credentials are wrong or user is disabled. Returns User
      * struct, if successfull.
      *
      * @param string $login
@@ -70,14 +70,12 @@ class User
         $statement = $queryBuilder->execute();
         $result = $statement->fetch( \PDO::FETCH_ASSOC );
 
-        if ( !$result )
-        {
+        if ( !$result ) {
             // User not found or not verified
             return false;
         }
 
-        if ( !$this->hash->verifyPassword( $password, $result['u_password'] ) )
-        {
+        if ( !$this->hash->verifyPassword( $password, $result['u_password'] ) ) {
             // invalid password provided
             return false;
         }
@@ -155,4 +153,3 @@ class User
         );
     }
 }
-

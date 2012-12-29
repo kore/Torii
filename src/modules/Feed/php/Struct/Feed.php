@@ -52,4 +52,3 @@ class Feed extends Struct
         $this->entries = $entries;
     }
 }
-

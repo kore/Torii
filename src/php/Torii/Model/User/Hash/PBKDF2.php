@@ -122,13 +122,11 @@ class PBKDF2 extends Hash
     protected function pbkdf2( $algorithm, $password, $salt, $count, $keyLength, $rawOutput = false )
     {
         $algorithm = strtolower( $algorithm );
-        if ( !in_array( $algorithm, hash_algos(), true ) )
-        {
+        if ( !in_array( $algorithm, hash_algos(), true ) ) {
             throw new \RuntimeException( 'PBKDF2 ERROR: Invalid hash algorithm.' );
         }
 
-        if ( $count <= 0 || $keyLength <= 0 )
-        {
+        if ( $count <= 0 || $keyLength <= 0 ) {
             throw new \RuntimeException( 'PBKDF2 ERROR: Invalid parameters.' );
         }
 
@@ -136,12 +134,10 @@ class PBKDF2 extends Hash
         $blockCount = ceil( $keyLength / $hashLength );
 
         $output = "";
-        for( $i = 1; $i <= $blockCount; ++$i )
-        {
+        for( $i = 1; $i <= $blockCount; ++$i ) {
             $last = $salt . pack( "N", $i );
             $last = $xorsum = hash_hmac( $algorithm, $last, $password, true );
-            for ( $j = 1; $j < $count; ++$j )
-            {
+            for ( $j = 1; $j < $count; ++$j ) {
                 $xorsum ^= $last = hash_hmac( $algorithm, $last, $password, true );
             }
             $output .= $xorsum;
@@ -164,4 +160,3 @@ class PBKDF2 extends Hash
         return $hash === $this->pbkdf2( $algorithm, $password, $salt, $iterations, strlen( hex2bin( $hash ) ) );
     }
 }
-

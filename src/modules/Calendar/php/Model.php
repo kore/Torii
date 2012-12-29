@@ -60,14 +60,12 @@ class Model
         $statement = $queryBuilder->execute();
         $result = $statement->fetchAll( \PDO::FETCH_ASSOC );
 
-        if ( !$result )
-        {
+        if ( !$result ) {
             return array();
         }
 
         return array_map(
-            function ( $urlData )
-            {
+            function ( $urlData ) {
                 return new Struct\Url(
                     $urlData['calendar_u_id'],
                     $urlData['calendar_u_url'],
@@ -148,14 +146,12 @@ class Model
         $statement = $queryBuilder->execute();
         $result = $statement->fetchAll( \PDO::FETCH_ASSOC );
 
-        if ( !$result )
-        {
+        if ( !$result ) {
             return array();
         }
 
         $urls = array();
-        foreach ( $result as $row )
-        {
+        foreach ( $result as $row ) {
             $urls[$row['calendar_m_id']][] = new Struct\Url(
                 $row['calendar_u_id'],
                 $row['calendar_u_url'],
@@ -207,8 +203,7 @@ class Model
      */
     protected function getStorageFileName( $module )
     {
-        if ( !is_dir( $this->storageDir ) )
-        {
+        if ( !is_dir( $this->storageDir ) ) {
             mkdir( $this->storageDir, 0777, true );
         }
 
@@ -219,4 +214,3 @@ class Model
         );
     }
 }
-

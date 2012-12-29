@@ -42,4 +42,3 @@ class Module extends Struct
         $this->description = $description;
     }
 }
-

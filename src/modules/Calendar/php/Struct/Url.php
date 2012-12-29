@@ -70,4 +70,3 @@ class Url extends Struct
         $this->requested = $requested;
     }
 }
-

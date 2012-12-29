@@ -68,8 +68,7 @@ class FileSet
             array();
 
         return array_values( array_map(
-            function ( $file ) use ( $basePath )
-            {
+            function ( $file ) use ( $basePath ) {
                 return new Struct\File( $basePath, str_replace( $basePath, '', $file ) );
             },
             array_diff(
@@ -79,4 +78,3 @@ class FileSet
         ) );
     }
 }
-

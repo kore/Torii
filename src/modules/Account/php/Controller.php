@@ -104,8 +104,7 @@ class Controller
     {
         $accounts = $this->model->getAllAccounts();
 
-        foreach ( $accounts as $account )
-        {
+        foreach ( $accounts as $account ) {
             $logger->log( "Updating {$account->knr} for {$account->blz}" );
             $this->model->updateTransactions( $account );
             $logger->log( "Done" );
@@ -114,4 +113,3 @@ class Controller
         return array();
     }
 }
-

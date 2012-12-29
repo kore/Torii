@@ -24,4 +24,3 @@ abstract class MimeTypeGuesser
      */
     abstract public function guess( File $file );
 }
-

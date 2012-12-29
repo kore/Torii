@@ -23,4 +23,3 @@ abstract class Collection
      */
     abstract public function getFiles();
 }
-

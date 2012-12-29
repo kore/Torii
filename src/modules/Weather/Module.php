@@ -76,4 +76,3 @@ class Module extends \Torii\Module
 
 // Important for registration
 return new Module();
-

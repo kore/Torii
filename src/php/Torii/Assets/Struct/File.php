@@ -68,10 +68,8 @@ class File extends Struct
      */
     public function __get( $property )
     {
-        if ( $property === 'modificationTime' )
-        {
-            if ( $this->modificationTime !== null )
-            {
+        if ( $property === 'modificationTime' ) {
+            if ( $this->modificationTime !== null ) {
                 return $this->modificationTime;
             }
 
@@ -81,4 +79,3 @@ class File extends Struct
         return parent::__get( $property );
     }
 }
-

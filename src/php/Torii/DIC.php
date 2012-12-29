@@ -63,8 +63,7 @@ class DIC
         $this->objects[$name] = $closure;
 
         // If object is  already shared, remove maybe existing shared instance
-        if ( isset( $this->shared[$name] ) )
-        {
+        if ( isset( $this->shared[$name] ) ) {
             unset( $this->shared[$name] );
         }
     }
@@ -77,8 +76,7 @@ class DIC
      */
     public function __get( $name )
     {
-        if ( !isset( $this->objects[$name] ) )
-        {
+        if ( !isset( $this->objects[$name] ) ) {
             throw new \OutOfBoundsException( "Nothing available with name $name." );
         }
 
@@ -102,8 +100,7 @@ class DIC
      */
     public function __call( $name, array $arguments )
     {
-        if ( !isset( $this->objects[$name] ) )
-        {
+        if ( !isset( $this->objects[$name] ) ) {
             throw new \OutOfBoundsException( "Nothing available with name $name." );
         }
 
@@ -113,8 +110,7 @@ class DIC
             throw new \RuntimeException( 'Cannot construct shared object with parameters.' );
         }
 
-        if ( !is_callable( $this->objects[$name] ) )
-        {
+        if ( !is_callable( $this->objects[$name] ) ) {
             throw new \RuntimeException( 'Cannot instantiate non-closure object with arguments.' );
         }
 
@@ -129,8 +125,7 @@ class DIC
      */
     public function getShared( $name )
     {
-        if ( !isset( $this->shared[$name] ) )
-        {
+        if ( !isset( $this->shared[$name] ) ) {
             $this->shared[$name] = is_callable( $this->objects[$name] ) ?
                 $this->objects[$name]( $this ) :
                 $this->objects[$name];
@@ -160,4 +155,3 @@ class DIC
         // Nothing by default.
     }
 }
-

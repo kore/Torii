@@ -60,4 +60,3 @@ class Cleanup extends Periodic\Command
         return Periodic\Executor::SUCCESS;
     }
 }
-

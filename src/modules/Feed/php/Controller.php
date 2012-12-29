@@ -108,8 +108,7 @@ class Controller
      */
     public function redirect( RMF\Request $request, Struct\User $user, Struct\ModuleConfiguration $module )
     {
-        if ( !preg_match( '(^/redirect/(\\d+)/(.+)$)', $request->variables['path'], $match ) )
-        {
+        if ( !preg_match( '(^/redirect/(\\d+)/(.+)$)', $request->variables['path'], $match ) ) {
             throw new \RuntimeException( "Invalid URL passed" );
         }
 
@@ -128,8 +127,7 @@ class Controller
      */
     public function clear( RMF\Request $request, Struct\User $user, Struct\ModuleConfiguration $module )
     {
-        if ( !preg_match( '(^/clear/(.+)$)', $request->variables['path'], $match ) )
-        {
+        if ( !preg_match( '(^/clear/(.+)$)', $request->variables['path'], $match ) ) {
             throw new \RuntimeException( "Invalid URL passed" );
         }
 
@@ -145,14 +143,12 @@ class Controller
      */
     public function refresh( Periodic\Logger $logger )
     {
-        foreach ( $this->model->getPending( 15 * 60 ) as $url )
-        {
+        foreach ( $this->model->getPending( 15 * 60 ) as $url ) {
             $logger->log( "Update {$url->url}" );
             $feed = $this->parser->parse( $url );
             $feed->entries = array_slice( $feed->entries, 0, 50 );
 
-            foreach ( $feed->entries as $entry )
-            {
+            foreach ( $feed->entries as $entry ) {
                 $this->model->addEntry(
                     $url->id,
                     $entry->link,
@@ -172,4 +168,3 @@ class Controller
         }
     }
 }
-

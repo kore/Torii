@@ -43,8 +43,7 @@ class Twig extends \Qafoo\RMF\View
      */
     public function display( Request $request, $result )
     {
-        if ( $result instanceof \Exception )
-        {
+        if ( $result instanceof \Exception ) {
             echo $this->twig->render(
                 'html/error.twig',
                 array(
@@ -60,4 +59,3 @@ class Twig extends \Qafoo\RMF\View
         );
     }
 }
-

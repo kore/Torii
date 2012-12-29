@@ -97,8 +97,7 @@ class Controller
         $entries = $this->model->getCalendar( $module->id );
 
         $perDay = array();
-        foreach ( $entries as $entry )
-        {
+        foreach ( $entries as $entry ) {
             $perDay[$entry->date->format( 'l, jS F' )][] = $entry;
             $entry->date = $entry->date->format( 'H:i' );
         }
@@ -117,11 +116,9 @@ class Controller
     public function refresh( Periodic\Logger $logger )
     {
         $urls = $this->model->getUrlsPerModule();
-        foreach ( $urls as $module => $moduleUrls )
-        {
+        foreach ( $urls as $module => $moduleUrls ) {
             $entries = array();
-            foreach ( $moduleUrls as $url )
-            {
+            foreach ( $moduleUrls as $url ) {
                 $logger->log( "Fetch calendar from URL: " . $url->url );
                 $entries = array_merge(
                     $entries,
@@ -133,8 +130,7 @@ class Controller
 
             usort(
                 $entries,
-                function ( $a, $b )
-                {
+                function ( $a, $b ) {
                     return $a->date->getTimestamp() - $b->date->getTimestamp();
                 }
             );
@@ -145,4 +141,3 @@ class Controller
         return array();
     }
 }
-

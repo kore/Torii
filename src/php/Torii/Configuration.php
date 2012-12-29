@@ -56,27 +56,22 @@ class Configuration
     {
         $configuration = parse_ini_file( $iniFile, true );
 
-        if ( false === isset( $configuration[$environment] ) )
-        {
+        if ( false === isset( $configuration[$environment] ) ) {
             throw new \UnexpectedValueException( "Unknown environment $environment." );
         }
 
         $this->configuration = $configuration[$environment];
         $this->applyInheritance( $configuration, $environment );
-        foreach ( $this->configuration as $key => $value )
-        {
-            if ( strpos( $key, '.' ) === false )
-            {
+        foreach ( $this->configuration as $key => $value ) {
+            if ( strpos( $key, '.' ) === false ) {
                 continue;
             }
 
             $path = array_filter( explode( '.', $key ) );
             unset( $this->configuration[$key] );
             $current = &$this->configuration;
-            foreach ( $path as $element )
-            {
-                if ( !isset( $current[$element] ) )
-                {
+            foreach ( $path as $element ) {
+                if ( !isset( $current[$element] ) ) {
                     $current[$element] = array();
                 }
 
@@ -96,12 +91,10 @@ class Configuration
     protected function applyInheritance( array $configuration, $environment )
     {
         $parent = $environment;
-        while ( isset( $this->inheritance[$parent] ) )
-        {
+        while ( isset( $this->inheritance[$parent] ) ) {
             $parent = $this->inheritance[$parent];
 
-            if ( isset( $configuration[$parent] ) )
-            {
+            if ( isset( $configuration[$parent] ) ) {
                 $this->configuration = array_merge(
                     $configuration[$parent],
                     $this->configuration
@@ -118,12 +111,10 @@ class Configuration
      */
     public function __get( $key )
     {
-        if ( isset( $this->configuration[$key] ) )
-        {
+        if ( isset( $this->configuration[$key] ) ) {
             return $this->configuration[$key];
         }
 
         throw new \OutOfBoundsException( "No configuration option $key available." );
     }
 }
-

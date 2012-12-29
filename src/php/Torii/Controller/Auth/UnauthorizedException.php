@@ -15,4 +15,3 @@ namespace Torii\Controller\Auth;
 class UnauthorizedException extends \Exception
 {
 }
-

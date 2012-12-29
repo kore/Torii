@@ -77,4 +77,3 @@ class Account extends Struct
         $this->pin  = $pin;
     }
 }
-

@@ -43,4 +43,3 @@ class Calendar extends Struct
         $this->entries = $entries;
     }
 }
-

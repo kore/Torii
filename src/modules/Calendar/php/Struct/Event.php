@@ -44,4 +44,3 @@ class Event extends Struct
      */
     public $calendar;
 }
-

@@ -59,4 +59,3 @@ class User extends Struct
         $this->verified = $verified;
     }
 }
-

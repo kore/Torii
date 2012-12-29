@@ -89,8 +89,7 @@ class Main
      */
     public function updateSettings( RMF\Request $request, Struct\User $user )
     {
-        if ( isset( $request->body['submit'] ) )
-        {
+        if ( isset( $request->body['submit'] ) ) {
             $user->settings->columns = (int) $request->body['columns'];
             $user->settings->name    = $request->body['name'];
 
@@ -111,20 +110,16 @@ class Main
     public function resort( RMF\Request $request, Struct\User $user )
     {
         $modules = array();
-        foreach ( $user->settings->modules as $column )
-        {
-            foreach ( $column as $module )
-            {
+        foreach ( $user->settings->modules as $column ) {
+            foreach ( $column as $module ) {
                 $modules[$module->id] = $module;
             }
         }
 
         $user->settings->modules = array();
-        foreach ( $request->body['modules'] as $cnr => $column )
-        {
+        foreach ( $request->body['modules'] as $cnr => $column ) {
             $user->settings->modules[$cnr] = array();
-            foreach ( $column as $mnr => $moduleId )
-            {
+            foreach ( $column as $mnr => $moduleId ) {
                 $user->settings->modules[$cnr][$mnr] = $modules[$moduleId];
             }
         }
@@ -145,8 +140,7 @@ class Main
      */
     public function addModule( RMF\Request $request, Struct\User $user )
     {
-        if ( isset( $request->body['submit'] ) )
-        {
+        if ( isset( $request->body['submit'] ) ) {
             $column = (int) $request->body['column'] - 1;
             $module = $request->body['module'];
 
@@ -156,8 +150,7 @@ class Main
                 throw new \RuntimeException( "Invalid parameters" );
             }
 
-            if ( !isset( $user->settings->modules[$column] ) )
-            {
+            if ( !isset( $user->settings->modules[$column] ) ) {
                 $user->settings->modules[$column] = array();
             }
 
@@ -181,13 +174,11 @@ class Main
      */
     public function import( RMF\Request $request, Struct\User $user )
     {
-        if ( $_FILES['config']['error'] )
-        {
+        if ( $_FILES['config']['error'] ) {
             throw new \RuntimeException( "Error while uploading file." );
         }
 
-        switch ( $request->body['type'] )
-        {
+        switch ( $request->body['type'] ) {
             case 'torii':
                 $importer = new \Torii\Importer\Torii( $this->user, $this->modules );
                 $importer->import( $user, $_FILES['config']['tmp_name'] );
@@ -253,8 +244,7 @@ class Main
     {
         $module = $this->getModuleConfig( $user, $request->variables['module'] );
 
-        if ( !isset( $this->modules[$module->type] ) )
-        {
+        if ( !isset( $this->modules[$module->type] ) ) {
             throw new \RuntimeException( "Invalid module: " . $module->type );
         }
 
@@ -271,12 +261,9 @@ class Main
      */
     protected function getModuleConfig( Struct\User $user, $moduleId )
     {
-        foreach ( $user->settings->modules as $column )
-        {
-            foreach ( $column as $module )
-            {
-                if ( $module->id === $moduleId )
-                {
+        foreach ( $user->settings->modules as $column ) {
+            foreach ( $column as $module ) {
+                if ( $module->id === $moduleId ) {
                     return $module;
                 }
             }
@@ -285,4 +272,3 @@ class Main
         throw new \RuntimeException( "Invalid module $moduleId" );
     }
 }
-

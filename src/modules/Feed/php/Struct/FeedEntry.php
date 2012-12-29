@@ -109,4 +109,3 @@ class FeedEntry extends Struct
         return $entry;
     }
 }
-

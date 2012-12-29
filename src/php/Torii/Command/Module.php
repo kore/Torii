@@ -51,15 +51,13 @@ class Module extends Periodic\Command
     public function run( XML\Node $configuration, Periodic\Logger $logger )
     {
         $name = (string) $configuration;
-        if ( !isset( $this->modules[$name] ) )
-        {
+        if ( !isset( $this->modules[$name] ) ) {
             $logger->log( "Module $name not found.", Periodic\Logger::WARNING );
             return Periodic\Executor::ERROR;
         }
 
         $module = $this->modules[$name];
-        if ( !$module instanceof Cronable )
-        {
+        if ( !$module instanceof Cronable ) {
             $logger->log( "Module $name has no support for cron jobs.", Periodic\Logger::WARNING );
             return Periodic\Executor::ERROR;
         }
@@ -69,4 +67,3 @@ class Module extends Periodic\Command
         return Periodic\Executor::SUCCESS;
     }
 }
-

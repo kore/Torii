@@ -47,22 +47,17 @@ class Assets
      */
     public function deliver( RMF\Request $request )
     {
-        foreach ( $this->assets as $regexp => $collection )
-        {
-            if ( !preg_match( $regexp, $request->path, $matches ) )
-            {
+        foreach ( $this->assets as $regexp => $collection ) {
+            if ( !preg_match( $regexp, $request->path, $matches ) ) {
                 continue;
             }
 
-            if ( !isset( $matches['path'] ) )
-            {
+            if ( !isset( $matches['path'] ) ) {
                 throw new \RuntimeException( "No match value 'path'." );
             }
 
-            foreach ( $collection->getFiles() as $file )
-            {
-                if ( $file->localPath !== $matches['path'] )
-                {
+            foreach ( $collection->getFiles() as $file ) {
+                if ( $file->localPath !== $matches['path'] ) {
                     continue;
                 }
 
@@ -81,4 +76,3 @@ class Assets
         throw new \Exception( $request->path . " not found." );
     }
 }
-

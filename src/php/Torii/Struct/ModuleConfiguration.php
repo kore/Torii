@@ -76,4 +76,3 @@ class ModuleConfiguration extends Struct
         );
     }
 }
-

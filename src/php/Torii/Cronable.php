@@ -24,4 +24,3 @@ interface Cronable
      */
     public function refresh( Periodic\Logger $logger );
 }
-

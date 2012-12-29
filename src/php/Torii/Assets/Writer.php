@@ -23,8 +23,7 @@ class Writer
      */
     public function write( Collection $collection, $target )
     {
-        foreach ( $collection->getFiles() as $file )
-        {
+        foreach ( $collection->getFiles() as $file ) {
             $targetPath = $target . '/' . $file->localPath;
 
             if ( !file_exists( $targetPath ) ||
@@ -45,15 +44,12 @@ class Writer
     protected function ensureParentDirectory( $file )
     {
         $dir = dirname( $file );
-        if ( is_dir( $dir ) )
-        {
+        if ( is_dir( $dir ) ) {
             return;
         }
 
-        if ( !@mkdir( $dir, 0777, true ) )
-        {
+        if ( !@mkdir( $dir, 0777, true ) ) {
             throw new \RuntimeException( "Could not create directory $dir" );
         }
     }
 }
-

@@ -32,13 +32,11 @@ class Parser
         $client->getClient()->setTimeout( 5 );
 
         $feed = new Struct\Feed( $url );
-        try
-        {
+        try {
             $response = $client->get( $url->url );
             $feed->status = $response->getStatusCode();
 
-            if ( !$response->isOk() )
-            {
+            if ( !$response->isOk() ) {
                 return $feed;
             }
 
@@ -46,18 +44,13 @@ class Parser
                 $response->getContent()
             );
 
-            foreach ( $reader as $entry )
-            {
+            foreach ( $reader as $entry ) {
                 $feed->entries[] = $this->parseEntry( $entry );
             }
-        }
-        catch ( \Zend\Feed\Reader\Exception\RuntimeException $e )
-        {
+        } catch ( \Zend\Feed\Reader\Exception\RuntimeException $e ) {
             $feed->status = 406;
             return $feed;
-        }
-        catch ( \RuntimeException $e )
-        {
+        } catch ( \RuntimeException $e ) {
             $feed->status = 503;
             return $feed;
         }
@@ -90,4 +83,3 @@ class Parser
         return $entry;
     }
 }
-

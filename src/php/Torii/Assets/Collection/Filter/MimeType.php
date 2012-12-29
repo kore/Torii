@@ -55,8 +55,7 @@ class MimeType extends Filter
     {
         $mimeTypeGuesser = $this->mimeTypeGuesser;
         return array_map(
-            function ( $file ) use ( $mimeTypeGuesser )
-            {
+            function ( $file ) use ( $mimeTypeGuesser ) {
                 $file->mimeType = $mimeTypeGuesser->guess( $file );
                 return $file;
             },
@@ -64,4 +63,3 @@ class MimeType extends Filter
         );
     }
 }
-

@@ -21,10 +21,8 @@ abstract class Struct
      */
     public function __construct( array $record = array() )
     {
-        foreach ( $record as $name => $value )
-        {
-            if ( property_exists( $this, $name ) )
-            {
+        foreach ( $record as $name => $value ) {
+            if ( property_exists( $this, $name ) ) {
                 $this->{$name} = $value;
             }
         }
@@ -60,10 +58,8 @@ abstract class Struct
      */
     public function __clone()
     {
-        foreach ( $this as $property => $value )
-        {
-            if ( is_object( $value ) )
-            {
+        foreach ( $this as $property => $value ) {
+            if ( is_object( $value ) ) {
                 $this->$property = clone $value;
             }
         }
@@ -78,12 +74,10 @@ abstract class Struct
     public static function __set_state( array $properties )
     {
         $struct = new static();
-        foreach ( $properties as $property => $value )
-        {
+        foreach ( $properties as $property => $value ) {
             $struct->$property = $value;
         }
 
         return $struct;
     }
 }
-

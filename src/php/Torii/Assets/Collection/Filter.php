@@ -19,4 +19,3 @@ use Torii\Assets\Collection;
 abstract class Filter extends Collection
 {
 }
-

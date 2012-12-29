@@ -42,4 +42,3 @@ class Response extends Struct
         $this->data     = $data;
     }
 }
-

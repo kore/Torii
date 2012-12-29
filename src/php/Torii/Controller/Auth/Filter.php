@@ -43,19 +43,16 @@ class Filter
     {
         $request = reset( $arguments );
 
-        if ( !isset( $request->session['user'] ) )
-        {
+        if ( !isset( $request->session['user'] ) ) {
             // @TODO: This ia an ugly hack:
             header( 'Location: /' );
             exit( 0 );
         }
 
-        if ( !is_callable( array( $this->controller, $method ) ) )
-        {
+        if ( !is_callable( array( $this->controller, $method ) ) ) {
             throw new \BadMethodCallException( "Call not available in aggregated controller." );
         }
 
         return $this->controller->$method( $request, $request->session['user'] );
     }
 }
-

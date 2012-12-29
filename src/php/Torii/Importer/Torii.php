@@ -60,13 +60,10 @@ class Torii
         $xpath = new \DOMXPath( $doc );
 
         $settings = array();
-        foreach ( $xpath->query( '//section' ) as $nr => $column )
-        {
+        foreach ( $xpath->query( '//section' ) as $nr => $column ) {
             $settings[$nr] = array();
-            foreach ( $xpath->query( './module', $column ) as $module )
-            {
-                if ( $module = $this->importModule( $user, $module ) )
-                {
+            foreach ( $xpath->query( './module', $column ) as $module ) {
+                if ( $module = $this->importModule( $user, $module ) ) {
                     $settings[$nr][] = $module;
                 }
             }
@@ -85,8 +82,7 @@ class Torii
      */
     protected function importModule( Struct\User $user, \DOMElement $module )
     {
-        switch ( $module->getAttribute( 'type' ) )
-        {
+        switch ( $module->getAttribute( 'type' ) ) {
             case 'feed':
                 return $this->importFeed( $user, $module );
 
@@ -117,8 +113,7 @@ class Torii
         $request->variables = array( 'path' => '/add' );
 
         $xpath = new \DOMXPath( $module->ownerDocument );
-        foreach ( $xpath->query( './/feed', $module ) as $url )
-        {
+        foreach ( $xpath->query( './/feed', $module ) as $url ) {
             $request->body = array(
                 'name' => $url->getAttribute( 'id' ),
                 'url'  => $url->nodeValue,
@@ -157,4 +152,3 @@ class Torii
         return preg_replace( '([^a-z0-9_]+)', '_', strtolower( $title ) ) . '_' . substr( md5( microtime() ), 0, 8 );
     }
 }
-

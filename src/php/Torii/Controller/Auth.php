@@ -56,20 +56,16 @@ class Auth
         $errors  = array();
         $success = array();
 
-        try
-        {
-            if ( !filter_var( $request->body['login'], \FILTER_VALIDATE_EMAIL ) )
-            {
+        try {
+            if ( !filter_var( $request->body['login'], \FILTER_VALIDATE_EMAIL ) ) {
                 throw new \Exception( 'Login must be a valid E-Mail address.' );
             }
 
-            if ( $request->body['password'] !== $request->body['repeat'] )
-            {
+            if ( $request->body['password'] !== $request->body['repeat'] ) {
                 throw new \Exception( 'Passwords do not match.' );
             }
 
-            if ( !$request->body['password'] )
-            {
+            if ( !$request->body['password'] ) {
                 throw new \Exception( 'Password may not be empty.' );
             }
 
@@ -87,9 +83,7 @@ class Auth
             );
 
             $success[] = "We sent you an email to complete registration. Please confirm by clicking on the link in the mail.";
-        }
-        catch ( \Exception $e )
-        {
+        } catch ( \Exception $e ) {
             $errors[] = $e->getMessage();
         }
 
@@ -113,12 +107,9 @@ class Auth
         $errors  = array();
         $success = array();
 
-        if ( $this->user->verify( $request->variables['user'], $request->variables['hash'] ) )
-        {
+        if ( $this->user->verify( $request->variables['user'], $request->variables['hash'] ) ) {
             $success[] = "You are now verified and may log in.";
-        }
-        else
-        {
+        } else {
             $errors[] = "Verification failed.";
         }
 
@@ -140,12 +131,9 @@ class Auth
     public function login( RMF\Request $request )
     {
         $errors = array();
-        if ( isset( $request->body['submit'] ) )
-        {
-            try
-            {
-                if ( !$user = $this->user->login( $request->body['login'], $request->body['password'] ) )
-                {
+        if ( isset( $request->body['submit'] ) ) {
+            try {
+                if ( !$user = $this->user->login( $request->body['login'], $request->body['password'] ) ) {
                     throw new \Exception( 'Invalid login data provided.' );
                 }
                 $request->session['user'] = $user;
@@ -153,9 +141,7 @@ class Auth
                 // @TODO: This ia an ugly hack:
                 header( 'Location: /portal' );
                 exit( 0 );
-            }
-            catch ( \Exception $e )
-            {
+            } catch ( \Exception $e ) {
                 $errors[] = "Could not login with the provided data.";
             }
         }
@@ -180,4 +166,3 @@ class Auth
         return $this->login( $request );
     }
 }
-

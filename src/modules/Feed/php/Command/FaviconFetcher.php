@@ -51,11 +51,9 @@ class FaviconFetcher extends Periodic\Command
     public function run( XML\Node $configuration, Periodic\Logger $logger )
     {
         $urls = $this->model->getUrlsWithoutFavicon();
-        foreach ( $urls as $url )
-        {
+        foreach ( $urls as $url ) {
             $logger->log( "Fetching favicon for {$url->url}." );
-            if ( $favicon = $this->fetchFavicon( $url->url, $logger ) )
-            {
+            if ( $favicon = $this->fetchFavicon( $url->url, $logger ) ) {
                 $logger->log( "Found favicon $favicon for {$url->url}." );
                 $this->model->updateFavicon( $url->id, $favicon );
             }
@@ -89,12 +87,10 @@ class FaviconFetcher extends Periodic\Command
         $client = new \Buzz\Browser();
         $client->getClient()->setTimeout( 5 );
 
-        try
-        {
+        try {
             // First try to fetch common favicon.ico
             $response = $client->get( $baseUrl. '/favicon.ico' );
-            if ( $response->isOk() && ( $content = $response->getContent() ) )
-            {
+            if ( $response->isOk() && ( $content = $response->getContent() ) ) {
                 // Check for those dickheads, which serve 404 responses with
                 // status code 200 and deliver HTML
                 if ( ( stripos( $content, '<html' ) === false ) &&
@@ -108,29 +104,25 @@ class FaviconFetcher extends Periodic\Command
 
             // Load root and try to locate favicon
             $response = $client->get( $baseUrl );
-            if ( !$response->isOk() )
-            {
+            if ( !$response->isOk() ) {
                 $logger->log( "Could not fetch root: $baseUrl", Periodic\Logger::WARNING );
                 return false;
             }
 
             // Try to find favicon in resulting (probably) HTML
-            if ( !preg_match( '(<link[^>]+rel=([\'"]?)[^>]*icon[^>]*\1[^>]*>)', $response->getContent(), $match ) )
-            {
+            if ( !preg_match( '(<link[^>]+rel=([\'"]?)[^>]*icon[^>]*\1[^>]*>)', $response->getContent(), $match ) ) {
                 $logger->log( "Did not find icon referenced in source on $baseUrl.", Periodic\Logger::WARNING );
                 return false;
             }
 
             $link = $match[0];
-            if ( !preg_match( '((?J)href=([\'"])(?P<favicon>[^>]*?)\1|href=(?P<favicon>\\S+))', $link, $match ) )
-            {
+            if ( !preg_match( '((?J)href=([\'"])(?P<favicon>[^>]*?)\1|href=(?P<favicon>\\S+))', $link, $match ) ) {
                 $logger->log( "Could not extract href property in link element $link.", Periodic\Logger::WARNING );
                 return false;
             }
 
             $favicon = $match['favicon'];
-            switch ( true )
-            {
+            switch ( true ) {
                 case ( strpos( $favicon, '//' ) === 0 ):
                     $favicon = $urlComponents['scheme'] . ':' . $favicon;
                     break;
@@ -145,15 +137,12 @@ class FaviconFetcher extends Periodic\Command
 
             $extension = pathinfo( parse_url( $favicon, \PHP_URL_PATH ), \PATHINFO_EXTENSION );
             $response  = $client->get( $favicon );
-            if ( $response->isOk() )
-            {
+            if ( $response->isOk() ) {
                 $name = $name . '.' . $extension;
                 file_put_contents( $target . $name, $response->getContent() );
                 return $name;
             }
-        }
-        catch ( \Exception $e )
-        {
+        } catch ( \Exception $e ) {
             $logger->log( "An error occured while fetching: " . $e->getMessage(), Periodic\Logger::ERROR );
             return false;
         }
@@ -162,4 +151,3 @@ class FaviconFetcher extends Periodic\Command
         return false;
     }
 }
-

@@ -61,4 +61,3 @@ abstract class Module
      */
     abstract public function handle( RMF\Request $request, Struct\User $user, Struct\ModuleConfiguration $module );
 }
-

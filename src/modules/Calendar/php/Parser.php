@@ -37,14 +37,12 @@ class Parser
         $client->getClient()->setTimeout( 5 );
 
         $calendar = new Struct\Calendar( $url );
-        try
-        {
+        try {
             $url->requested = time();
             $response = $client->get( $url->url );
             $url->status = $response->getStatusCode();
 
-            if ( !$response->isOk() )
-            {
+            if ( !$response->isOk() ) {
                 return $calendar;
             }
 
@@ -55,13 +53,10 @@ class Parser
             $start = new \DateTime( "now" );
             $end = new \DateTime( "now + 7 days" );
             $reader->expand( $start, $end );
-            foreach ( $reader->VEVENT as $entry )
-            {
+            foreach ( $reader->VEVENT as $entry ) {
                 $calendar->entries[] = $this->parseEntry( $url, $entry );
             }
-        }
-        catch ( \Exception $e )
-        {
+        } catch ( \Exception $e ) {
             echo $e;
             $url->status = 503;
         }
@@ -87,4 +82,3 @@ class Parser
         return $event;
     }
 }
-
