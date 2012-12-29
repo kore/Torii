@@ -114,48 +114,55 @@ class Base extends DIC
             return $commandRegistry;
         };
 
-        $this->mimeTypeGuesser = function($dic) {
+        $this->mimeTypeGuesser = function ($dic) {
             return new Torii\Assets\MimeTypeGuesser\Extension();
         };
 
-        $this->javaScript = function($dic) {
-            return new Torii\Assets\Collection\Simple(array(
-                new Torii\Assets\FileSet($dic->srcDir . '/js', 'vendor/jquery/*.js', 'vendor/*/*.min.js'),
-                new Torii\Assets\FileSet($dic->srcDir . '/js', 'vendor/bootstrap/*.js', 'vendor/*/*.min.js'),
-                new Torii\Assets\FileSet($dic->srcDir . '/js', 'vendor/mustache/*.js', 'vendor/*/*.min.js'),
-                new Torii\Assets\FileSet($dic->srcDir . '/js', 'vendor/underscore/*.js', 'vendor/*/*.min.js'),
-                new Torii\Assets\FileSet($dic->srcDir . '/js', '*.js'),
-            ));
+        $this->javaScript = function ($dic) {
+            return new Torii\Assets\Collection\Simple(
+                array(
+                    new Torii\Assets\FileSet($dic->srcDir . '/js', 'vendor/jquery/*.js', 'vendor/*/*.min.js'),
+                    new Torii\Assets\FileSet($dic->srcDir . '/js', 'vendor/bootstrap/*.js', 'vendor/*/*.min.js'),
+                    new Torii\Assets\FileSet($dic->srcDir . '/js', 'vendor/mustache/*.js', 'vendor/*/*.min.js'),
+                    new Torii\Assets\FileSet($dic->srcDir . '/js', 'vendor/underscore/*.js', 'vendor/*/*.min.js'),
+                    new Torii\Assets\FileSet($dic->srcDir . '/js', '*.js'),
+                )
+            );
         };
 
-        $this->templates = function($dic) {
-            return new Torii\Assets\Collection\Simple(array(
-            ));
+        $this->templates = function ($dic) {
+            return new Torii\Assets\Collection\Simple(
+                array()
+            );
         };
 
-        $this->css = function($dic) {
-            return new Torii\Assets\Collection\Simple(array(
-                new Torii\Assets\FileSet($dic->srcDir . '/css', 'bootstrap.min.css'),
-                new Torii\Assets\FileSet($dic->srcDir . '/css', 'bootstrap-responsive.min.css'),
-                new Torii\Assets\FileSet($dic->srcDir . '/css', 'app.css'),
-            ));
+        $this->css = function ($dic) {
+            return new Torii\Assets\Collection\Simple(
+                array(
+                    new Torii\Assets\FileSet($dic->srcDir . '/css', 'bootstrap.min.css'),
+                    new Torii\Assets\FileSet($dic->srcDir . '/css', 'bootstrap-responsive.min.css'),
+                    new Torii\Assets\FileSet($dic->srcDir . '/css', 'app.css'),
+                )
+            );
         };
 
-        $this->images = function($dic) {
-            return new Torii\Assets\Collection\Simple(array(
-                new Torii\Assets\FileSet($dic->srcDir . '/images', '*.png'),
-            ));
+        $this->images = function ($dic) {
+            return new Torii\Assets\Collection\Simple(
+                array(
+                    new Torii\Assets\FileSet($dic->srcDir . '/images', '*.png'),
+                )
+            );
         };
 
-        $this->twigExtension = function($dic) {
+        $this->twigExtension = function ($dic) {
             return new Torii\View\Twig\Extension($dic);
         };
 
-        $this->twig = function($dic) {
+        $this->twig = function ($dic) {
             $twig = new \Twig_Environment(
                 new \Twig_Loader_Filesystem($dic->srcDir . '/twig'),
                 array(
-//                    'cache' => $dic->srcDir . '/cache'
+                    // 'cache' => $dic->srcDir . '/cache'
                 )
             );
 
@@ -164,14 +171,16 @@ class Base extends DIC
             return $twig;
         };
 
-        $this->view = function($dic) {
-            return new RMF\View\AcceptHeaderViewDispatcher(array(
-                '(json)' => new RMF\View\Json(),
-                '(html)' => new Torii\View\Twig($dic->twig),
-            ));
+        $this->view = function ($dic) {
+            return new RMF\View\AcceptHeaderViewDispatcher(
+                array(
+                    '(json)' => new RMF\View\Json(),
+                    '(html)' => new Torii\View\Twig($dic->twig),
+                )
+            );
         };
 
-        $this->dbal = function($dic) {
+        $this->dbal = function ($dic) {
             $connection = \Doctrine\DBAL\DriverManager::getConnection(
                 $dic->configuration->database,
                 new \Doctrine\DBAL\Configuration()
@@ -186,33 +195,35 @@ class Base extends DIC
             return $connection;
         };
 
-        $this->userModel = function($dic) {
+        $this->userModel = function ($dic) {
             return new Torii\Model\User(
                 $dic->dbal,
                 new Torii\Model\User\Hash\PBKDF2()
             );
         };
 
-        $this->mailMessenger = function($dic) {
+        $this->mailMessenger = function ($dic) {
             return new Torii\MailMessenger(
                 $dic->twig,
                 $dic->configuration->mailSender
             );
         };
 
-        $this->authController = function($dic) {
+        $this->authController = function ($dic) {
             return new Torii\Controller\Auth(
                 $dic->userModel,
                 $dic->mailMessenger
             );
         };
 
-        $this->modules = function($dic) {
+        $this->modules = function ($dic) {
             $modules = array();
             foreach (glob($dic->srcDir . '/modules/*/Module.php') as $moduleFile) {
                 $module = include $moduleFile;
                 if (!$module instanceof Torii\Module) {
-                    throw new \RuntimeException("Invalid module definition in $moduleFile. Must return an instance of \\Torii\\Module.");
+                    throw new \RuntimeException(
+                        "Invalid module definition in $moduleFile. Must return an instance of \\Torii\\Module."
+                    );
                 }
 
                 $module->initialize($dic);
@@ -222,7 +233,7 @@ class Base extends DIC
             return $modules;
         };
 
-        $this->mainController = function($dic) {
+        $this->mainController = function ($dic) {
             return new Torii\Controller\Auth\Filter(
                 new Torii\Controller\Main(
                     $dic->userModel,
@@ -231,25 +242,27 @@ class Base extends DIC
             );
         };
 
-        $this->assetController = function($dic) {
-            return new Torii\Controller\Assets(array(
-                '(/scripts/(?P<path>.*)$)'   => new Torii\Assets\Collection\Filter\MimeType(
-                    $dic->javaScript,
-                    $dic->mimeTypeGuesser
-                ),
-                '(/styles/(?P<path>.*)$)'    => new Torii\Assets\Collection\Filter\MimeType(
-                    $dic->css,
-                    $dic->mimeTypeGuesser
-                ),
-                '(/images/(?P<path>.*)$)'    => new Torii\Assets\Collection\Filter\MimeType(
-                    $dic->images,
-                    $dic->mimeTypeGuesser
-                ),
-                '(/templates/(?P<path>.*)$)' => new Torii\Assets\Collection\Filter\MimeType(
-                    $dic->templates,
-                    $dic->mimeTypeGuesser
-                ),
-            ));
+        $this->assetController = function ($dic) {
+            return new Torii\Controller\Assets(
+                array(
+                    '(/scripts/(?P<path>.*)$)'   => new Torii\Assets\Collection\Filter\MimeType(
+                        $dic->javaScript,
+                        $dic->mimeTypeGuesser
+                    ),
+                    '(/styles/(?P<path>.*)$)'    => new Torii\Assets\Collection\Filter\MimeType(
+                        $dic->css,
+                        $dic->mimeTypeGuesser
+                    ),
+                    '(/images/(?P<path>.*)$)'    => new Torii\Assets\Collection\Filter\MimeType(
+                        $dic->images,
+                        $dic->mimeTypeGuesser
+                    ),
+                    '(/templates/(?P<path>.*)$)' => new Torii\Assets\Collection\Filter\MimeType(
+                        $dic->templates,
+                        $dic->mimeTypeGuesser
+                    ),
+                )
+            );
         };
     }
 }

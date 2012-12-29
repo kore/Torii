@@ -68,18 +68,21 @@ class PBKDF2 extends Hash
     public function hashPassword($password, $salt = null)
     {
         $salt = $salt ?: $this->getRandomString();
-        return implode(':', array(
-            $this->algorithm,
-            $this->iterations,
-            $salt,
-            $this->pbkdf2(
+        return implode(
+            ':',
+            array(
                 $this->algorithm,
-                $password,
-                $salt,
                 $this->iterations,
-                $this->hashLength
+                $salt,
+                $this->pbkdf2(
+                    $this->algorithm,
+                    $password,
+                    $salt,
+                    $this->iterations,
+                    $this->hashLength
+                )
             )
-        ));
+        );
     }
 
     /**
@@ -134,7 +137,7 @@ class PBKDF2 extends Hash
         $blockCount = ceil($keyLength / $hashLength);
 
         $output = "";
-        for($i = 1; $i <= $blockCount; ++$i) {
+        for ($i = 1; $i <= $blockCount; ++$i) {
             $last = $salt . pack("N", $i);
             $last = $xorsum = hash_hmac($algorithm, $last, $password, true);
             for ($j = 1; $j < $count; ++$j) {

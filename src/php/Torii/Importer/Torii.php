@@ -85,10 +85,8 @@ class Torii
         switch ($module->getAttribute('type')) {
             case 'feed':
                 return $this->importFeed($user, $module);
-
             case 'weather':
                 return $this->importWeather($user, $module);
-
             default:
                 return false;
         }

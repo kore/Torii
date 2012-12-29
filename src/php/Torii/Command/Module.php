@@ -7,9 +7,9 @@
 
 namespace Torii\Command;
 
-use Torii\Cronable,
-    Arbit\Periodic,
-    Arbit\Xml;
+use Torii\Cronable;
+use Arbit\Periodic;
+use Arbit\Xml;
 
 /**
  * Base DIC

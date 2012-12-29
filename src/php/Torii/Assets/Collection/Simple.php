@@ -7,8 +7,8 @@
 
 namespace Torii\Assets\Collection;
 
-use Torii\Assets\Collection,
-    Torii\Assets\FileSet;
+use Torii\Assets\Collection;
+use Torii\Assets\FileSet;
 
 /**
  * Asset collection

@@ -7,9 +7,9 @@
 
 namespace Torii\Command;
 
-use Torii\Assets,
-    Arbit\Periodic,
-    Arbit\Xml;
+use Torii\Assets;
+use Arbit\Periodic;
+use Arbit\Xml;
 
 /**
  * Asset writer periodic command

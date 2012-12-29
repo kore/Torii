@@ -74,8 +74,7 @@ class SQLLogger implements \Doctrine\DBAL\Logging\SQLLogger
     public function stopQuery()
     {
         if ($this->lastQuery &&
-             ($time = (microtime(true) - $this->lastQuery['start'])) > $this->slowSeconds)
-        {
+            ($time = (microtime(true) - $this->lastQuery['start'])) > $this->slowSeconds) {
             file_put_contents(
                 $this->logFile,
                 sprintf(

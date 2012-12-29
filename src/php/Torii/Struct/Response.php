@@ -6,6 +6,7 @@
  */
 
 namespace Torii\Struct;
+
 use Torii\Struct;
 
 /**

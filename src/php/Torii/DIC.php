@@ -81,8 +81,7 @@ class DIC
         }
 
         if (isset($this->alwaysShared[$name]) &&
-             $this->alwaysShared[$name])
-        {
+            $this->alwaysShared[$name]) {
             return $this->getShared($name);
         }
 
@@ -105,8 +104,7 @@ class DIC
         }
 
         if (isset($this->alwaysShared[$name]) &&
-             $this->alwaysShared[$name])
-        {
+            $this->alwaysShared[$name]) {
             throw new \RuntimeException('Cannot construct shared object with parameters.');
         }
 

@@ -27,8 +27,7 @@ class Writer
             $targetPath = $target . '/' . $file->localPath;
 
             if (!file_exists($targetPath) ||
-                 (filemtime($targetPath) < $file->modificationTime))
-            {
+                (filemtime($targetPath) < $file->modificationTime)) {
                 $this->ensureParentDirectory($targetPath);
                 copy($file->basePath . $file->localPath, $targetPath);
             }

@@ -6,6 +6,7 @@
  */
 
 namespace Torii\View;
+
 use Torii\Struct;
 use Qafoo\RMF\Request;
 

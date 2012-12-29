@@ -139,11 +139,14 @@ class User
      */
     public function create($email, $password)
     {
-        $this->dbal->insert('user', array(
-            'u_login'    => $email,
-            'u_password' => $this->hash->hashPassword($password),
-            'u_verified' => $key = md5(microtime()),
-        ));
+        $this->dbal->insert(
+            'user',
+            array(
+                'u_login'    => $email,
+                'u_password' => $this->hash->hashPassword($password),
+                'u_verified' => $key = md5(microtime()),
+            )
+        );
 
         return new Struct\User(
             $this->dbal->lastInsertId(),

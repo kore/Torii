@@ -82,7 +82,8 @@ class Auth
                 )
             );
 
-            $success[] = "We sent you an email to complete registration. Please confirm by clicking on the link in the mail.";
+            $success[] = "We sent you an email to complete registration." .
+                "Please confirm by clicking on the link in the mail.";
         } catch (\Exception $e) {
             $errors[] = $e->getMessage();
         }

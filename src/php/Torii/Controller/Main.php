@@ -145,8 +145,7 @@ class Main
             $module = $request->body['module'];
 
             if (($column > $user->settings->columns) &&
-                 (!isset($this->modules[$module])))
-            {
+                (!isset($this->modules[$module]))) {
                 throw new \RuntimeException("Invalid parameters");
             }
 
@@ -183,7 +182,6 @@ class Main
                 $importer = new \Torii\Importer\Torii($this->user, $this->modules);
                 $importer->import($user, $_FILES['config']['tmp_name']);
                 break;
-
             default:
                 throw new \RuntimeException("Unknown importer: " . $request->body['type']);
         }

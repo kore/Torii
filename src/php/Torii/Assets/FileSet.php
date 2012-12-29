@@ -67,14 +67,16 @@ class FileSet
             glob($basePath . $this->fileIgnorePattern) :
             array();
 
-        return array_values(array_map(
-            function ($file) use ($basePath) {
-                return new Struct\File($basePath, str_replace($basePath, '', $file));
-            },
-            array_diff(
-                $include,
-                array_intersect($include, $exclude)
+        return array_values(
+            array_map(
+                function ($file) use ($basePath) {
+                    return new Struct\File($basePath, str_replace($basePath, '', $file));
+                },
+                array_diff(
+                    $include,
+                    array_intersect($include, $exclude)
+                )
             )
-        ));
+        );
     }
 }
