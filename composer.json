@@ -17,22 +17,11 @@
     }, {
         "type": "composer",
         "url":  "http://packages.zendframework.com/"
-    }, {
-        "type":    "package",
-        "package": {
-            "name":    "twitter/bootstrap",
-            "version": "0.1",
-            "source": {
-                "url": "https://github.com/twitter/bootstrap/",
-                "type": "git",
-                "reference": "origin/master"
-            }
-        }
     } ],
     "require":      {
         "Arbit/Periodic": "dev-master",
         "Qafoo/RMF": "dev-master",
-        "twitter/bootstrap": "0.1",
+        "twitter/bootstrap": "*",
         "twig/twig": "1.6.0",
         "kriswallsmith/buzz": "*",
         "zendframework/zendframework": "dev-master",

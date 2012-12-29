@@ -1,5 +1,5 @@
 {
-    "hash": "20b723687b32d8078a3c4aa1a7251d49",
+    "hash": "f18154be6a545325e961b02e96caf14e",
     "packages": [
         {
             "name": "Arbit/Periodic",
@@ -12,7 +12,7 @@
             "require": {
                 "arbit/xml": "*"
             },
-            "time": "1344163855",
+            "time": "2012-08-05 10:50:55",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -30,7 +30,7 @@
                 "url": "https://github.com/Arbitracker/XML",
                 "reference": "cca2e65b92913b644c90957f1db1879f13797b5b"
             },
-            "time": "1343582287",
+            "time": "2012-07-29 17:18:07",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -48,7 +48,7 @@
                 "url": "https://github.com/Qafoo/REST-Micro-Framework",
                 "reference": "852d993d45952dbc86e2bfd78addad540bd85998"
             },
-            "time": "1342375436",
+            "time": "2012-07-15 18:03:56",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -75,7 +75,7 @@
             "require": {
                 "php": ">=5.3.2"
             },
-            "time": "1343902400",
+            "time": "2012-08-02 10:13:20",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -151,7 +151,7 @@
                 "php": ">=5.3.2",
                 "doctrine/common": ">=2.3-dev,<2.5-dev"
             },
-            "time": "1343549870",
+            "time": "2012-07-29 08:17:50",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -210,7 +210,7 @@
                 "url": "https://github.com/kore/CTXParser",
                 "reference": "d9069af102816ac2971927e9ee1520d2a77c1df6"
             },
-            "time": "1354397857",
+            "time": "2012-12-01 21:37:37",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -246,7 +246,7 @@
             "suggest": {
                 "ext-curl": "*"
             },
-            "time": "1341070218",
+            "time": "2012-06-30 15:30:18",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -289,7 +289,7 @@
             "require": {
                 "php": ">=5.3.1"
             },
-            "time": "1344618603",
+            "time": "2012-08-10 17:10:03",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -366,14 +366,32 @@
         },
         {
             "name": "twitter/bootstrap",
-            "version": "0.1",
+            "version": "dev-master",
+            "target-dir": "twitter/bootstrap",
             "source": {
                 "type": "git",
-                "url": "https://github.com/twitter/bootstrap/",
-                "reference": "origin/master"
+                "url": "git://github.com/twitter/bootstrap.git",
+                "reference": "558bc52432840ea1b2f413438427164288f10350"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/twitter/bootstrap/archive/558bc52432840ea1b2f413438427164288f10350.zip",
+                "reference": "558bc52432840ea1b2f413438427164288f10350",
+                "shasum": ""
+            },
+            "time": "2012-12-22 02:54:36",
             "type": "library",
-            "installation-source": "source"
+            "installation-source": "source",
+            "notification-url": "http://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "description": "Sleek, intuitive, and powerful front-end framework for faster and easier web development.",
+            "homepage": "http://twitter.github.com/bootstrap/",
+            "keywords": [
+                "css",
+                "bootstrap"
+            ]
         },
         {
             "name": "zendframework/zendframework",
@@ -451,7 +469,7 @@
                 "zendframework/zendpdf": "ZendPdf for creating PDF representations of barcodes",
                 "pecl-weakref": "Implementation of weak references for Zend\\Stdlib\\CallbackHandler"
             },
-            "time": "1344082487",
+            "time": "2012-08-04 12:14:47",
             "type": "library",
             "extra": {
                 "branch-alias": {
