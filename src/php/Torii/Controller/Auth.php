@@ -39,7 +39,7 @@ class Auth
      * @param \Torii\MailMessenger $mailMessenger
      * @return void
      */
-    public function __construct( Model\User $user, \Torii\MailMessenger $mailMessenger )
+    public function __construct(Model\User $user, \Torii\MailMessenger $mailMessenger)
     {
         $this->user          = $user;
         $this->mailMessenger = $mailMessenger;
@@ -51,25 +51,25 @@ class Auth
      * @param RMF\Request $request
      * @return Struct\Response
      */
-    public function register( RMF\Request $request )
+    public function register(RMF\Request $request)
     {
         $errors  = array();
         $success = array();
 
         try {
-            if ( !filter_var( $request->body['login'], \FILTER_VALIDATE_EMAIL ) ) {
-                throw new \Exception( 'Login must be a valid E-Mail address.' );
+            if (!filter_var($request->body['login'], \FILTER_VALIDATE_EMAIL)) {
+                throw new \Exception('Login must be a valid E-Mail address.');
             }
 
-            if ( $request->body['password'] !== $request->body['repeat'] ) {
-                throw new \Exception( 'Passwords do not match.' );
+            if ($request->body['password'] !== $request->body['repeat']) {
+                throw new \Exception('Passwords do not match.');
             }
 
-            if ( !$request->body['password'] ) {
-                throw new \Exception( 'Password may not be empty.' );
+            if (!$request->body['password']) {
+                throw new \Exception('Password may not be empty.');
             }
 
-            $user = $this->user->create( $request->body['login'], $request->body['password'] );
+            $user = $this->user->create($request->body['login'], $request->body['password']);
 
             $this->mailMessenger->send(
                 $user->email,
@@ -83,7 +83,7 @@ class Auth
             );
 
             $success[] = "We sent you an email to complete registration. Please confirm by clicking on the link in the mail.";
-        } catch ( \Exception $e ) {
+        } catch (\Exception $e) {
             $errors[] = $e->getMessage();
         }
 
@@ -102,12 +102,12 @@ class Auth
      * @param RMF\Request $request
      * @return Struct\Response
      */
-    public function confirm( RMF\Request $request )
+    public function confirm(RMF\Request $request)
     {
         $errors  = array();
         $success = array();
 
-        if ( $this->user->verify( $request->variables['user'], $request->variables['hash'] ) ) {
+        if ($this->user->verify($request->variables['user'], $request->variables['hash'])) {
             $success[] = "You are now verified and may log in.";
         } else {
             $errors[] = "Verification failed.";
@@ -128,20 +128,20 @@ class Auth
      * @param RMF\Request $request
      * @return Struct\Response
      */
-    public function login( RMF\Request $request )
+    public function login(RMF\Request $request)
     {
         $errors = array();
-        if ( isset( $request->body['submit'] ) ) {
+        if (isset($request->body['submit'])) {
             try {
-                if ( !$user = $this->user->login( $request->body['login'], $request->body['password'] ) ) {
-                    throw new \Exception( 'Invalid login data provided.' );
+                if (!$user = $this->user->login($request->body['login'], $request->body['password'])) {
+                    throw new \Exception('Invalid login data provided.');
                 }
                 $request->session['user'] = $user;
 
                 // @TODO: This ia an ugly hack:
-                header( 'Location: /portal' );
-                exit( 0 );
-            } catch ( \Exception $e ) {
+                header('Location: /portal');
+                exit(0);
+            } catch (\Exception $e) {
                 $errors[] = "Could not login with the provided data.";
             }
         }
@@ -160,9 +160,9 @@ class Auth
      * @param RMF\Request $request
      * @return Struct\Response
      */
-    public function logout( RMF\Request $request )
+    public function logout(RMF\Request $request)
     {
-        unset( $request->session['user'] );
-        return $this->login( $request );
+        unset($request->session['user']);
+        return $this->login($request);
     }
 }

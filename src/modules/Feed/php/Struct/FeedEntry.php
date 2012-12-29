@@ -81,7 +81,7 @@ class FeedEntry extends Struct
      * @param string $title
      * @return void
      */
-    public function __construct( $id, $link, $feed, $title )
+    public function __construct($id, $link, $feed, $title)
     {
         $this->id    = $id;
         $this->link  = $link;
@@ -98,9 +98,9 @@ class FeedEntry extends Struct
      * @param array $data
      * @return FeedEntry
      */
-    public static function create( $id, $feed, $favicon, array $data )
+    public static function create($id, $feed, $favicon, array $data)
     {
-        $entry = new static( $id, $data['link'], $feed, $data['title'] );
+        $entry = new static($id, $data['link'], $feed, $data['title']);
 
         $entry->favicon     = $favicon;
         $entry->description = $data['description'];

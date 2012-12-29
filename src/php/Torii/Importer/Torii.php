@@ -39,7 +39,7 @@ class Torii
      * @param Struct\Module[] $modules
      * @return void
      */
-    public function __construct( Model\User $user, array $modules )
+    public function __construct(Model\User $user, array $modules)
     {
         $this->user    = $user;
         $this->modules = $modules;
@@ -52,25 +52,25 @@ class Torii
      * @param string $config
      * @return void
      */
-    public function import( Struct\User $user, $config )
+    public function import(Struct\User $user, $config)
     {
         $doc = new \DOMDocument();
-        $doc->load( $config );
+        $doc->load($config);
 
-        $xpath = new \DOMXPath( $doc );
+        $xpath = new \DOMXPath($doc);
 
         $settings = array();
-        foreach ( $xpath->query( '//section' ) as $nr => $column ) {
+        foreach ($xpath->query('//section') as $nr => $column) {
             $settings[$nr] = array();
-            foreach ( $xpath->query( './module', $column ) as $module ) {
-                if ( $module = $this->importModule( $user, $module ) ) {
+            foreach ($xpath->query('./module', $column) as $module) {
+                if ($module = $this->importModule($user, $module)) {
                     $settings[$nr][] = $module;
                 }
             }
         }
 
         $user->settings->modules = $settings;
-        $this->user->update( $user );
+        $this->user->update($user);
     }
 
     /**
@@ -80,14 +80,14 @@ class Torii
      * @param \DOMElement $module
      * @return void
      */
-    protected function importModule( Struct\User $user, \DOMElement $module )
+    protected function importModule(Struct\User $user, \DOMElement $module)
     {
-        switch ( $module->getAttribute( 'type' ) ) {
+        switch ($module->getAttribute('type')) {
             case 'feed':
-                return $this->importFeed( $user, $module );
+                return $this->importFeed($user, $module);
 
             case 'weather':
-                return $this->importWeather( $user, $module );
+                return $this->importWeather($user, $module);
 
             default:
                 return false;
@@ -101,25 +101,25 @@ class Torii
      * @param \DOMElement $module
      * @return void
      */
-    protected function importFeed( Struct\User $user, \DOMElement $module )
+    protected function importFeed(Struct\User $user, \DOMElement $module)
     {
         $config = new Struct\ModuleConfiguration(
-            $id = $this->getModuleId( $module->getAttribute( 'name' ) ),
+            $id = $this->getModuleId($module->getAttribute('name')),
             'Feed',
-            $module->getAttribute( 'name' )
+            $module->getAttribute('name')
         );
 
         $request = new RMF\Request\HTTP();
-        $request->variables = array( 'path' => '/add' );
+        $request->variables = array('path' => '/add');
 
-        $xpath = new \DOMXPath( $module->ownerDocument );
-        foreach ( $xpath->query( './/feed', $module ) as $url ) {
+        $xpath = new \DOMXPath($module->ownerDocument);
+        foreach ($xpath->query('.//feed', $module) as $url) {
             $request->body = array(
-                'name' => $url->getAttribute( 'id' ),
+                'name' => $url->getAttribute('id'),
                 'url'  => $url->nodeValue,
             );
 
-            $this->modules['Feed']->handle( $request, $user, $config );
+            $this->modules['Feed']->handle($request, $user, $config);
         }
 
         return $config;
@@ -132,12 +132,12 @@ class Torii
      * @param \DOMElement $module
      * @return void
      */
-    protected function importWeather( Struct\User $user, \DOMElement $module )
+    protected function importWeather(Struct\User $user, \DOMElement $module)
     {
         return new Struct\ModuleConfiguration(
-            $this->getModuleId( $module->getAttribute( 'name' ) ),
+            $this->getModuleId($module->getAttribute('name')),
             'Weather',
-            $module->getAttribute( 'name' )
+            $module->getAttribute('name')
         );
     }
 
@@ -147,8 +147,8 @@ class Torii
      * @param string $title
      * @return string
      */
-    protected function getModuleId( $title )
+    protected function getModuleId($title)
     {
-        return preg_replace( '([^a-z0-9_]+)', '_', strtolower( $title ) ) . '_' . substr( md5( microtime() ), 0, 8 );
+        return preg_replace('([^a-z0-9_]+)', '_', strtolower($title)) . '_' . substr(md5(microtime()), 0, 8);
     }
 }

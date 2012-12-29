@@ -34,15 +34,15 @@ class Configuration
      * @param string $iniFile
      * @param string $environment
      */
-    public function __construct( $iniFile, $environment )
+    public function __construct($iniFile, $environment)
     {
-        if ( !is_file( $iniFile ) &&
-             is_file( $iniFile . '.dist' ) )
+        if (!is_file($iniFile) &&
+             is_file($iniFile . '.dist'))
         {
             $iniFile = $iniFile . '.dist';
         }
 
-        $this->parseIniFile( $iniFile, $environment );
+        $this->parseIniFile($iniFile, $environment);
     }
 
     /**
@@ -52,26 +52,26 @@ class Configuration
      * @param string $environment
      * @return void
      */
-    public function parseIniFile( $iniFile, $environment )
+    public function parseIniFile($iniFile, $environment)
     {
-        $configuration = parse_ini_file( $iniFile, true );
+        $configuration = parse_ini_file($iniFile, true);
 
-        if ( false === isset( $configuration[$environment] ) ) {
-            throw new \UnexpectedValueException( "Unknown environment $environment." );
+        if (false === isset($configuration[$environment])) {
+            throw new \UnexpectedValueException("Unknown environment $environment.");
         }
 
         $this->configuration = $configuration[$environment];
-        $this->applyInheritance( $configuration, $environment );
-        foreach ( $this->configuration as $key => $value ) {
-            if ( strpos( $key, '.' ) === false ) {
+        $this->applyInheritance($configuration, $environment);
+        foreach ($this->configuration as $key => $value) {
+            if (strpos($key, '.') === false) {
                 continue;
             }
 
-            $path = array_filter( explode( '.', $key ) );
-            unset( $this->configuration[$key] );
+            $path = array_filter(explode('.', $key));
+            unset($this->configuration[$key]);
             $current = &$this->configuration;
-            foreach ( $path as $element ) {
-                if ( !isset( $current[$element] ) ) {
+            foreach ($path as $element) {
+                if (!isset($current[$element])) {
                     $current[$element] = array();
                 }
 
@@ -88,13 +88,13 @@ class Configuration
      * @param string $environment
      * @return void
      */
-    protected function applyInheritance( array $configuration, $environment )
+    protected function applyInheritance(array $configuration, $environment)
     {
         $parent = $environment;
-        while ( isset( $this->inheritance[$parent] ) ) {
+        while (isset($this->inheritance[$parent])) {
             $parent = $this->inheritance[$parent];
 
-            if ( isset( $configuration[$parent] ) ) {
+            if (isset($configuration[$parent])) {
                 $this->configuration = array_merge(
                     $configuration[$parent],
                     $this->configuration
@@ -109,12 +109,12 @@ class Configuration
      * @param string $key
      * @return string
      */
-    public function __get( $key )
+    public function __get($key)
     {
-        if ( isset( $this->configuration[$key] ) ) {
+        if (isset($this->configuration[$key])) {
             return $this->configuration[$key];
         }
 
-        throw new \OutOfBoundsException( "No configuration option $key available." );
+        throw new \OutOfBoundsException("No configuration option $key available.");
     }
 }

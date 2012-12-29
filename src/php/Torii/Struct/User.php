@@ -51,7 +51,7 @@ class User extends Struct
      * @param mixed $verified
      * @return void
      */
-    public function __construct( $id, $email, UserSettings $settings, $verified = null )
+    public function __construct($id, $email, UserSettings $settings, $verified = null)
     {
         $this->id       = $id;
         $this->email    = $email;

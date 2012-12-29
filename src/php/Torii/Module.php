@@ -37,7 +37,7 @@ abstract class Module
      * @param DIC $dic
      * @return void
      */
-    public function initialize( DIC $dic )
+    public function initialize(DIC $dic)
     {
         $this->dic = $dic;
     }
@@ -59,5 +59,5 @@ abstract class Module
      * @param Struct\ModuleConfiguration $module
      * @return mixed
      */
-    abstract public function handle( RMF\Request $request, Struct\User $user, Struct\ModuleConfiguration $module );
+    abstract public function handle(RMF\Request $request, Struct\User $user, Struct\ModuleConfiguration $module);
 }

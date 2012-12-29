@@ -71,15 +71,15 @@ class Module extends \Torii\Module implements \Torii\Cronable
      * @param Struct\ModuleConfiguration $module
      * @return mixed
      */
-    public function handle( RMF\Request $request, Struct\User $user, Struct\ModuleConfiguration $module )
+    public function handle(RMF\Request $request, Struct\User $user, Struct\ModuleConfiguration $module)
     {
-        foreach ( $this->mapping as $regexp => $action ) {
-            if ( preg_match( $regexp, $request->variables['path'] ) ) {
-                return $this->getController()->$action( $request, $user, $module );
+        foreach ($this->mapping as $regexp => $action) {
+            if (preg_match($regexp, $request->variables['path'])) {
+                return $this->getController()->$action($request, $user, $module);
             }
         }
 
-        throw new \RuntimeException( "No route found for ". $request->variables['path'] );
+        throw new \RuntimeException("No route found for ". $request->variables['path']);
     }
 
     /**
@@ -94,18 +94,18 @@ class Module extends \Torii\Module implements \Torii\Cronable
      * @param DIC $dic
      * @return void
      */
-    public function initialize( DIC $dic )
+    public function initialize(DIC $dic)
     {
-        parent::initialize( $dic );
+        parent::initialize($dic);
 
         // Register path for custom templates
-        $dic->twig->getLoader()->addPath( __DIR__ . '/twig' );
+        $dic->twig->getLoader()->addPath(__DIR__ . '/twig');
 
         // Register assets
-        $dic->css->addFileSet( new Assets\FileSet( __DIR__ . '/css', '*.css' ) );
-        $dic->javaScript->addFileSet( new Assets\FileSet( __DIR__ . '/js', '*.js' ) );
-        $dic->templates->addFileSet( new Assets\FileSet( __DIR__ . '/mustache', 'calendar/*.mustache' ) );
-        $dic->images->addFileSet( new Assets\FileSet( __DIR__ . '/images', '*.png' ) );
+        $dic->css->addFileSet(new Assets\FileSet(__DIR__ . '/css', '*.css'));
+        $dic->javaScript->addFileSet(new Assets\FileSet(__DIR__ . '/js', '*.js'));
+        $dic->templates->addFileSet(new Assets\FileSet(__DIR__ . '/mustache', 'calendar/*.mustache'));
+        $dic->images->addFileSet(new Assets\FileSet(__DIR__ . '/images', '*.png'));
     }
 
     /**
@@ -114,9 +114,9 @@ class Module extends \Torii\Module implements \Torii\Cronable
      * @param Periodic\Logger $logger
      * @return void
      */
-    public function refresh( Periodic\Logger $logger )
+    public function refresh(Periodic\Logger $logger)
     {
-        $this->getController()->refresh( $logger );
+        $this->getController()->refresh($logger);
     }
 }
 

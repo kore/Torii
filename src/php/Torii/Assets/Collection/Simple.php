@@ -32,10 +32,10 @@ class Simple extends Collection
      *
      * @param FileSet[] $fileSets
      */
-    public function __construct( array $fileSets = array() )
+    public function __construct(array $fileSets = array())
     {
-        foreach ( $fileSets as $fileSet ) {
-            $this->addFileSet( $fileSet );
+        foreach ($fileSets as $fileSet) {
+            $this->addFileSet($fileSet);
         }
     }
 
@@ -45,7 +45,7 @@ class Simple extends Collection
      * @param FileSet $fileSet
      * @return void
      */
-    public function addFileSet( FileSet $fileSet )
+    public function addFileSet(FileSet $fileSet)
     {
         $this->fileSets[] = $fileSet;
     }
@@ -58,8 +58,8 @@ class Simple extends Collection
     public function getFiles()
     {
         $files = array();
-        foreach ( $this->fileSets as $fileSet ) {
-            $files = array_merge( $files, $fileSet->getFiles() );
+        foreach ($this->fileSets as $fileSet) {
+            $files = array_merge($files, $fileSet->getFiles());
         }
 
         return $files;

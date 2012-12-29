@@ -29,7 +29,7 @@ class Twig extends \Qafoo\RMF\View
      * @param \Twig_Environment $twig
      * @return void
      */
-    public function __construct( \Twig_Environment $twig )
+    public function __construct(\Twig_Environment $twig)
     {
         $this->twig = $twig;
     }
@@ -41,9 +41,9 @@ class Twig extends \Qafoo\RMF\View
      * @param mixed $result
      * @return void
      */
-    public function display( Request $request, $result )
+    public function display(Request $request, $result)
     {
-        if ( $result instanceof \Exception ) {
+        if ($result instanceof \Exception) {
             echo $this->twig->render(
                 'html/error.twig',
                 array(

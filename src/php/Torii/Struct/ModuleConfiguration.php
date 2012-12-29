@@ -52,7 +52,7 @@ class ModuleConfiguration extends Struct
      * @param array $settings
      * @return void
      */
-    public function __construct( $id, $type, $title, array $settings = array() )
+    public function __construct($id, $type, $title, array $settings = array())
     {
         $this->id       = $id;
         $this->type     = $type;
@@ -66,13 +66,13 @@ class ModuleConfiguration extends Struct
      * @param array $data
      * @return ModuleConfiguration
      */
-    public static function create( $data )
+    public static function create($data)
     {
         return new static(
             $data['id'],
             $data['type'],
             $data['title'],
-            isset( $data['settings'] ) ? $data['settings'] : array()
+            isset($data['settings']) ? $data['settings'] : array()
         );
     }
 }

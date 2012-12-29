@@ -39,7 +39,7 @@ class Controller
      * @param Parser $parser
      * @return void
      */
-    public function __construct( Model $model, Parser $parser )
+    public function __construct(Model $model, Parser $parser)
     {
         $this->model  = $model;
         $this->parser = $parser;
@@ -53,9 +53,9 @@ class Controller
      * @param Struct\ModuleConfiguration $module
      * @return Struct\Response
      */
-    public function addUrl( RMF\Request $request, Struct\User $user, Struct\ModuleConfiguration $module )
+    public function addUrl(RMF\Request $request, Struct\User $user, Struct\ModuleConfiguration $module)
     {
-        $this->model->addUrl( $module->id, $request->body['name'], $request->body['url'] );
+        $this->model->addUrl($module->id, $request->body['name'], $request->body['url']);
     }
 
     /**
@@ -66,9 +66,9 @@ class Controller
      * @param Struct\ModuleConfiguration $module
      * @return Struct\Response
      */
-    public function removeUrl( RMF\Request $request, Struct\User $user, Struct\ModuleConfiguration $module )
+    public function removeUrl(RMF\Request $request, Struct\User $user, Struct\ModuleConfiguration $module)
     {
-        $this->model->removeUrl( $module->id, $request->body['url'] );
+        $this->model->removeUrl($module->id, $request->body['url']);
     }
 
     /**
@@ -79,9 +79,9 @@ class Controller
      * @param Struct\ModuleConfiguration $module
      * @return Struct\Response
      */
-    public function getUrlList( RMF\Request $request, Struct\User $user, Struct\ModuleConfiguration $module )
+    public function getUrlList(RMF\Request $request, Struct\User $user, Struct\ModuleConfiguration $module)
     {
-        return $this->model->getUrlList( $module->id );
+        return $this->model->getUrlList($module->id);
     }
 
     /**
@@ -92,14 +92,14 @@ class Controller
      * @param Struct\ModuleConfiguration $module
      * @return Struct\Response
      */
-    public function getCalendarData( RMF\Request $request, Struct\User $user, Struct\ModuleConfiguration $module )
+    public function getCalendarData(RMF\Request $request, Struct\User $user, Struct\ModuleConfiguration $module)
     {
-        $entries = $this->model->getCalendar( $module->id );
+        $entries = $this->model->getCalendar($module->id);
 
         $perDay = array();
-        foreach ( $entries as $entry ) {
-            $perDay[$entry->date->format( 'l, jS F' )][] = $entry;
-            $entry->date = $entry->date->format( 'H:i' );
+        foreach ($entries as $entry) {
+            $perDay[$entry->date->format('l, jS F')][] = $entry;
+            $entry->date = $entry->date->format('H:i');
         }
 
         return $perDay;
@@ -113,29 +113,29 @@ class Controller
      * @param Struct\ModuleConfiguration $module
      * @return Struct\Response
      */
-    public function refresh( Periodic\Logger $logger )
+    public function refresh(Periodic\Logger $logger)
     {
         $urls = $this->model->getUrlsPerModule();
-        foreach ( $urls as $module => $moduleUrls ) {
+        foreach ($urls as $module => $moduleUrls) {
             $entries = array();
-            foreach ( $moduleUrls as $url ) {
-                $logger->log( "Fetch calendar from URL: " . $url->url );
+            foreach ($moduleUrls as $url) {
+                $logger->log("Fetch calendar from URL: " . $url->url);
                 $entries = array_merge(
                     $entries,
-                    $this->parser->parse( $url )->entries
+                    $this->parser->parse($url)->entries
                 );
-                $this->model->updateUrl( $url->id, $url->status, $url->requested );
-                $logger->log( "Status: " . $url->status );
+                $this->model->updateUrl($url->id, $url->status, $url->requested);
+                $logger->log("Status: " . $url->status);
             }
 
             usort(
                 $entries,
-                function ( $a, $b ) {
+                function ($a, $b) {
                     return $a->date->getTimestamp() - $b->date->getTimestamp();
                 }
             );
 
-            $this->model->storeCalendar( $module, $entries );
+            $this->model->storeCalendar($module, $entries);
         }
 
         return array();

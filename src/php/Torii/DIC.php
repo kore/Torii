@@ -58,13 +58,13 @@ class DIC
      * @param mixed $closure
      * @return void
      */
-    public function __set( $name, $closure )
+    public function __set($name, $closure)
     {
         $this->objects[$name] = $closure;
 
         // If object is  already shared, remove maybe existing shared instance
-        if ( isset( $this->shared[$name] ) ) {
-            unset( $this->shared[$name] );
+        if (isset($this->shared[$name])) {
+            unset($this->shared[$name]);
         }
     }
 
@@ -74,20 +74,20 @@ class DIC
      * @param string $name
      * @return mixed
      */
-    public function __get( $name )
+    public function __get($name)
     {
-        if ( !isset( $this->objects[$name] ) ) {
-            throw new \OutOfBoundsException( "Nothing available with name $name." );
+        if (!isset($this->objects[$name])) {
+            throw new \OutOfBoundsException("Nothing available with name $name.");
         }
 
-        if ( isset( $this->alwaysShared[$name] ) &&
-             $this->alwaysShared[$name] )
+        if (isset($this->alwaysShared[$name]) &&
+             $this->alwaysShared[$name])
         {
-            return $this->getShared( $name );
+            return $this->getShared($name);
         }
 
-        return is_callable( $this->objects[$name] ) ?
-            $this->objects[$name]( $this ) :
+        return is_callable($this->objects[$name]) ?
+            $this->objects[$name]($this) :
             $this->objects[$name];
     }
 
@@ -98,23 +98,23 @@ class DIC
      * @param array $arguments
      * @return mixed
      */
-    public function __call( $name, array $arguments )
+    public function __call($name, array $arguments)
     {
-        if ( !isset( $this->objects[$name] ) ) {
-            throw new \OutOfBoundsException( "Nothing available with name $name." );
+        if (!isset($this->objects[$name])) {
+            throw new \OutOfBoundsException("Nothing available with name $name.");
         }
 
-        if ( isset( $this->alwaysShared[$name] ) &&
-             $this->alwaysShared[$name] )
+        if (isset($this->alwaysShared[$name]) &&
+             $this->alwaysShared[$name])
         {
-            throw new \RuntimeException( 'Cannot construct shared object with parameters.' );
+            throw new \RuntimeException('Cannot construct shared object with parameters.');
         }
 
-        if ( !is_callable( $this->objects[$name] ) ) {
-            throw new \RuntimeException( 'Cannot instantiate non-closure object with arguments.' );
+        if (!is_callable($this->objects[$name])) {
+            throw new \RuntimeException('Cannot instantiate non-closure object with arguments.');
         }
 
-        return $this->objects[$name]( $this, $arguments );
+        return $this->objects[$name]($this, $arguments);
     }
 
     /**
@@ -123,11 +123,11 @@ class DIC
      * @param string $name
      * @return mixed
      */
-    public function getShared( $name )
+    public function getShared($name)
     {
-        if ( !isset( $this->shared[$name] ) ) {
-            $this->shared[$name] = is_callable( $this->objects[$name] ) ?
-                $this->objects[$name]( $this ) :
+        if (!isset($this->shared[$name])) {
+            $this->shared[$name] = is_callable($this->objects[$name]) ?
+                $this->objects[$name]($this) :
                 $this->objects[$name];
         }
 
@@ -140,7 +140,7 @@ class DIC
      * @param string $name
      * @return void
      */
-    public function setShared( $name )
+    public function setShared($name)
     {
         $this->alwaysShared[$name] = true;
     }

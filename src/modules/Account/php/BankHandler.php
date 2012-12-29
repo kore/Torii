@@ -21,7 +21,7 @@ abstract class BankHandler
      * @param string $accountFile
      * @return \CTXParser\Visitor\Simplified\AccountList
      */
-    abstract public function fetchTransactions( Struct\Account $account, $accountFile );
+    abstract public function fetchTransactions(Struct\Account $account, $accountFile);
 
     /**
      * Exec command
@@ -32,9 +32,9 @@ abstract class BankHandler
      * @param string $command
      * @return mxied
      */
-    protected function exec( $command )
+    protected function exec($command)
     {
-        $return = shell_exec( $command );
+        $return = shell_exec($command);
         return $return;
     }
 }

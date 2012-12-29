@@ -40,7 +40,7 @@ class MimeType extends Filter
      * @param MimeTypeGuesser $mimeTypeGuesser
      * @return void
      */
-    public function __construct( Collection $collection, MimeTypeGuesser $mimeTypeGuesser )
+    public function __construct(Collection $collection, MimeTypeGuesser $mimeTypeGuesser)
     {
         $this->collection      = $collection;
         $this->mimeTypeGuesser = $mimeTypeGuesser;
@@ -55,8 +55,8 @@ class MimeType extends Filter
     {
         $mimeTypeGuesser = $this->mimeTypeGuesser;
         return array_map(
-            function ( $file ) use ( $mimeTypeGuesser ) {
-                $file->mimeType = $mimeTypeGuesser->guess( $file );
+            function ($file) use ($mimeTypeGuesser) {
+                $file->mimeType = $mimeTypeGuesser->guess($file);
                 return $file;
             },
             $this->collection->getFiles()

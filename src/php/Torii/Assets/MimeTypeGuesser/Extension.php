@@ -109,15 +109,15 @@ class Extension extends MimeTypeGuesser
      * @param File $file
      * @return string
      */
-    public function guess( File $file )
+    public function guess(File $file)
     {
-        if ( !preg_match( '((?:\\.[a-zA-Z0-9]+)+$)', $file->localPath, $match ) ) {
+        if (!preg_match('((?:\\.[a-zA-Z0-9]+)+$)', $file->localPath, $match)) {
             // The file does not have any extension.
             return 'application/octet-stream';
         }
 
-        $extension = strtolower( $match[0] );
-        if ( !isset( $this->extensionMapping[$extension] ) ) {
+        $extension = strtolower($match[0]);
+        if (!isset($this->extensionMapping[$extension])) {
             // We do not know about this extension yet.
             return 'application/octet-stream';
         }

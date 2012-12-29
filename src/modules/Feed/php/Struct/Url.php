@@ -61,7 +61,7 @@ class Url extends Struct
      * @param int $requested
      * @return void
      */
-    public function __construct( $id, $url, $name = null, $status = null, $requested = null )
+    public function __construct($id, $url, $name = null, $status = null, $requested = null)
     {
         $this->id        = $id;
         $this->url       = $url;

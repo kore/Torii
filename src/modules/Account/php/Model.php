@@ -41,7 +41,7 @@ class Model
      * @param \Doctrine\DBAL\Connection $dbal
      * @return void
      */
-    public function __construct( \Doctrine\DBAL\Connection $dbal, $storageDir )
+    public function __construct(\Doctrine\DBAL\Connection $dbal, $storageDir)
     {
         $this->dbal = $dbal;
         $this->storageDir = $storageDir;
@@ -54,26 +54,26 @@ class Model
      * @param string $module
      * @return Struct\Account[]
      */
-    public function getAccountList( $module )
+    public function getAccountList($module)
     {
         $queryBuilder = $this->dbal->createQueryBuilder();
         $queryBuilder
-            ->select( 'a.account_a_id', 'a.account_a_name', 'a.account_a_blz', 'a.account_a_knr' )
-            ->from( 'account_account', 'a' )
+            ->select('a.account_a_id', 'a.account_a_name', 'a.account_a_blz', 'a.account_a_knr')
+            ->from('account_account', 'a')
             ->where(
-                $queryBuilder->expr()->eq( 'a.account_m_id', ':module' )
+                $queryBuilder->expr()->eq('a.account_m_id', ':module')
             )
-            ->setParameter( ':module', $module );
+            ->setParameter(':module', $module);
 
         $statement = $queryBuilder->execute();
-        $result = $statement->fetchAll( \PDO::FETCH_ASSOC );
+        $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
 
-        if ( !$result ) {
+        if (!$result) {
             return array();
         }
 
         return array_map(
-            function ( $accountData ) {
+            function ($accountData) {
                 return new Struct\Account(
                     $accountData['account_a_id'],
                     $accountData['account_a_name'],
@@ -92,11 +92,11 @@ class Model
      * @param string $module
      * @return Struct\Account[]
      */
-    public function getAccountData( $module )
+    public function getAccountData($module)
     {
-        $accounts = $this->getAccountList( $module );
-        foreach ( $accounts as $account ) {
-            $account->transactions = include $this->getAccountFileName( $account );
+        $accounts = $this->getAccountList($module);
+        foreach ($accounts as $account) {
+            $account->transactions = include $this->getAccountFileName($account);
         }
 
         return $accounts;
@@ -111,18 +111,18 @@ class Model
     {
         $queryBuilder = $this->dbal->createQueryBuilder();
         $queryBuilder
-            ->select( 'a.account_a_id', 'a.account_a_name', 'a.account_a_blz', 'a.account_a_knr', 'a.account_a_pin' )
-            ->from( 'account_account', 'a' );
+            ->select('a.account_a_id', 'a.account_a_name', 'a.account_a_blz', 'a.account_a_knr', 'a.account_a_pin')
+            ->from('account_account', 'a');
 
         $statement = $queryBuilder->execute();
-        $result = $statement->fetchAll( \PDO::FETCH_ASSOC );
+        $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
 
-        if ( !$result ) {
+        if (!$result) {
             return array();
         }
 
         return array_map(
-            function ( $accountData ) {
+            function ($accountData) {
                 return new Struct\Account(
                     $accountData['account_a_id'],
                     $accountData['account_a_name'],
@@ -145,15 +145,15 @@ class Model
      * @param string $pin
      * @return void
      */
-    public function addAccount( $module, $name, $blz, $knr, $pin )
+    public function addAccount($module, $name, $blz, $knr, $pin)
     {
-        $this->dbal->insert( 'account_account', array(
+        $this->dbal->insert('account_account', array(
             'account_m_id'   => $module,
             'account_a_name' => $name,
             'account_a_blz' => $blz,
             'account_a_knr' => $knr,
             'account_a_pin' => $pin,
-        ) );
+        ));
     }
 
     /**
@@ -163,12 +163,12 @@ class Model
      * @param string $accountId
      * @return void
      */
-    public function removeAccount( $module, $accountId )
+    public function removeAccount($module, $accountId)
     {
-        $this->dbal->delete( 'account_account', array(
+        $this->dbal->delete('account_account', array(
             'account_m_id' => $module,
             'account_a_id' => $accountId
-        ) );
+        ));
     }
 
     /**
@@ -179,13 +179,13 @@ class Model
      */
     public function updateTransactions(Struct\Account $account)
     {
-        $accountFile = $this->getAccountFileName( $account );
+        $accountFile = $this->getAccountFileName($account);
 
-        $transactions = $this->bankHandler->fetchTransactions( $account, $accountFile );
+        $transactions = $this->bankHandler->fetchTransactions($account, $accountFile);
 
         file_put_contents(
             $accountFile,
-            "<?php\n\nreturn " . var_export( $transactions, true ) . ";\n"
+            "<?php\n\nreturn " . var_export($transactions, true) . ";\n"
         );
     }
 
@@ -195,10 +195,10 @@ class Model
      * @param Struct\Account $account
      * @return string
      */
-    protected function getAccountFileName( Struct\Account $account )
+    protected function getAccountFileName(Struct\Account $account)
     {
-        if ( !is_dir( $this->storageDir ) ) {
-            mkdir( $this->storageDir, 0777, true );
+        if (!is_dir($this->storageDir)) {
+            mkdir($this->storageDir, 0777, true);
         }
 
         return sprintf(

@@ -29,20 +29,20 @@ class Parser
      * @param Struct\Url $url
      * @return Struct\Calendar
      */
-    public function parse( Struct\Url $url )
+    public function parse(Struct\Url $url)
     {
         $client = new \Buzz\Browser(
             new \Buzz\Client\Curl()
         );
-        $client->getClient()->setTimeout( 5 );
+        $client->getClient()->setTimeout(5);
 
-        $calendar = new Struct\Calendar( $url );
+        $calendar = new Struct\Calendar($url);
         try {
             $url->requested = time();
-            $response = $client->get( $url->url );
+            $response = $client->get($url->url);
             $url->status = $response->getStatusCode();
 
-            if ( !$response->isOk() ) {
+            if (!$response->isOk()) {
                 return $calendar;
             }
 
@@ -50,13 +50,13 @@ class Parser
                 $response->getContent()
             );
 
-            $start = new \DateTime( "now" );
-            $end = new \DateTime( "now + 7 days" );
-            $reader->expand( $start, $end );
-            foreach ( $reader->VEVENT as $entry ) {
-                $calendar->entries[] = $this->parseEntry( $url, $entry );
+            $start = new \DateTime("now");
+            $end = new \DateTime("now + 7 days");
+            $reader->expand($start, $end);
+            foreach ($reader->VEVENT as $entry) {
+                $calendar->entries[] = $this->parseEntry($url, $entry);
             }
-        } catch ( \Exception $e ) {
+        } catch (\Exception $e) {
             echo $e;
             $url->status = 503;
         }
@@ -70,7 +70,7 @@ class Parser
      * @param mixed $data
      * @return Struct\CalendarEntry
      */
-    protected function parseEntry( Struct\Url $url, \Sabre\VObject\Component\VEvent $data )
+    protected function parseEntry(Struct\Url $url, \Sabre\VObject\Component\VEvent $data)
     {
         $event = new Struct\Event();
 

@@ -36,7 +36,7 @@ class Module extends Struct
      * @param string $description
      * @return void
      */
-    public function __construct( $name, $description )
+    public function __construct($name, $description)
     {
         $this->name        = $name;
         $this->description = $description;

@@ -47,7 +47,7 @@ class FileSet
      * @param string $fileIgnorePattern
      * @return void
      */
-    public function __construct( $basePath, $filePattern, $fileIgnorePattern = null )
+    public function __construct($basePath, $filePattern, $fileIgnorePattern = null)
     {
         $this->basePath          = $basePath;
         $this->filePattern       = $filePattern;
@@ -61,20 +61,20 @@ class FileSet
      */
     public function getFiles()
     {
-        $basePath = realpath( $this->basePath ) . '/';
-        $include  = glob( $basePath . $this->filePattern );
+        $basePath = realpath($this->basePath) . '/';
+        $include  = glob($basePath . $this->filePattern);
         $exclude  = $this->fileIgnorePattern ?
-            glob( $basePath . $this->fileIgnorePattern ) :
+            glob($basePath . $this->fileIgnorePattern) :
             array();
 
-        return array_values( array_map(
-            function ( $file ) use ( $basePath ) {
-                return new Struct\File( $basePath, str_replace( $basePath, '', $file ) );
+        return array_values(array_map(
+            function ($file) use ($basePath) {
+                return new Struct\File($basePath, str_replace($basePath, '', $file));
             },
             array_diff(
                 $include,
-                array_intersect( $include, $exclude )
+                array_intersect($include, $exclude)
             )
-        ) );
+        ));
     }
 }

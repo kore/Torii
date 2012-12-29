@@ -45,7 +45,7 @@ class Feed extends Struct
      * @param array $entries
      * @return void
      */
-    public function __construct( Url $url, $status = null, array $entries = array() )
+    public function __construct(Url $url, $status = null, array $entries = array())
     {
         $this->url     = $url;
         $this->status  = $status;

@@ -35,14 +35,14 @@ class BankHandlerDispatcher extends BankHandler
      * @param string $accountFile
      * @return \CTXParser\Visitor\Simplified\AccountList
      */
-    public function fetchTransactions( Struct\Account $account, $accountFile )
+    public function fetchTransactions(Struct\Account $account, $accountFile)
     {
-        if ( !isset($this->handler[ $account->blz] ) ) {
+        if (!isset($this->handler[ $account->blz])) {
             throw new \OutOfBoundsException(
                 "No handler available for bank " . $account->blz
             );
         }
 
-        return $this->handler[$account->blz]->fetchTransactions( $account, $accountFile );
+        return $this->handler[$account->blz]->fetchTransactions($account, $accountFile);
     }
 }

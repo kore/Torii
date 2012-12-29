@@ -27,7 +27,7 @@ class Model
      * @param \Doctrine\DBAL\Connection $dbal
      * @return void
      */
-    public function __construct( \Doctrine\DBAL\Connection $dbal )
+    public function __construct(\Doctrine\DBAL\Connection $dbal)
     {
         $this->dbal = $dbal;
     }
@@ -38,31 +38,31 @@ class Model
      * @param string $module
      * @return Struct\Url[]
      */
-    public function getUrlList( $module )
+    public function getUrlList($module)
     {
         $queryBuilder = $this->dbal->createQueryBuilder();
         $queryBuilder
-            ->select( 'u.feed_u_id', 'u.feed_u_url', 'u.feed_u_update', 'u.feed_u_status', 'rel.feed_m_u_name' )
-            ->from( 'feed_m_u_rel', 'rel' )
+            ->select('u.feed_u_id', 'u.feed_u_url', 'u.feed_u_update', 'u.feed_u_status', 'rel.feed_m_u_name')
+            ->from('feed_m_u_rel', 'rel')
             ->join(
                 'rel',
                 'feed_url', 'u',
-                $queryBuilder->expr()->eq( 'rel.feed_u_id', 'u.feed_u_id' )
+                $queryBuilder->expr()->eq('rel.feed_u_id', 'u.feed_u_id')
             )
             ->where(
-                $queryBuilder->expr()->eq( 'rel.feed_m_id', ':module' )
+                $queryBuilder->expr()->eq('rel.feed_m_id', ':module')
             )
-            ->setParameter( ':module', $module );
+            ->setParameter(':module', $module);
 
         $statement = $queryBuilder->execute();
-        $result = $statement->fetchAll( \PDO::FETCH_ASSOC );
+        $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
 
-        if ( !$result ) {
+        if (!$result) {
             return array();
         }
 
         return array_map(
-            function ( $urlData ) {
+            function ($urlData) {
                 return new Struct\Url(
                     $urlData['feed_u_id'],
                     $urlData['feed_u_url'],
@@ -82,16 +82,16 @@ class Model
      * @param string $url
      * @return void
      */
-    public function addUrl( $module, $name, $url )
+    public function addUrl($module, $name, $url)
     {
-        $this->checkModule( $module );
-        $urlId = $this->getUrlId( $url );
+        $this->checkModule($module);
+        $urlId = $this->getUrlId($url);
 
-        $this->dbal->insert( 'feed_m_u_rel', array(
+        $this->dbal->insert('feed_m_u_rel', array(
             'feed_m_id'     => $module,
             'feed_u_id'     => $urlId,
             'feed_m_u_name' => $name,
-        ) );
+        ));
     }
 
     /**
@@ -101,12 +101,12 @@ class Model
      * @param string $urlId
      * @return void
      */
-    public function removeUrl( $module, $urlId )
+    public function removeUrl($module, $urlId)
     {
-        $this->dbal->delete( 'feed_m_u_rel', array(
+        $this->dbal->delete('feed_m_u_rel', array(
             'feed_m_id' => $module,
             'feed_u_id' => $urlId
-        ) );
+        ));
     }
 
     /**
@@ -115,22 +115,22 @@ class Model
      * @param int $age
      * @return void
      */
-    public function getPending( $age )
+    public function getPending($age)
     {
         $queryBuilder = $this->dbal->createQueryBuilder();
         $queryBuilder
-            ->select( 'feed_u_id', 'feed_u_url' )
-            ->from( 'feed_url', 'u' )
+            ->select('feed_u_id', 'feed_u_url')
+            ->from('feed_url', 'u')
             ->where(
-                $queryBuilder->expr()->lt( 'feed_u_update', ':update' )
+                $queryBuilder->expr()->lt('feed_u_update', ':update')
             )
-            ->setParameter( ':update', time() - $age );
+            ->setParameter(':update', time() - $age);
 
         $statement = $queryBuilder->execute();
-        $result = $statement->fetchAll( \PDO::FETCH_ASSOC );
+        $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
 
         return array_map(
-            function ( $row ) {
+            function ($row) {
                 return new Struct\Url(
                     $row['feed_u_id'],
                     $row['feed_u_url']
@@ -148,7 +148,7 @@ class Model
      * @param int $update
      * @return void
      */
-    public function updateUrl( $urlId, $status, $update )
+    public function updateUrl($urlId, $status, $update)
     {
         $this->dbal->update(
             'feed_url',
@@ -172,24 +172,24 @@ class Model
      * @param string $module
      * @return int[]
      */
-    protected function getReadDataIds( $module )
+    protected function getReadDataIds($module)
     {
         $subSelect = $this->dbal->createQueryBuilder();
         $subSelect
-            ->select( 'feed_d_id' )
-            ->from( 'feed_m_d_rel', 'rel' )
+            ->select('feed_d_id')
+            ->from('feed_m_d_rel', 'rel')
             ->where(
-                $subSelect->expr()->eq( 'feed_m_id', ':module' )
+                $subSelect->expr()->eq('feed_m_id', ':module')
             )
-            ->setParameter( ':module', $module );
+            ->setParameter(':module', $module);
         $statement = $subSelect->execute();
-        $result = $statement->fetchAll( \PDO::FETCH_ASSOC );
+        $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
         return array_map(
-            function ( $row ) {
+            function ($row) {
                 return $row['feed_d_id'];
             },
             $result
-        ) ?: array( 0 );
+        ) ?: array(0);
     }
 
     /**
@@ -198,44 +198,44 @@ class Model
      * @param string $module
      * @return Struct\Entry[]
      */
-    public function getUnread( $module, $count = 10 )
+    public function getUnread($module, $count = 10)
     {
-        $read = $this->getReadDataIds( $module );
+        $read = $this->getReadDataIds($module);
 
         $queryBuilder = $this->dbal->createQueryBuilder();
         $queryBuilder
-            ->select( 'd.feed_d_id', 'd.feed_d_data', 'mrel.feed_m_u_name', 'u.feed_u_favicon' )
-            ->from( 'feed_m_u_rel', 'mrel' )
+            ->select('d.feed_d_id', 'd.feed_d_data', 'mrel.feed_m_u_name', 'u.feed_u_favicon')
+            ->from('feed_m_u_rel', 'mrel')
             ->join(
                 'mrel',
                 'feed_data', 'd',
                 $queryBuilder->expr()->andx(
-                    $queryBuilder->expr()->eq( 'mrel.feed_u_id', 'd.feed_u_id' ),
+                    $queryBuilder->expr()->eq('mrel.feed_u_id', 'd.feed_u_id'),
                     // @HACK: Doctrine DBAL is buggy currently regarding
                     // building IN() statements :/
-                    $this->dbal->quoteIdentifier( 'd.feed_d_id' ) . ' NOT IN( ' . implode( ', ', $read ) . ' )'
+                    $this->dbal->quoteIdentifier('d.feed_d_id') . ' NOT IN(' . implode(', ', $read) . ')'
                 )
             )
             ->join(
                 'mrel',
                 'feed_url', 'u',
-                $queryBuilder->expr()->eq( 'mrel.feed_u_id', 'u.feed_u_id' )
+                $queryBuilder->expr()->eq('mrel.feed_u_id', 'u.feed_u_id')
             )
             ->where(
-                $queryBuilder->expr()->eq( 'mrel.feed_m_id', ':module' )
+                $queryBuilder->expr()->eq('mrel.feed_m_id', ':module')
             )
-            ->orderBy( 'd.feed_d_time', 'DESC' )
-            ->setMaxResults( $count )
-            ->setParameter( ':module', $module );
+            ->orderBy('d.feed_d_time', 'DESC')
+            ->setMaxResults($count)
+            ->setParameter(':module', $module);
 
         $statement = $queryBuilder->execute();
-        $result = $statement->fetchAll( \PDO::FETCH_ASSOC );
+        $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
 
 
         return array_map(
-            function ( $row ) {
-                $data = json_decode( $row['feed_d_data'], true );
-                if ( $data === null ) {
+            function ($row) {
+                $data = json_decode($row['feed_d_data'], true);
+                if ($data === null) {
                     throw new \RuntimeException(
                         "JSON parse error for ${row['feed_m_u_name']}: ${row['feed_d_data']}."
                     );
@@ -263,38 +263,38 @@ class Model
      * @param string $content
      * @return void
      */
-    public function addEntry( $urlId, $link, $date, $title, $description = null, $content = null )
+    public function addEntry($urlId, $link, $date, $title, $description = null, $content = null)
     {
-        $hash = hash( "sha256", $link );
+        $hash = hash("sha256", $link);
         $queryBuilder = $this->dbal->createQueryBuilder();
         $queryBuilder
-            ->select( 'feed_d_id' )
-            ->from( 'feed_data', 'd' )
+            ->select('feed_d_id')
+            ->from('feed_data', 'd')
             ->where(
                 $queryBuilder->expr()->andx(
-                    $queryBuilder->expr()->eq( 'feed_d_url', ':hash' ),
-                    $queryBuilder->expr()->eq( 'feed_u_id', ':url' )
+                    $queryBuilder->expr()->eq('feed_d_url', ':hash'),
+                    $queryBuilder->expr()->eq('feed_u_id', ':url')
                 )
             )
-            ->setParameter( ':hash', $hash )
-            ->setParameter( ':url', $urlId );
+            ->setParameter(':hash', $hash)
+            ->setParameter(':url', $urlId);
 
         $statement = $queryBuilder->execute();
-        $result = $statement->fetchAll( \PDO::FETCH_ASSOC );
+        $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
 
-        if ( !count( $result ) ) {
+        if (!count($result)) {
             $this->dbal->insert(
                 'feed_data',
                 array(
                     'feed_d_url'  => $hash,
                     'feed_u_id'   => $urlId,
                     'feed_d_time' => $date,
-                    'feed_d_data' => json_encode( array(
+                    'feed_d_data' => json_encode(array(
                         'link'        => $link,
                         'title'       => $title,
                         'description' => $description,
                         'content'     => $content,
-                    ) ),
+                    )),
                 )
             );
         }
@@ -306,7 +306,7 @@ class Model
      * @param mixed $urlId
      * @return void
      */
-    public function markRead( $module, $entry )
+    public function markRead($module, $entry)
     {
         $this->dbal->insert(
             'feed_m_d_rel',
@@ -323,37 +323,37 @@ class Model
      * @param mixed $urlId
      * @return void
      */
-    public function clear( $module, $feed )
+    public function clear($module, $feed)
     {
-        $read = $this->getReadDataIds( $module );
+        $read = $this->getReadDataIds($module);
 
         $queryBuilder = $this->dbal->createQueryBuilder();
         $queryBuilder
-            ->select( 'd.feed_d_id' )
-            ->from( 'feed_m_u_rel', 'mrel' )
+            ->select('d.feed_d_id')
+            ->from('feed_m_u_rel', 'mrel')
             ->join(
                 'mrel',
                 'feed_data', 'd',
                 $queryBuilder->expr()->andx(
-                    $queryBuilder->expr()->eq( 'mrel.feed_u_id', 'd.feed_u_id' ),
+                    $queryBuilder->expr()->eq('mrel.feed_u_id', 'd.feed_u_id'),
                     // @HACK: Doctrine DBAL is buggy currently regarding
                     // building IN() statements :/
-                    $this->dbal->quoteIdentifier( 'd.feed_d_id' ) . ' NOT IN( ' . implode( ', ', $read ) . ' )'
+                    $this->dbal->quoteIdentifier('d.feed_d_id') . ' NOT IN(' . implode(', ', $read) . ')'
                 )
             )
             ->where(
                 $queryBuilder->expr()->andx(
-                    $queryBuilder->expr()->eq( 'mrel.feed_m_id', ':module' ),
-                    $queryBuilder->expr()->eq( 'mrel.feed_m_u_name', ':feed' )
+                    $queryBuilder->expr()->eq('mrel.feed_m_id', ':module'),
+                    $queryBuilder->expr()->eq('mrel.feed_m_u_name', ':feed')
                 )
             )
-            ->setParameter( ':feed', $feed )
-            ->setParameter( ':module', $module );
+            ->setParameter(':feed', $feed)
+            ->setParameter(':module', $module);
 
         $statement = $queryBuilder->execute();
-        $result = $statement->fetchAll( \PDO::FETCH_ASSOC );
+        $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
 
-        foreach ( $result as $row ) {
+        foreach ($result as $row) {
             $this->dbal->insert(
                 'feed_m_d_rel',
                 array(
@@ -370,25 +370,25 @@ class Model
      * @param string $module
      * @return void
      */
-    protected function checkModule( $module )
+    protected function checkModule($module)
     {
         $queryBuilder = $this->dbal->createQueryBuilder();
         $queryBuilder
-            ->select( 'feed_m_id' )
-            ->from( 'feed_module', 'm' )
+            ->select('feed_m_id')
+            ->from('feed_module', 'm')
             ->where(
-                $queryBuilder->expr()->eq( 'feed_m_id', ':module' )
+                $queryBuilder->expr()->eq('feed_m_id', ':module')
             )
-            ->setParameter( ':module', $module );
+            ->setParameter(':module', $module);
 
         $statement = $queryBuilder->execute();
-        $result = $statement->fetchAll( \PDO::FETCH_ASSOC );
+        $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
 
-        if ( !count( $result ) ) {
-            $this->dbal->insert( 'feed_module', array(
+        if (!count($result)) {
+            $this->dbal->insert('feed_module', array(
                 'feed_m_id'       => $module,
                 'feed_m_settings' => '{}',
-            ) );
+            ));
         }
     }
 
@@ -400,29 +400,29 @@ class Model
      * @param string $url
      * @return void
      */
-    protected function getUrlId( $url )
+    protected function getUrlId($url)
     {
         $queryBuilder = $this->dbal->createQueryBuilder();
         $queryBuilder
-            ->select( 'feed_u_id' )
-            ->from( 'feed_url', 'u' )
+            ->select('feed_u_id')
+            ->from('feed_url', 'u')
             ->where(
-                $queryBuilder->expr()->eq( 'feed_u_url', ':url' )
+                $queryBuilder->expr()->eq('feed_u_url', ':url')
             )
-            ->setParameter( ':url', $url );
+            ->setParameter(':url', $url);
 
         $statement = $queryBuilder->execute();
-        $result = $statement->fetch( \PDO::FETCH_ASSOC );
+        $result = $statement->fetch(\PDO::FETCH_ASSOC);
 
-        if ( $result ) {
+        if ($result) {
             return $result['feed_u_id'];
         }
 
-        $this->dbal->insert( 'feed_url', array(
+        $this->dbal->insert('feed_url', array(
             'feed_u_url'    => $url,
             'feed_u_update' => 0,
             'feed_u_status' => 0,
-        ) );
+        ));
 
         return $this->dbal->lastInsertId();
     }
@@ -436,21 +436,21 @@ class Model
     {
         $queryBuilder = $this->dbal->createQueryBuilder();
         $queryBuilder
-            ->select( 'feed_u_id', 'feed_u_url' )
-            ->from( 'feed_url', 'u' )
+            ->select('feed_u_id', 'feed_u_url')
+            ->from('feed_url', 'u')
             ->where(
-                $queryBuilder->expr()->isNull( 'feed_u_favicon' )
+                $queryBuilder->expr()->isNull('feed_u_favicon')
             );
 
         $statement = $queryBuilder->execute();
-        $result = $statement->fetchAll( \PDO::FETCH_ASSOC );
+        $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
 
-        if ( !$result ) {
+        if (!$result) {
             return array();
         }
 
         return array_map(
-            function ( $urlData ) {
+            function ($urlData) {
                 return new Struct\Url(
                     $urlData['feed_u_id'],
                     $urlData['feed_u_url']
@@ -467,7 +467,7 @@ class Model
      * @param string $favicon
      * @return void
      */
-    public function updateFavicon( $urlId, $favicon )
+    public function updateFavicon($urlId, $favicon)
     {
         $this->dbal->update(
             'feed_url',
@@ -489,14 +489,14 @@ class Model
     {
         $subSelect = $this->dbal->createQueryBuilder();
         $subSelect
-            ->select( 'feed_u_id' )
-            ->from( 'feed_m_u_rel', 'rel' );
+            ->select('feed_u_id')
+            ->from('feed_m_u_rel', 'rel');
 
         $queryBuilder = $this->dbal->createQueryBuilder();
         $queryBuilder
-            ->delete( 'feed_url' )
+            ->delete('feed_url')
             ->where(
-                $this->dbal->quoteIdentifier( 'feed_u_id' ) . ' NOT IN( ' . $subSelect . ' )'
+                $this->dbal->quoteIdentifier('feed_u_id') . ' NOT IN(' . $subSelect . ')'
             );
 
         $queryBuilder->execute();
@@ -511,57 +511,57 @@ class Model
     {
         $subSelect = $this->dbal->createQueryBuilder();
         $subSelect
-            ->select( 'feed_u_id' )
-            ->from( 'feed_url', 'url' );
+            ->select('feed_u_id')
+            ->from('feed_url', 'url');
 
         $statement = $subSelect->execute();
-        $result = $statement->fetchAll( \PDO::FETCH_ASSOC );
+        $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
         $urls = array_map(
-            function ( $row ) {
+            function ($row) {
                 return $row['feed_u_id'];
             },
             $result
-        ) ?: array( 0 );
+        ) ?: array(0);
 
         // Remove feed data for feeds no longer existing
         $queryBuilder = $this->dbal->createQueryBuilder();
         $queryBuilder
-            ->delete( 'feed_data' )
+            ->delete('feed_data')
             ->where(
-                $this->dbal->quoteIdentifier( 'feed_u_id' ) . ' NOT IN( ' . implode( ', ', $urls ) . ' )'
+                $this->dbal->quoteIdentifier('feed_u_id') . ' NOT IN(' . implode(', ', $urls) . ')'
             );
         $queryBuilder->execute();
 
         // Only keep the 50 most recent feed data rows per URL
-        foreach ( $urls as $urlId ) {
+        foreach ($urls as $urlId) {
             $queryBuilder = $this->dbal->createQueryBuilder();
             $queryBuilder
-                ->select( 'feed_d_id' )
-                ->from( 'feed_data', 'data' )
+                ->select('feed_d_id')
+                ->from('feed_data', 'data')
                 ->where(
-                    $queryBuilder->expr()->eq( 'data.feed_u_id', ':url' )
+                    $queryBuilder->expr()->eq('data.feed_u_id', ':url')
                 )
-                ->setParameter( ':url', $urlId )
-                ->orderBy( 'data.feed_d_time', 'DESC' )
-                ->setMaxResults( 32768 )
-                ->setFirstResult( 50 );
+                ->setParameter(':url', $urlId)
+                ->orderBy('data.feed_d_time', 'DESC')
+                ->setMaxResults(32768)
+                ->setFirstResult(50);
             $queryBuilder->execute();
 
             $statement = $queryBuilder->execute();
-            $result = $statement->fetchAll( \PDO::FETCH_ASSOC );
+            $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
             $dataIds = array_map(
-                function ( $row ) {
+                function ($row) {
                     return $row['feed_d_id'];
                 },
                 $result
             );
 
-            if ( count( $dataIds ) ) {
+            if (count($dataIds)) {
                 $queryBuilder = $this->dbal->createQueryBuilder();
                 $queryBuilder
-                    ->delete( 'feed_data' )
+                    ->delete('feed_data')
                     ->where(
-                        $this->dbal->quoteIdentifier( 'feed_d_id' ) . ' IN( ' . implode( ', ', $dataIds ) . ' )'
+                        $this->dbal->quoteIdentifier('feed_d_id') . ' IN(' . implode(', ', $dataIds) . ')'
                     );
                 $queryBuilder->execute();
             }
@@ -577,14 +577,14 @@ class Model
     {
         $subSelect = $this->dbal->createQueryBuilder();
         $subSelect
-            ->select( 'feed_d_id' )
-            ->from( 'feed_data', 'data' );
+            ->select('feed_d_id')
+            ->from('feed_data', 'data');
 
         $queryBuilder = $this->dbal->createQueryBuilder();
         $queryBuilder
-            ->delete( 'feed_m_d_rel' )
+            ->delete('feed_m_d_rel')
             ->where(
-                $this->dbal->quoteIdentifier( 'feed_d_id' ) . ' NOT IN( ' . $subSelect . ' )'
+                $this->dbal->quoteIdentifier('feed_d_id') . ' NOT IN(' . $subSelect . ')'
             );
 
         $queryBuilder->execute();

@@ -68,7 +68,7 @@ class Account extends Struct
      * @param string $pin
      * @return void
      */
-    public function __construct( $id = null, $name = null, $blz = null, $knr = null, $pin = null )
+    public function __construct($id = null, $name = null, $blz = null, $knr = null, $pin = null)
     {
         $this->id   = $id;
         $this->name = $name;

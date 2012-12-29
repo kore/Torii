@@ -20,7 +20,7 @@ abstract class Hash
      * @param string $password
      * @return string
      */
-    abstract public function hashPassword( $password );
+    abstract public function hashPassword($password);
 
     /**
      * Verify password against provided hash
@@ -29,5 +29,5 @@ abstract class Hash
      * @param string $hash
      * @return bool
      */
-    abstract public function verifyPassword( $password, $hash );
+    abstract public function verifyPassword($password, $hash);
 }

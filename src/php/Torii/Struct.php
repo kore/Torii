@@ -19,10 +19,10 @@ abstract class Struct
      *
      * @param array $record
      */
-    public function __construct( array $record = array() )
+    public function __construct(array $record = array())
     {
-        foreach ( $record as $name => $value ) {
-            if ( property_exists( $this, $name ) ) {
+        foreach ($record as $name => $value) {
+            if (property_exists($this, $name)) {
                 $this->{$name} = $value;
             }
         }
@@ -34,9 +34,9 @@ abstract class Struct
      * @param string $property
      * @return mixed
      */
-    public function __get( $property )
+    public function __get($property)
     {
-        throw new \OutOfBoundsException( 'Trying to get non-existing property ' . $property );
+        throw new \OutOfBoundsException('Trying to get non-existing property ' . $property);
     }
 
     /**
@@ -46,9 +46,9 @@ abstract class Struct
      * @param mixed $value
      * @return void
      */
-    public function __set( $property, $value )
+    public function __set($property, $value)
     {
-        throw new \OutOfBoundsException( 'Trying to set non-existing property ' . $property );
+        throw new \OutOfBoundsException('Trying to set non-existing property ' . $property);
     }
 
     /**
@@ -58,8 +58,8 @@ abstract class Struct
      */
     public function __clone()
     {
-        foreach ( $this as $property => $value ) {
-            if ( is_object( $value ) ) {
+        foreach ($this as $property => $value) {
+            if (is_object($value)) {
                 $this->$property = clone $value;
             }
         }
@@ -71,10 +71,10 @@ abstract class Struct
      * @param array $properties
      * @return Struct
      */
-    public static function __set_state( array $properties )
+    public static function __set_state(array $properties)
     {
         $struct = new static();
-        foreach ( $properties as $property => $value ) {
+        foreach ($properties as $property => $value) {
             $struct->$property = $value;
         }
 

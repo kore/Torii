@@ -27,7 +27,7 @@ class Filter
      * @param mixed $controller
      * @return void
      */
-    public function __construct( $controller )
+    public function __construct($controller)
     {
         $this->controller = $controller;
     }
@@ -39,20 +39,20 @@ class Filter
      * @param array $arguments
      * @return mixed
      */
-    public function __call( $method, array $arguments )
+    public function __call($method, array $arguments)
     {
-        $request = reset( $arguments );
+        $request = reset($arguments);
 
-        if ( !isset( $request->session['user'] ) ) {
+        if (!isset($request->session['user'])) {
             // @TODO: This ia an ugly hack:
-            header( 'Location: /' );
-            exit( 0 );
+            header('Location: /');
+            exit(0);
         }
 
-        if ( !is_callable( array( $this->controller, $method ) ) ) {
-            throw new \BadMethodCallException( "Call not available in aggregated controller." );
+        if (!is_callable(array($this->controller, $method))) {
+            throw new \BadMethodCallException("Call not available in aggregated controller.");
         }
 
-        return $this->controller->$method( $request, $request->session['user'] );
+        return $this->controller->$method($request, $request->session['user']);
     }
 }

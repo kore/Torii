@@ -33,7 +33,7 @@ class Assets
      * @param array $assets
      * @return void
      */
-    public function __construct( array $assets )
+    public function __construct(array $assets)
     {
         $this->assets = $assets;
     }
@@ -45,34 +45,34 @@ class Assets
      * @param Struct\User $user
      * @return Struct\Response
      */
-    public function deliver( RMF\Request $request )
+    public function deliver(RMF\Request $request)
     {
-        foreach ( $this->assets as $regexp => $collection ) {
-            if ( !preg_match( $regexp, $request->path, $matches ) ) {
+        foreach ($this->assets as $regexp => $collection) {
+            if (!preg_match($regexp, $request->path, $matches)) {
                 continue;
             }
 
-            if ( !isset( $matches['path'] ) ) {
-                throw new \RuntimeException( "No match value 'path'." );
+            if (!isset($matches['path'])) {
+                throw new \RuntimeException("No match value 'path'.");
             }
 
-            foreach ( $collection->getFiles() as $file ) {
-                if ( $file->localPath !== $matches['path'] ) {
+            foreach ($collection->getFiles() as $file) {
+                if ($file->localPath !== $matches['path']) {
                     continue;
                 }
 
                 // @TODO: ARRRGS!
-                header( "Content-Type: " . $file->mimeType );
+                header("Content-Type: " . $file->mimeType);
 
-                header( "Last-Modified: " . gmdate( "D, d M Y H:i:s", $file->modificationTime ) . " GMT" );
-                header( "Etag: " . md5( $file->modificationTime ) );
-                header( "Cache-Control: public" );
+                header("Last-Modified: " . gmdate("D, d M Y H:i:s", $file->modificationTime) . " GMT");
+                header("Etag: " . md5($file->modificationTime));
+                header("Cache-Control: public");
 
-                readfile( $file->basePath . $file->localPath );
-                exit( 0 );
+                readfile($file->basePath . $file->localPath);
+                exit(0);
             }
         }
 
-        throw new \Exception( $request->path . " not found." );
+        throw new \Exception($request->path . " not found.");
     }
 }

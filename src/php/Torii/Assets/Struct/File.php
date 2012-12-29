@@ -53,7 +53,7 @@ class File extends Struct
      * @param string $localPath
      * @return void
      */
-    public function __construct( $basePath = null, $localPath = null, $mimeType = null )
+    public function __construct($basePath = null, $localPath = null, $mimeType = null)
     {
         $this->basePath  = $basePath;
         $this->localPath = $localPath;
@@ -66,16 +66,16 @@ class File extends Struct
      * @param string $property
      * @return void
      */
-    public function __get( $property )
+    public function __get($property)
     {
-        if ( $property === 'modificationTime' ) {
-            if ( $this->modificationTime !== null ) {
+        if ($property === 'modificationTime') {
+            if ($this->modificationTime !== null) {
                 return $this->modificationTime;
             }
 
-            return $this->modificationTime = filemtime( $this->basePath . $this->localPath );
+            return $this->modificationTime = filemtime($this->basePath . $this->localPath);
         }
 
-        return parent::__get( $property );
+        return parent::__get($property);
     }
 }

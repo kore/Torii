@@ -34,7 +34,7 @@ class Model
      * @param \Doctrine\DBAL\Connection $dbal
      * @return void
      */
-    public function __construct( \Doctrine\DBAL\Connection $dbal, $storageDir )
+    public function __construct(\Doctrine\DBAL\Connection $dbal, $storageDir)
     {
         $this->dbal = $dbal;
         $this->storageDir = $storageDir;
@@ -46,26 +46,26 @@ class Model
      * @param string $module
      * @return Struct\Url[]
      */
-    public function getUrlList( $module )
+    public function getUrlList($module)
     {
         $queryBuilder = $this->dbal->createQueryBuilder();
         $queryBuilder
-            ->select( 'u.calendar_u_id', 'u.calendar_u_url', 'u.calendar_u_update', 'u.calendar_u_status', 'u.calendar_u_name' )
-            ->from( 'calendar_url', 'u' )
+            ->select('u.calendar_u_id', 'u.calendar_u_url', 'u.calendar_u_update', 'u.calendar_u_status', 'u.calendar_u_name')
+            ->from('calendar_url', 'u')
             ->where(
-                $queryBuilder->expr()->eq( 'u.calendar_m_id', ':module' )
+                $queryBuilder->expr()->eq('u.calendar_m_id', ':module')
             )
-            ->setParameter( ':module', $module );
+            ->setParameter(':module', $module);
 
         $statement = $queryBuilder->execute();
-        $result = $statement->fetchAll( \PDO::FETCH_ASSOC );
+        $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
 
-        if ( !$result ) {
+        if (!$result) {
             return array();
         }
 
         return array_map(
-            function ( $urlData ) {
+            function ($urlData) {
                 return new Struct\Url(
                     $urlData['calendar_u_id'],
                     $urlData['calendar_u_url'],
@@ -85,13 +85,13 @@ class Model
      * @param string $url
      * @return void
      */
-    public function addUrl( $module, $name, $url )
+    public function addUrl($module, $name, $url)
     {
-        $this->dbal->insert( 'calendar_url', array(
+        $this->dbal->insert('calendar_url', array(
             'calendar_m_id'   => $module,
             'calendar_u_url'  => $url,
             'calendar_u_name' => $name,
-        ) );
+        ));
     }
 
     /**
@@ -101,12 +101,12 @@ class Model
      * @param string $urlId
      * @return void
      */
-    public function removeUrl( $module, $urlId )
+    public function removeUrl($module, $urlId)
     {
-        $this->dbal->delete( 'calendar_url', array(
+        $this->dbal->delete('calendar_url', array(
             'calendar_m_id' => $module,
             'calendar_u_id' => $urlId
-        ) );
+        ));
     }
 
     /**
@@ -117,7 +117,7 @@ class Model
      * @param int $update
      * @return void
      */
-    public function updateUrl( $urlId, $status, $update )
+    public function updateUrl($urlId, $status, $update)
     {
         $this->dbal->update(
             'calendar_url',
@@ -140,18 +140,18 @@ class Model
     {
         $queryBuilder = $this->dbal->createQueryBuilder();
         $queryBuilder
-            ->select( 'u.calendar_u_id', 'u.calendar_m_id', 'u.calendar_u_url', 'u.calendar_u_update', 'u.calendar_u_status', 'u.calendar_u_name' )
-            ->from( 'calendar_url', 'u' );
+            ->select('u.calendar_u_id', 'u.calendar_m_id', 'u.calendar_u_url', 'u.calendar_u_update', 'u.calendar_u_status', 'u.calendar_u_name')
+            ->from('calendar_url', 'u');
 
         $statement = $queryBuilder->execute();
-        $result = $statement->fetchAll( \PDO::FETCH_ASSOC );
+        $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
 
-        if ( !$result ) {
+        if (!$result) {
             return array();
         }
 
         $urls = array();
-        foreach ( $result as $row ) {
+        foreach ($result as $row) {
             $urls[$row['calendar_m_id']][] = new Struct\Url(
                 $row['calendar_u_id'],
                 $row['calendar_u_url'],
@@ -171,11 +171,11 @@ class Model
      * @param array $entries
      * @return void
      */
-    public function storeCalendar( $module, array $entries )
+    public function storeCalendar($module, array $entries)
     {
         file_put_contents(
-            $this->getStorageFileName( $module ),
-            serialize( $entries )
+            $this->getStorageFileName($module),
+            serialize($entries)
         );
     }
 
@@ -186,11 +186,11 @@ class Model
      * @param array $entries
      * @return void
      */
-    public function getCalendar( $module )
+    public function getCalendar($module)
     {
         return unserialize(
             file_get_contents(
-                $this->getStorageFileName( $module )
+                $this->getStorageFileName($module)
             )
         );
     }
@@ -201,10 +201,10 @@ class Model
      * @param string $module
      * @return string
      */
-    protected function getStorageFileName( $module )
+    protected function getStorageFileName($module)
     {
-        if ( !is_dir( $this->storageDir ) ) {
-            mkdir( $this->storageDir, 0777, true );
+        if (!is_dir($this->storageDir)) {
+            mkdir($this->storageDir, 0777, true);
         }
 
         return sprintf(

@@ -37,7 +37,7 @@ class Calendar extends Struct
      * @param array $entries
      * @return void
      */
-    public function __construct( Url $url, array $entries = array() )
+    public function __construct(Url $url, array $entries = array())
     {
         $this->url     = $url;
         $this->entries = $entries;

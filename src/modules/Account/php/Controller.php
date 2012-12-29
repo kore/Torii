@@ -31,7 +31,7 @@ class Controller
      * @param Model $model
      * @return void
      */
-    public function __construct( Model $model )
+    public function __construct(Model $model)
     {
         $this->model  = $model;
     }
@@ -44,14 +44,14 @@ class Controller
      * @param Struct\ModuleConfiguration $module
      * @return Struct\Response
      */
-    public function addAccount( RMF\Request $request, Struct\User $user, Struct\ModuleConfiguration $module )
+    public function addAccount(RMF\Request $request, Struct\User $user, Struct\ModuleConfiguration $module)
     {
         $this->model->addAccount(
             $module->id,
-            trim( $request->body['name'] ),
-            trim( $request->body['blz'] ),
-            trim( $request->body['knr'] ),
-            trim( $request->body['pin'] )
+            trim($request->body['name']),
+            trim($request->body['blz']),
+            trim($request->body['knr']),
+            trim($request->body['pin'])
         );
     }
 
@@ -63,9 +63,9 @@ class Controller
      * @param Struct\ModuleConfiguration $module
      * @return Struct\Response
      */
-    public function removeAccount( RMF\Request $request, Struct\User $user, Struct\ModuleConfiguration $module )
+    public function removeAccount(RMF\Request $request, Struct\User $user, Struct\ModuleConfiguration $module)
     {
-        $this->model->removeAccount( $module->id, $request->body['account'] );
+        $this->model->removeAccount($module->id, $request->body['account']);
     }
 
     /**
@@ -76,9 +76,9 @@ class Controller
      * @param Struct\ModuleConfiguration $module
      * @return Struct\Response
      */
-    public function getAccountList( RMF\Request $request, Struct\User $user, Struct\ModuleConfiguration $module )
+    public function getAccountList(RMF\Request $request, Struct\User $user, Struct\ModuleConfiguration $module)
     {
-        return $this->model->getAccountList( $module->id );
+        return $this->model->getAccountList($module->id);
     }
 
     /**
@@ -89,9 +89,9 @@ class Controller
      * @param Struct\ModuleConfiguration $module
      * @return Struct\Response
      */
-    public function getAccountData( RMF\Request $request, Struct\User $user, Struct\ModuleConfiguration $module )
+    public function getAccountData(RMF\Request $request, Struct\User $user, Struct\ModuleConfiguration $module)
     {
-        return $this->model->getAccountData( $module->id );
+        return $this->model->getAccountData($module->id);
     }
 
     /**
@@ -100,14 +100,14 @@ class Controller
      * @param Periodic\Logger $logger
      * @return void
      */
-    public function refresh( Periodic\Logger $logger )
+    public function refresh(Periodic\Logger $logger)
     {
         $accounts = $this->model->getAllAccounts();
 
-        foreach ( $accounts as $account ) {
-            $logger->log( "Updating {$account->knr} for {$account->blz}" );
-            $this->model->updateTransactions( $account );
-            $logger->log( "Done" );
+        foreach ($accounts as $account) {
+            $logger->log("Updating {$account->knr} for {$account->blz}");
+            $this->model->updateTransactions($account);
+            $logger->log("Done");
         }
 
         return array();

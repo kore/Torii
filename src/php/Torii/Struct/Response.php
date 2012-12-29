@@ -36,7 +36,7 @@ class Response extends Struct
      * @param array $data
      * @return void
      */
-    public function __construct( $template, array $data = array() )
+    public function __construct($template, array $data = array())
     {
         $this->template = $template;
         $this->data     = $data;

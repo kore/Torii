@@ -31,7 +31,7 @@ class Cleanup extends Periodic\Command
      * @param Model $model
      * @return void
      */
-    public function __construct( Feed\Model $model )
+    public function __construct(Feed\Model $model)
     {
         $this->model = $model;
     }
@@ -48,13 +48,13 @@ class Cleanup extends Periodic\Command
      * @param Periodic\Logger $logger
      * @return int
      */
-    public function run( XML\Node $configuration, Periodic\Logger $logger )
+    public function run(XML\Node $configuration, Periodic\Logger $logger)
     {
-        $logger->log( "Cleaning up unused feeds." );
+        $logger->log("Cleaning up unused feeds.");
         $this->model->cleanUnusedFeeds();
-        $logger->log( "Cleaning up old feed entries." );
+        $logger->log("Cleaning up old feed entries.");
         $this->model->cleanOldData();
-        $logger->log( "Cleaning up unused read markers." );
+        $logger->log("Cleaning up unused read markers.");
         $this->model->cleanUnusedReadMarkers();
 
         return Periodic\Executor::SUCCESS;

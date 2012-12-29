@@ -39,7 +39,7 @@ class Main
      * @param Struct\Module[] $modules
      * @return void
      */
-    public function __construct( Model\User $user, array $modules )
+    public function __construct(Model\User $user, array $modules)
     {
         $this->user    = $user;
         $this->modules = $modules;
@@ -52,7 +52,7 @@ class Main
      * @param Struct\User $user
      * @return Struct\Response
      */
-    public function view( RMF\Request $request, Struct\User $user )
+    public function view(RMF\Request $request, Struct\User $user)
     {
         return new Struct\Response(
             'main.twig',
@@ -70,7 +70,7 @@ class Main
      * @param Struct\User $user
      * @return Struct\Response
      */
-    public function showSettings( RMF\Request $request, Struct\User $user )
+    public function showSettings(RMF\Request $request, Struct\User $user)
     {
         return new Struct\Response(
             'settings.twig',
@@ -87,17 +87,17 @@ class Main
      * @param Struct\User $user
      * @return Struct\Response
      */
-    public function updateSettings( RMF\Request $request, Struct\User $user )
+    public function updateSettings(RMF\Request $request, Struct\User $user)
     {
-        if ( isset( $request->body['submit'] ) ) {
+        if (isset($request->body['submit'])) {
             $user->settings->columns = (int) $request->body['columns'];
             $user->settings->name    = $request->body['name'];
 
-            $this->user->update( $user );
+            $this->user->update($user);
         }
 
-        header( "Location: /portal" );
-        exit( 0 );
+        header("Location: /portal");
+        exit(0);
     }
 
     /**
@@ -107,24 +107,24 @@ class Main
      * @param Struct\User $user
      * @return Struct\Response
      */
-    public function resort( RMF\Request $request, Struct\User $user )
+    public function resort(RMF\Request $request, Struct\User $user)
     {
         $modules = array();
-        foreach ( $user->settings->modules as $column ) {
-            foreach ( $column as $module ) {
+        foreach ($user->settings->modules as $column) {
+            foreach ($column as $module) {
                 $modules[$module->id] = $module;
             }
         }
 
         $user->settings->modules = array();
-        foreach ( $request->body['modules'] as $cnr => $column ) {
+        foreach ($request->body['modules'] as $cnr => $column) {
             $user->settings->modules[$cnr] = array();
-            foreach ( $column as $mnr => $moduleId ) {
+            foreach ($column as $mnr => $moduleId) {
                 $user->settings->modules[$cnr][$mnr] = $modules[$moduleId];
             }
         }
 
-        $this->user->update( $user );
+        $this->user->update($user);
 
         return array(
             "ok" => true,
@@ -138,31 +138,31 @@ class Main
      * @param Struct\User $user
      * @return Struct\Response
      */
-    public function addModule( RMF\Request $request, Struct\User $user )
+    public function addModule(RMF\Request $request, Struct\User $user)
     {
-        if ( isset( $request->body['submit'] ) ) {
+        if (isset($request->body['submit'])) {
             $column = (int) $request->body['column'] - 1;
             $module = $request->body['module'];
 
-            if ( ( $column > $user->settings->columns ) &&
-                 ( !isset( $this->modules[$module] ) ) )
+            if (($column > $user->settings->columns) &&
+                 (!isset($this->modules[$module])))
             {
-                throw new \RuntimeException( "Invalid parameters" );
+                throw new \RuntimeException("Invalid parameters");
             }
 
-            if ( !isset( $user->settings->modules[$column] ) ) {
+            if (!isset($user->settings->modules[$column])) {
                 $user->settings->modules[$column] = array();
             }
 
             $user->settings->modules[$column][] = new Struct\ModuleConfiguration(
-                $this->getModuleId( $request->body['title'] ),
+                $this->getModuleId($request->body['title']),
                 $module,
                 $request->body['title']
             );
-            $this->user->update( $user );
+            $this->user->update($user);
         }
 
-        return $this->view( $request, $user );
+        return $this->view($request, $user);
     }
 
     /**
@@ -172,26 +172,26 @@ class Main
      * @param Struct\User $user
      * @return Struct\Response
      */
-    public function import( RMF\Request $request, Struct\User $user )
+    public function import(RMF\Request $request, Struct\User $user)
     {
-        if ( $_FILES['config']['error'] ) {
-            throw new \RuntimeException( "Error while uploading file." );
+        if ($_FILES['config']['error']) {
+            throw new \RuntimeException("Error while uploading file.");
         }
 
-        switch ( $request->body['type'] ) {
+        switch ($request->body['type']) {
             case 'torii':
-                $importer = new \Torii\Importer\Torii( $this->user, $this->modules );
-                $importer->import( $user, $_FILES['config']['tmp_name'] );
+                $importer = new \Torii\Importer\Torii($this->user, $this->modules);
+                $importer->import($user, $_FILES['config']['tmp_name']);
                 break;
 
             default:
-                throw new \RuntimeException( "Unknown importer: " . $request->body['type'] );
+                throw new \RuntimeException("Unknown importer: " . $request->body['type']);
         }
 
-        return $this->view( $request, $user );
+        return $this->view($request, $user);
 
-        header( "Location: /portal" );
-        exit( 0 );
+        header("Location: /portal");
+        exit(0);
     }
 
     /**
@@ -201,9 +201,9 @@ class Main
      * @param Struct\User $user
      * @return Struct\Response
      */
-    public function getConfig( RMF\Request $request, Struct\User $user )
+    public function getConfig(RMF\Request $request, Struct\User $user)
     {
-        return $this->getModuleConfig( $user, $request->variables['module'] )->settings;
+        return $this->getModuleConfig($user, $request->variables['module'])->settings;
     }
 
     /**
@@ -213,12 +213,12 @@ class Main
      * @param Struct\User $user
      * @return Struct\Response
      */
-    public function configure( RMF\Request $request, Struct\User $user )
+    public function configure(RMF\Request $request, Struct\User $user)
     {
-        $module = $this->getModuleConfig( $user, $request->variables['module'] );
+        $module = $this->getModuleConfig($user, $request->variables['module']);
         $module->settings = $request->body;
 
-        $this->user->update( $user );
+        $this->user->update($user);
         return $module->settings;
     }
 
@@ -228,9 +228,9 @@ class Main
      * @param string $title
      * @return string
      */
-    protected function getModuleId( $title )
+    protected function getModuleId($title)
     {
-        return preg_replace( '([^a-z0-9_]+)', '_', strtolower( $title ) ) . '_' . substr( md5( microtime() ), 0, 8 );
+        return preg_replace('([^a-z0-9_]+)', '_', strtolower($title)) . '_' . substr(md5(microtime()), 0, 8);
     }
 
     /**
@@ -240,16 +240,16 @@ class Main
      * @param Struct\User $user
      * @return Struct\Response
      */
-    public function dispatch( RMF\Request $request, Struct\User $user )
+    public function dispatch(RMF\Request $request, Struct\User $user)
     {
-        $module = $this->getModuleConfig( $user, $request->variables['module'] );
+        $module = $this->getModuleConfig($user, $request->variables['module']);
 
-        if ( !isset( $this->modules[$module->type] ) ) {
-            throw new \RuntimeException( "Invalid module: " . $module->type );
+        if (!isset($this->modules[$module->type])) {
+            throw new \RuntimeException("Invalid module: " . $module->type);
         }
 
         $moduleHandler = $this->modules[$module->type];
-        return $moduleHandler->handle( $request, $user, $module );
+        return $moduleHandler->handle($request, $user, $module);
     }
 
     /**
@@ -259,16 +259,16 @@ class Main
      * @param string $moduleId
      * @return Struct\Module
      */
-    protected function getModuleConfig( Struct\User $user, $moduleId )
+    protected function getModuleConfig(Struct\User $user, $moduleId)
     {
-        foreach ( $user->settings->modules as $column ) {
-            foreach ( $column as $module ) {
-                if ( $module->id === $moduleId ) {
+        foreach ($user->settings->modules as $column) {
+            foreach ($column as $module) {
+                if ($module->id === $moduleId) {
                     return $module;
                 }
             }
         }
 
-        throw new \RuntimeException( "Invalid module $moduleId" );
+        throw new \RuntimeException("Invalid module $moduleId");
     }
 }

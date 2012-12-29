@@ -26,17 +26,17 @@ class Parser
      * @param Struct\Url $url
      * @return Struct\Feed
      */
-    public function parse( Struct\Url $url )
+    public function parse(Struct\Url $url)
     {
         $client = new \Buzz\Browser();
-        $client->getClient()->setTimeout( 5 );
+        $client->getClient()->setTimeout(5);
 
-        $feed = new Struct\Feed( $url );
+        $feed = new Struct\Feed($url);
         try {
-            $response = $client->get( $url->url );
+            $response = $client->get($url->url);
             $feed->status = $response->getStatusCode();
 
-            if ( !$response->isOk() ) {
+            if (!$response->isOk()) {
                 return $feed;
             }
 
@@ -44,13 +44,13 @@ class Parser
                 $response->getContent()
             );
 
-            foreach ( $reader as $entry ) {
-                $feed->entries[] = $this->parseEntry( $entry );
+            foreach ($reader as $entry) {
+                $feed->entries[] = $this->parseEntry($entry);
             }
-        } catch ( \Zend\Feed\Reader\Exception\RuntimeException $e ) {
+        } catch (\Zend\Feed\Reader\Exception\RuntimeException $e) {
             $feed->status = 406;
             return $feed;
-        } catch ( \RuntimeException $e ) {
+        } catch (\RuntimeException $e) {
             $feed->status = 503;
             return $feed;
         }
@@ -64,7 +64,7 @@ class Parser
      * @param mixed $data
      * @return Struct\FeedEntry
      */
-    protected function parseEntry( $data )
+    protected function parseEntry($data)
     {
         $entry = new Struct\FeedEntry(
             null,
@@ -74,11 +74,11 @@ class Parser
         );
 
         $entry->date        = $data->getDateModified() ?
-            $data->getDateModified()->format( 'U' ) :
+            $data->getDateModified()->format('U') :
             time();
 
         $entry->content     = $data->getContent() ?: $data->getDescription();
-        $entry->description = strip_tags( $data->getDescription() ?: $data->getContent() );
+        $entry->description = strip_tags($data->getDescription() ?: $data->getContent());
 
         return $entry;
     }

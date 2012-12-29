@@ -24,7 +24,7 @@ class SparkasseWestfalia extends BankHandler
      * @param string $accountFile
      * @return \CTXParser\Visitor\Simplified\AccountList
      */
-    public function fetchTransactions( Struct\Account $account, $accountFile )
+    public function fetchTransactions(Struct\Account $account, $accountFile)
     {
         file_put_contents(
             $pinFile = $accountFile . '.pin',
@@ -35,47 +35,47 @@ class SparkasseWestfalia extends BankHandler
         $this->exec(
             'aqhbci-tool4 --noninteractive --acceptvalidcerts' .
             ' adduser -s https://hbci-pintan-wf.s-hbci.de/PinTanServlet' .
-            ' -N ' . escapeshellarg( $account->blz . '_' . $account->knr ) .
-            ' -b ' . escapeshellarg( $account->blz ) .
-            ' -u ' . escapeshellarg( $account->knr ) .
+            ' -N ' . escapeshellarg($account->blz . '_' . $account->knr) .
+            ' -b ' . escapeshellarg($account->blz) .
+            ' -u ' . escapeshellarg($account->knr) .
             ' -t pintan'
         );
         $this->exec(
             'aqhbci-tool4 --noninteractive --acceptvalidcerts' .
-            ' -P ' . escapeshellarg( $pinFile ) .
+            ' -P ' . escapeshellarg($pinFile) .
             ' adduserflags -f forceSsl3' .
-            ' -c ' . escapeshellarg( $account->knr )
+            ' -c ' . escapeshellarg($account->knr)
         );
         $this->exec(
             'aqhbci-tool4 --noninteractive --acceptvalidcerts' .
-            ' -P ' . escapeshellarg( $pinFile ) .
+            ' -P ' . escapeshellarg($pinFile) .
             ' getsysid' .
-            ' -c ' . escapeshellarg( $account->knr )
+            ' -c ' . escapeshellarg($account->knr)
         );
 
         // Actually fetch data
         $this->exec(
             'aqbanking-cli --noninteractive --acceptvalidcerts' .
-            ' -P ' . escapeshellarg( $pinFile ) .
+            ' -P ' . escapeshellarg($pinFile) .
             ' request ' .
-            ' -b ' . escapeshellarg( $account->blz ) .
-            ' --transactions > ' . escapeshellarg( $accountFile . '.ctx' )
+            ' -b ' . escapeshellarg($account->blz) .
+            ' --transactions > ' . escapeshellarg($accountFile . '.ctx')
         );
 
-        unlink( $pinFile );
+        unlink($pinFile);
 
         $parser = new \CTXParser\Parser();
-        $transactions = $parser->parse( $accountFile . '.ctx' );
+        $transactions = $parser->parse($accountFile . '.ctx');
 
         $visitor = new \CTXParser\Visitor\Simplified();
-        $transactions = $visitor->visit( $transactions );
+        $transactions = $visitor->visit($transactions);
 
         // Only return accounts which actually contain data
-        return array_values( array_filter(
+        return array_values(array_filter(
             $transactions->accounts,
-            function ( $account ) {
+            function ($account) {
                 return $account->status !== null;
             }
-        ) );
+        ));
     }
 }

@@ -52,7 +52,7 @@ class PBKDF2 extends Hash
      * @param int $hashLength
      * @return void
      */
-    public function __construct( $algorithm = "sha256", $iterations = 1024, $hashLength = 24 )
+    public function __construct($algorithm = "sha256", $iterations = 1024, $hashLength = 24)
     {
         $this->algorithm  = $algorithm;
         $this->iterations = $iterations;
@@ -65,10 +65,10 @@ class PBKDF2 extends Hash
      * @param string $password
      * @return string
      */
-    public function hashPassword( $password, $salt = null )
+    public function hashPassword($password, $salt = null)
     {
         $salt = $salt ?: $this->getRandomString();
-        return implode( ':', array(
+        return implode(':', array(
             $this->algorithm,
             $this->iterations,
             $salt,
@@ -79,7 +79,7 @@ class PBKDF2 extends Hash
                 $this->iterations,
                 $this->hashLength
             )
-        ) );
+        ));
     }
 
     /**
@@ -94,8 +94,8 @@ class PBKDF2 extends Hash
         return substr(
             md5(
                 microtime() .
-                uniqid( mt_rand(), true ) .
-                implode( '', fstat( fopen( __FILE__, 'r' ) ) )
+                uniqid(mt_rand(), true) .
+                implode('', fstat(fopen(__FILE__, 'r')))
             ),
             0,
             self::SALT_LENGTH
@@ -119,32 +119,32 @@ class PBKDF2 extends Hash
      * @param bool $rawOutput - If true, the key is returned in raw binary format. Hex encoded otherwise.
      * @return A $keyLength-byte key derived from the password and salt.
      */
-    protected function pbkdf2( $algorithm, $password, $salt, $count, $keyLength, $rawOutput = false )
+    protected function pbkdf2($algorithm, $password, $salt, $count, $keyLength, $rawOutput = false)
     {
-        $algorithm = strtolower( $algorithm );
-        if ( !in_array( $algorithm, hash_algos(), true ) ) {
-            throw new \RuntimeException( 'PBKDF2 ERROR: Invalid hash algorithm.' );
+        $algorithm = strtolower($algorithm);
+        if (!in_array($algorithm, hash_algos(), true)) {
+            throw new \RuntimeException('PBKDF2 ERROR: Invalid hash algorithm.');
         }
 
-        if ( $count <= 0 || $keyLength <= 0 ) {
-            throw new \RuntimeException( 'PBKDF2 ERROR: Invalid parameters.' );
+        if ($count <= 0 || $keyLength <= 0) {
+            throw new \RuntimeException('PBKDF2 ERROR: Invalid parameters.');
         }
 
-        $hashLength = strlen( hash( $algorithm, "", true ) );
-        $blockCount = ceil( $keyLength / $hashLength );
+        $hashLength = strlen(hash($algorithm, "", true));
+        $blockCount = ceil($keyLength / $hashLength);
 
         $output = "";
-        for( $i = 1; $i <= $blockCount; ++$i ) {
-            $last = $salt . pack( "N", $i );
-            $last = $xorsum = hash_hmac( $algorithm, $last, $password, true );
-            for ( $j = 1; $j < $count; ++$j ) {
-                $xorsum ^= $last = hash_hmac( $algorithm, $last, $password, true );
+        for($i = 1; $i <= $blockCount; ++$i) {
+            $last = $salt . pack("N", $i);
+            $last = $xorsum = hash_hmac($algorithm, $last, $password, true);
+            for ($j = 1; $j < $count; ++$j) {
+                $xorsum ^= $last = hash_hmac($algorithm, $last, $password, true);
             }
             $output .= $xorsum;
         }
 
-        $output = substr( $output, 0, $keyLength );
-        return $rawOutput ? $output : bin2hex( $output );
+        $output = substr($output, 0, $keyLength);
+        return $rawOutput ? $output : bin2hex($output);
     }
 
     /**
@@ -154,9 +154,9 @@ class PBKDF2 extends Hash
      * @param string $hash
      * @return bool
      */
-    public function verifyPassword( $password, $hash )
+    public function verifyPassword($password, $hash)
     {
-        list( $algorithm, $iterations, $salt, $hash ) = explode( ':', $hash );
-        return $hash === $this->pbkdf2( $algorithm, $password, $salt, $iterations, strlen( hex2bin( $hash ) ) );
+        list($algorithm, $iterations, $salt, $hash) = explode(':', $hash);
+        return $hash === $this->pbkdf2($algorithm, $password, $salt, $iterations, strlen(hex2bin($hash)));
     }
 }

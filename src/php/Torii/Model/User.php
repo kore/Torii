@@ -37,7 +37,7 @@ class User
      * @param User\Hash $hash
      * @return void
      */
-    public function __construct( \Doctrine\DBAL\Connection $dbal, User\Hash $hash )
+    public function __construct(\Doctrine\DBAL\Connection $dbal, User\Hash $hash)
     {
         $this->dbal = $dbal;
         $this->hash = $hash;
@@ -53,29 +53,29 @@ class User
      * @param string $password
      * @return User
      */
-    public function login( $login, $password )
+    public function login($login, $password)
     {
         $queryBuilder = $this->dbal->createQueryBuilder();
         $queryBuilder
-            ->select( 'u_id', 'u_login', 'u_password', 'u_settings' )
-            ->from( 'user', 'u' )
+            ->select('u_id', 'u_login', 'u_password', 'u_settings')
+            ->from('user', 'u')
             ->where(
                 $queryBuilder->expr()->andx(
-                    $queryBuilder->expr()->eq( 'u_login', ':login' ),
-                    $queryBuilder->expr()->eq( 'u_verified', '1' )
+                    $queryBuilder->expr()->eq('u_login', ':login'),
+                    $queryBuilder->expr()->eq('u_verified', '1')
                 )
             )
-            ->setParameter( ':login', $login );
+            ->setParameter(':login', $login);
 
         $statement = $queryBuilder->execute();
-        $result = $statement->fetch( \PDO::FETCH_ASSOC );
+        $result = $statement->fetch(\PDO::FETCH_ASSOC);
 
-        if ( !$result ) {
+        if (!$result) {
             // User not found or not verified
             return false;
         }
 
-        if ( !$this->hash->verifyPassword( $password, $result['u_password'] ) ) {
+        if (!$this->hash->verifyPassword($password, $result['u_password'])) {
             // invalid password provided
             return false;
         }
@@ -83,7 +83,7 @@ class User
         return new Struct\User(
             $result['u_id'],
             $result['u_login'],
-            Struct\UserSettings::create( json_decode( $result['u_settings'], true ) )
+            Struct\UserSettings::create(json_decode($result['u_settings'], true))
         );
     }
 
@@ -93,12 +93,12 @@ class User
      * @param Struct\User $user
      * @return bool
      */
-    public function update( Struct\User $user )
+    public function update(Struct\User $user)
     {
         return (bool) $this->dbal->update(
             'user',
             array(
-                'u_settings' => json_encode( $user->settings )
+                'u_settings' => json_encode($user->settings)
             ),
             array(
                 'u_id'       => $user->id,
@@ -115,7 +115,7 @@ class User
      * @param string $hash
      * @return bool
      */
-    public function verify( $id, $hash )
+    public function verify($id, $hash)
     {
         return (bool) $this->dbal->update(
             'user',
@@ -137,13 +137,13 @@ class User
      * @param string $id
      * @return User
      */
-    public function create( $email, $password )
+    public function create($email, $password)
     {
-        $this->dbal->insert( 'user', array(
+        $this->dbal->insert('user', array(
             'u_login'    => $email,
-            'u_password' => $this->hash->hashPassword( $password ),
-            'u_verified' => $key = md5( microtime() ),
-        ) );
+            'u_password' => $this->hash->hashPassword($password),
+            'u_verified' => $key = md5(microtime()),
+        ));
 
         return new Struct\User(
             $this->dbal->lastInsertId(),

@@ -42,7 +42,7 @@ class SQLLogger implements \Doctrine\DBAL\Logging\SQLLogger
      * @param float $slowSeconds
      * @return void
      */
-    public function __construct( $logFile, $slowSeconds = .1 )
+    public function __construct($logFile, $slowSeconds = .1)
     {
         $this->logFile = $logFile;
         $this->slowSeconds = $slowSeconds;
@@ -56,13 +56,13 @@ class SQLLogger implements \Doctrine\DBAL\Logging\SQLLogger
      * @param array $types The SQL parameter types.
      * @return void
      */
-    public function startQuery( $sql, array $params = null, array $types = null )
+    public function startQuery($sql, array $params = null, array $types = null)
     {
         $this->lastQuery = array(
             'sql' => $sql,
             'params' => $params,
             'types' => $types,
-            'start' => microtime( true ),
+            'start' => microtime(true),
         );
     }
 
@@ -73,17 +73,17 @@ class SQLLogger implements \Doctrine\DBAL\Logging\SQLLogger
      */
     public function stopQuery()
     {
-        if ( $this->lastQuery &&
-             ( $time = ( microtime( true ) - $this->lastQuery['start'] ) ) > $this->slowSeconds )
+        if ($this->lastQuery &&
+             ($time = (microtime(true) - $this->lastQuery['start'])) > $this->slowSeconds)
         {
             file_put_contents(
                 $this->logFile,
                 sprintf(
                     "[%s] Query took %.2fs seconds:\n%s\n%s\n\n",
-                    date( 'r' ),
+                    date('r'),
                     $time,
                     $this->lastQuery['sql'],
-                    var_export( $this->lastQuery['params'], true )
+                    var_export($this->lastQuery['params'], true)
                 ),
                 \FILE_APPEND
             );

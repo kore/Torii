@@ -47,7 +47,7 @@ class Dependency extends Collection
      * @param string[] $dependencies
      * @return void
      */
-    public function addFileSet( $name, FileSet $fileSet, array $dependencies = array() )
+    public function addFileSet($name, FileSet $fileSet, array $dependencies = array())
     {
         $this->fileSets[$name][]   = $fileSet;
         $this->dependencies[$name] = array_merge(
@@ -63,6 +63,6 @@ class Dependency extends Collection
      */
     public function getFiles()
     {
-        throw new \RuntimeException( '@TODO: Implement' );
+        throw new \RuntimeException('@TODO: Implement');
     }
 }

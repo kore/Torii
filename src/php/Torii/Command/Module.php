@@ -31,7 +31,7 @@ class Module extends Periodic\Command
      * @param array $modules
      * @return void
      */
-    public function __construct( array $modules )
+    public function __construct(array $modules)
     {
         $this->modules = $modules;
     }
@@ -48,22 +48,22 @@ class Module extends Periodic\Command
      * @param Periodic\Logger $logger
      * @return int
      */
-    public function run( XML\Node $configuration, Periodic\Logger $logger )
+    public function run(XML\Node $configuration, Periodic\Logger $logger)
     {
         $name = (string) $configuration;
-        if ( !isset( $this->modules[$name] ) ) {
-            $logger->log( "Module $name not found.", Periodic\Logger::WARNING );
+        if (!isset($this->modules[$name])) {
+            $logger->log("Module $name not found.", Periodic\Logger::WARNING);
             return Periodic\Executor::ERROR;
         }
 
         $module = $this->modules[$name];
-        if ( !$module instanceof Cronable ) {
-            $logger->log( "Module $name has no support for cron jobs.", Periodic\Logger::WARNING );
+        if (!$module instanceof Cronable) {
+            $logger->log("Module $name has no support for cron jobs.", Periodic\Logger::WARNING);
             return Periodic\Executor::ERROR;
         }
 
-        $logger->log( "Refresh data in module $name." );
-        $module->refresh( $logger );
+        $logger->log("Refresh data in module $name.");
+        $module->refresh($logger);
         return Periodic\Executor::SUCCESS;
     }
 }

@@ -29,7 +29,7 @@ class Extension extends \Twig_Extension
      * @param DIC $dic
      * @return void
      */
-    public function __construct( DIC $dic )
+    public function __construct(DIC $dic)
     {
         $this->dic = $dic;
     }

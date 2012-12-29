@@ -22,5 +22,5 @@ interface Cronable
      * @param Periodic\Logger $logger
      * @return void
      */
-    public function refresh( Periodic\Logger $logger );
+    public function refresh(Periodic\Logger $logger);
 }

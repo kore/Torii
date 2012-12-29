@@ -22,5 +22,5 @@ abstract class MimeTypeGuesser
      * @param File $file
      * @return string
      */
-    abstract public function guess( File $file );
+    abstract public function guess(File $file);
 }

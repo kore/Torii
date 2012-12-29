@@ -39,7 +39,7 @@ class Controller
      * @param Parser $parser
      * @return void
      */
-    public function __construct( Model $model, Parser $parser )
+    public function __construct(Model $model, Parser $parser)
     {
         $this->model  = $model;
         $this->parser = $parser;
@@ -53,9 +53,9 @@ class Controller
      * @param Struct\ModuleConfiguration $module
      * @return Struct\Response
      */
-    public function addUrl( RMF\Request $request, Struct\User $user, Struct\ModuleConfiguration $module )
+    public function addUrl(RMF\Request $request, Struct\User $user, Struct\ModuleConfiguration $module)
     {
-        $this->model->addUrl( $module->id, $request->body['name'], $request->body['url'] );
+        $this->model->addUrl($module->id, $request->body['name'], $request->body['url']);
     }
 
     /**
@@ -66,9 +66,9 @@ class Controller
      * @param Struct\ModuleConfiguration $module
      * @return Struct\Response
      */
-    public function removeUrl( RMF\Request $request, Struct\User $user, Struct\ModuleConfiguration $module )
+    public function removeUrl(RMF\Request $request, Struct\User $user, Struct\ModuleConfiguration $module)
     {
-        $this->model->removeUrl( $module->id, $request->body['url'] );
+        $this->model->removeUrl($module->id, $request->body['url']);
     }
 
     /**
@@ -79,9 +79,9 @@ class Controller
      * @param Struct\ModuleConfiguration $module
      * @return Struct\Response
      */
-    public function getUrlList( RMF\Request $request, Struct\User $user, Struct\ModuleConfiguration $module )
+    public function getUrlList(RMF\Request $request, Struct\User $user, Struct\ModuleConfiguration $module)
     {
-        return $this->model->getUrlList( $module->id );
+        return $this->model->getUrlList($module->id);
     }
 
     /**
@@ -92,10 +92,10 @@ class Controller
      * @param Struct\ModuleConfiguration $module
      * @return Struct\Response
      */
-    public function getFeedData( RMF\Request $request, Struct\User $user, Struct\ModuleConfiguration $module )
+    public function getFeedData(RMF\Request $request, Struct\User $user, Struct\ModuleConfiguration $module)
     {
-        $count = isset( $module->settings['count'] ) ? $module->settings['count'] : 10;
-        return $this->model->getUnread( $module->id, $count );
+        $count = isset($module->settings['count']) ? $module->settings['count'] : 10;
+        return $this->model->getUnread($module->id, $count);
     }
 
     /**
@@ -106,15 +106,15 @@ class Controller
      * @param Struct\ModuleConfiguration $module
      * @return Struct\Response
      */
-    public function redirect( RMF\Request $request, Struct\User $user, Struct\ModuleConfiguration $module )
+    public function redirect(RMF\Request $request, Struct\User $user, Struct\ModuleConfiguration $module)
     {
-        if ( !preg_match( '(^/redirect/(\\d+)/(.+)$)', $request->variables['path'], $match ) ) {
-            throw new \RuntimeException( "Invalid URL passed" );
+        if (!preg_match('(^/redirect/(\\d+)/(.+)$)', $request->variables['path'], $match)) {
+            throw new \RuntimeException("Invalid URL passed");
         }
 
-        $this->model->markRead( $request->variables['module'], $match[1] );
-        header( 'Location: ' . urldecode( $match[2] ) );
-        exit( 0 );
+        $this->model->markRead($request->variables['module'], $match[1]);
+        header('Location: ' . urldecode($match[2]));
+        exit(0);
     }
 
     /**
@@ -125,14 +125,14 @@ class Controller
      * @param Struct\ModuleConfiguration $module
      * @return Struct\Response
      */
-    public function clear( RMF\Request $request, Struct\User $user, Struct\ModuleConfiguration $module )
+    public function clear(RMF\Request $request, Struct\User $user, Struct\ModuleConfiguration $module)
     {
-        if ( !preg_match( '(^/clear/(.+)$)', $request->variables['path'], $match ) ) {
-            throw new \RuntimeException( "Invalid URL passed" );
+        if (!preg_match('(^/clear/(.+)$)', $request->variables['path'], $match)) {
+            throw new \RuntimeException("Invalid URL passed");
         }
 
-        $this->model->clear( $request->variables['module'], $match[1] );
-        return array( 'ok' => true );
+        $this->model->clear($request->variables['module'], $match[1]);
+        return array('ok' => true);
     }
 
     /**
@@ -141,14 +141,14 @@ class Controller
      * @param Periodic\Logger $logger
      * @return void
      */
-    public function refresh( Periodic\Logger $logger )
+    public function refresh(Periodic\Logger $logger)
     {
-        foreach ( $this->model->getPending( 15 * 60 ) as $url ) {
-            $logger->log( "Update {$url->url}" );
-            $feed = $this->parser->parse( $url );
-            $feed->entries = array_slice( $feed->entries, 0, 50 );
+        foreach ($this->model->getPending(15 * 60) as $url) {
+            $logger->log("Update {$url->url}");
+            $feed = $this->parser->parse($url);
+            $feed->entries = array_slice($feed->entries, 0, 50);
 
-            foreach ( $feed->entries as $entry ) {
+            foreach ($feed->entries as $entry) {
                 $this->model->addEntry(
                     $url->id,
                     $entry->link,
@@ -159,7 +159,7 @@ class Controller
                 );
             }
 
-            $logger->log( "Done -- status: {$feed->status}" );
+            $logger->log("Done -- status: {$feed->status}");
             $this->model->updateUrl(
                 $url->id,
                 $feed->status,

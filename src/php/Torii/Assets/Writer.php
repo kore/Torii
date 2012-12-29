@@ -21,16 +21,16 @@ class Writer
      * @param string $target
      * @return void
      */
-    public function write( Collection $collection, $target )
+    public function write(Collection $collection, $target)
     {
-        foreach ( $collection->getFiles() as $file ) {
+        foreach ($collection->getFiles() as $file) {
             $targetPath = $target . '/' . $file->localPath;
 
-            if ( !file_exists( $targetPath ) ||
-                 ( filemtime( $targetPath ) < $file->modificationTime ) )
+            if (!file_exists($targetPath) ||
+                 (filemtime($targetPath) < $file->modificationTime))
             {
-                $this->ensureParentDirectory( $targetPath );
-                copy( $file->basePath . $file->localPath, $targetPath );
+                $this->ensureParentDirectory($targetPath);
+                copy($file->basePath . $file->localPath, $targetPath);
             }
         }
     }
@@ -41,15 +41,15 @@ class Writer
      * @param string $file
      * @return void
      */
-    protected function ensureParentDirectory( $file )
+    protected function ensureParentDirectory($file)
     {
-        $dir = dirname( $file );
-        if ( is_dir( $dir ) ) {
+        $dir = dirname($file);
+        if (is_dir($dir)) {
             return;
         }
 
-        if ( !@mkdir( $dir, 0777, true ) ) {
-            throw new \RuntimeException( "Could not create directory $dir" );
+        if (!@mkdir($dir, 0777, true)) {
+            throw new \RuntimeException("Could not create directory $dir");
         }
     }
 }
