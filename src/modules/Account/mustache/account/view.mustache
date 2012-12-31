@@ -16,9 +16,9 @@
         </tr>
         {{#notedTransactions}}
         <tr class="transaction account_{{knr}} noted">
-            <td>{{date}}</th>
+            <td class="date">{{formatted}}</th>
             <td>{{name}}</th>
-            <th>{{value}} {{currency}}</th>
+            <td class="value {{sign}}">{{value}} {{currency}}</td>
         </tr>
         {{/notedTransactions}}
         {{#transactions}}
