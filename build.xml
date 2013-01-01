@@ -51,7 +51,7 @@
         -->
         <exec executable="ssh">
             <arg value="torii" />
-            <arg value="cd Torii &amp;&amp; git pull &amp;&amp; ant install" />
+            <arg value="cd Torii &amp;&amp; git pull &amp;&amp; ant install &amp;&amp; src/bin/deployAssets" />
         </exec>
     </target>
 
