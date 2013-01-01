@@ -1,0 +1,32 @@
+#!/usr/bin/env php
+<?php
+/**
+ * This file is part of Torii
+ *
+ * @version $Revision$
+ */
+
+namespace Torii;
+
+use Arbit\Periodic;
+
+require __DIR__ . '/../php/Torii/bootstrap.php';
+$dic = new DIC\Base();
+
+$assetWriter = new Assets\Writer();
+$assets = array(
+    '/scripts/'   => $dic->javaScript,
+    '/styles/'    => $dic->css,
+    '/images/'    => $dic->images,
+    '/templates/' => $dic->templates,
+);
+$target = $dic->srcDir . '/htdocs/';
+
+// Ensure modules are initialized
+$dic->modules;
+
+foreach ($assets as $path => $collection) {
+    $assetWriter->write($collection, $target . $path);
+}
+
+
