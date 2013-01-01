@@ -19,7 +19,14 @@ class Filter
      *
      * @var mixed
      */
-    protected $controller;
+    protected $aggregate;
+
+    /**
+     * Auth controller
+     *
+     * @var Controller\Auth
+     */
+    protected $authController;
 
     /**
      * Construct from aggregated controller
@@ -27,9 +34,10 @@ class Filter
      * @param mixed $controller
      * @return void
      */
-    public function __construct($controller)
+    public function __construct($authController, $aggregate)
     {
-        $this->controller = $controller;
+        $this->aggregate = $aggregate;
+        $this->authController = $authController;
     }
 
     /**
@@ -44,15 +52,15 @@ class Filter
         $request = reset($arguments);
 
         if (!isset($request->session['user'])) {
-            // @TODO: This ia an ugly hack:
-            header('Location: /');
-            exit(0);
+            // Hack:
+            header('HTTP/1.0 403 Forbidden');
+            return $this->authController->login($request);
         }
 
-        if (!is_callable(array($this->controller, $method))) {
+        if (!is_callable(array($this->aggregate, $method))) {
             throw new \BadMethodCallException("Call not available in aggregated controller.");
         }
 
-        return $this->controller->$method($request, $request->session['user']);
+        return $this->aggregate->$method($request, $request->session['user']);
     }
 }

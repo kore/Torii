@@ -235,6 +235,7 @@ class Base extends DIC
 
         $this->mainController = function ($dic) {
             return new Torii\Controller\Auth\Filter(
+                $this->authController,
                 new Torii\Controller\Main(
                     $dic->userModel,
                     $dic->modules
