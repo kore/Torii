@@ -10,7 +10,6 @@ namespace Torii;
 
 use Arbit\Periodic;
 
-// @TODO: Migrate this to use periodic
 require __DIR__ . '/../php/Torii/bootstrap.php';
 $dic = new DIC\Base();
 
