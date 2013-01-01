@@ -61,7 +61,7 @@ jQuery( document ).ready(function() {
     } );
 
     jQuery( document ).ajaxError( function( event, jqXHR, ajaxSettings, thrownError ) {
-        if ( jqXHR.status == 403 ) {
+        if ( jqXHR.status === 403 ) {
             // In case of unauthorized requests, forward back to login page
             window.location = "/";
         }
