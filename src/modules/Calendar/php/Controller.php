@@ -95,9 +95,11 @@ class Controller
     public function getCalendarData(RMF\Request $request, Struct\User $user, Struct\ModuleConfiguration $module)
     {
         $entries = $this->model->getCalendar($module->id);
+        $timeZone = isset($request->variables['timezone']) ? $request->variables['timezone'] : 'UTC';
 
         $perDay = array();
         foreach ($entries as $entry) {
+            $entry->date->setTimezone(new \DateTimeZone($timeZone));
             $perDay[$entry->date->format('l, jS F')][] = $entry;
             $entry->date = $entry->date->format('H:i');
         }
