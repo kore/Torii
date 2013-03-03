@@ -141,7 +141,7 @@
         var target = "#" + id + "-content";
 
         $.get(
-            "/module/" + id + "/update",
+            "/module/" + id + "/update?timezone=" + jstz.determine().name(),
             function( data ) {
                 var dates = [];
                 
