@@ -6,27 +6,18 @@
         "type": "vcs",
         "url":  "https://github.com/Qafoo/REST-Micro-Framework"
     }, {
-        "type": "vcs",
-        "url":  "https://github.com/Arbitracker/XML"
-    }, {
-        "type": "vcs",
-        "url":  "https://github.com/Arbitracker/Periodic"
-    }, {
-        "type": "vcs",
-        "url":  "https://github.com/kore/CTXParser"
-    }, {
         "type": "composer",
         "url":  "http://packages.zendframework.com/"
     } ],
     "require":      {
-        "arbit/periodic": "dev-master",
+        "arbit/periodic": "*",
+        "kore/ctx-parser" : "*",
         "Qafoo/RMF": "dev-master",
         "twitter/bootstrap": "*",
         "twig/twig": "1.6.0",
         "kriswallsmith/buzz": "*",
         "zendframework/zendframework": "dev-master",
         "sabre/vobject" : "dev-master",
-        "kore/ctx-parser" : "dev-master",
         "doctrine/common": "2.*",
         "doctrine/dbal": "2.*"
     },

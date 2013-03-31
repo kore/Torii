@@ -1,5 +1,5 @@
 {
-    "hash": "92f74fa4165dd002345f6422ec25d256",
+    "hash": "e1212b550d3e668fdb108f8dca16113b",
     "packages": [
         {
             "name": "arbit/periodic",
@@ -851,11 +851,9 @@
     ],
     "minimum-stability": "dev",
     "stability-flags": {
-        "arbit/periodic": 20,
         "qafoo/rmf": 20,
         "zendframework/zendframework": 20,
-        "sabre/vobject": 20,
-        "kore/ctx-parser": 20
+        "sabre/vobject": 20
     },
     "platform": [
 
