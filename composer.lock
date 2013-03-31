@@ -1,5 +1,5 @@
 {
-    "hash": "423ce69cbc687c12e28c158c36199357",
+    "hash": "92f74fa4165dd002345f6422ec25d256",
     "packages": [
         {
             "name": "arbit/periodic",
@@ -530,6 +530,29 @@
             "time": "2012-12-03 11:10:15"
         },
         {
+            "name": "kore/ctx-parser",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kore/CTXParser",
+                "reference": "cf972e89216716021ee588aad0336c8eb7ef9a08"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src"
+                ]
+            },
+            "authors": [
+                {
+                    "name": "Kore Nordmann",
+                    "email": "mail@kore-nordmann.de"
+                }
+            ],
+            "description": "Parser for CTX files",
+            "time": "2013-03-31 10:15:07"
+        },
+        {
             "name": "kriswallsmith/buzz",
             "version": "dev-master",
             "source": {
@@ -832,7 +855,7 @@
         "qafoo/rmf": 20,
         "zendframework/zendframework": 20,
         "sabre/vobject": 20,
-        "kore/ctxparser": 20
+        "kore/ctx-parser": 20
     },
     "platform": [
 

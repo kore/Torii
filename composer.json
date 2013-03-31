@@ -26,7 +26,7 @@
         "kriswallsmith/buzz": "*",
         "zendframework/zendframework": "dev-master",
         "sabre/vobject" : "dev-master",
-        "kore/CTXParser" : "dev-master",
+        "kore/ctx-parser" : "dev-master",
         "doctrine/common": "2.*",
         "doctrine/dbal": "2.*"
     },
