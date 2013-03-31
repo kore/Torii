@@ -1,5 +1,5 @@
 {
-    "name":         "Torii2",
+    "name":         "torii/torii2",
     "description":  "Simple portal framework",
     "minimum-stability": "dev",
     "repositories": [ {
@@ -19,7 +19,7 @@
         "url":  "http://packages.zendframework.com/"
     } ],
     "require":      {
-        "Arbit/Periodic": "dev-master",
+        "arbit/periodic": "dev-master",
         "Qafoo/RMF": "dev-master",
         "twitter/bootstrap": "*",
         "twig/twig": "1.6.0",
