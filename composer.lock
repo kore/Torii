@@ -1,93 +1,276 @@
 {
-    "hash": "f18154be6a545325e961b02e96caf14e",
+    "hash": "423ce69cbc687c12e28c158c36199357",
     "packages": [
         {
-            "name": "Arbit/Periodic",
+            "name": "arbit/periodic",
             "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Arbitracker/Periodic",
-                "reference": "398b18fc08d792f6e51b120df36a5e8d757ea9e9"
+                "reference": "695fca3014d44eaadab99e696d0e608051d3f5e4"
             },
             "require": {
                 "arbit/xml": "*"
             },
-            "time": "2012-08-05 10:50:55",
             "type": "library",
-            "installation-source": "source",
             "autoload": {
                 "psr-0": {
                     "Arbit\\Periodic": "src/php/"
                 }
             },
-            "description": "Periodic is a fully unit tested PHP based task runner. It is supposed to deliver a basic implementation for managing all kinds of recurring tasks and events inside your web application."
+            "description": "Periodic is a fully unit tested PHP based task runner. It is supposed to deliver a basic implementation for managing all kinds of recurring tasks and events inside your web application.",
+            "time": "2013-03-31 10:10:07"
         },
         {
-            "name": "Arbit/XML",
+            "name": "arbit/xml",
             "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Arbitracker/XML",
-                "reference": "cca2e65b92913b644c90957f1db1879f13797b5b"
+                "reference": "148f4b3e98dea820404aec4216d1e863aac8d730"
             },
-            "time": "2012-07-29 17:18:07",
             "type": "library",
-            "installation-source": "source",
             "autoload": {
                 "psr-0": {
                     "Arbit\\Xml": "src/php/"
                 }
             },
-            "description": "XML reader with a SimpleXML like API."
+            "description": "XML reader with a SimpleXML like API.",
+            "time": "2013-03-31 10:08:14"
         },
         {
-            "name": "Qafoo/RMF",
+            "name": "doctrine/annotations",
+            "version": "v1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/doctrine/annotations.git",
+                "reference": "v1.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/doctrine/annotations/zipball/v1.1",
+                "reference": "v1.1",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/lexer": "1.*",
+                "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "doctrine/cache": "1.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Doctrine\\Common\\Annotations\\": "lib/"
+                }
+            },
+            "notification-url": "http://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jonathan Wage",
+                    "email": "jonwage@gmail.com",
+                    "homepage": "http://www.jwage.com/"
+                },
+                {
+                    "name": "Guilherme Blanco",
+                    "email": "guilhermeblanco@gmail.com",
+                    "homepage": "http://www.instaclick.com"
+                },
+                {
+                    "name": "Roman Borschel",
+                    "email": "roman@code-factory.org"
+                },
+                {
+                    "name": "Benjamin Eberlei",
+                    "email": "kontakt@beberlei.de"
+                },
+                {
+                    "name": "Johannes Schmitt",
+                    "email": "schmittjoh@gmail.com",
+                    "homepage": "http://jmsyst.com",
+                    "role": "Developer of wrapped JMSSerializerBundle"
+                }
+            ],
+            "description": "Docblock Annotations Parser",
+            "homepage": "http://www.doctrine-project.org",
+            "keywords": [
+                "annotations",
+                "docblock",
+                "parser"
+            ],
+            "time": "2013-03-17 14:03:10"
+        },
+        {
+            "name": "doctrine/cache",
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/Qafoo/REST-Micro-Framework",
-                "reference": "852d993d45952dbc86e2bfd78addad540bd85998"
+                "url": "https://github.com/doctrine/cache.git",
+                "reference": "b5716ea776f349a0fedcf0e7d032386c1f696f76"
             },
-            "time": "2012-07-15 18:03:56",
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/doctrine/cache/zipball/b5716ea776f349a0fedcf0e7d032386c1f696f76",
+                "reference": "b5716ea776f349a0fedcf0e7d032386c1f696f76",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
             "type": "library",
-            "installation-source": "source",
-            "autoload": {
-                "psr-0": {
-                    "Qafoo\\RMF": "src/main/"
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
                 }
             },
-            "description": "Very simple VC framework which makes it easy to build HTTP applications / REST webservices"
+            "autoload": {
+                "psr-0": {
+                    "Doctrine\\Common\\Cache\\": "lib/"
+                }
+            },
+            "notification-url": "http://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jonathan Wage",
+                    "email": "jonwage@gmail.com",
+                    "homepage": "http://www.jwage.com/"
+                },
+                {
+                    "name": "Guilherme Blanco",
+                    "email": "guilhermeblanco@gmail.com",
+                    "homepage": "http://www.instaclick.com"
+                },
+                {
+                    "name": "Roman Borschel",
+                    "email": "roman@code-factory.org"
+                },
+                {
+                    "name": "Benjamin Eberlei",
+                    "email": "kontakt@beberlei.de"
+                },
+                {
+                    "name": "Johannes Schmitt",
+                    "email": "schmittjoh@gmail.com",
+                    "homepage": "http://jmsyst.com",
+                    "role": "Developer of wrapped JMSSerializerBundle"
+                }
+            ],
+            "description": "Caching library offering an object-oriented API for many cache backends",
+            "homepage": "http://www.doctrine-project.org",
+            "keywords": [
+                "cache",
+                "caching"
+            ],
+            "time": "2013-03-17 13:59:02"
+        },
+        {
+            "name": "doctrine/collections",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/doctrine/collections.git",
+                "reference": "df2138bcb467533bfe6b3a01301d480aec008b93"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/doctrine/collections/zipball/df2138bcb467533bfe6b3a01301d480aec008b93",
+                "reference": "df2138bcb467533bfe6b3a01301d480aec008b93",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Doctrine\\Common\\Collections\\": "lib/"
+                }
+            },
+            "notification-url": "http://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jonathan Wage",
+                    "email": "jonwage@gmail.com",
+                    "homepage": "http://www.jwage.com/"
+                },
+                {
+                    "name": "Guilherme Blanco",
+                    "email": "guilhermeblanco@gmail.com",
+                    "homepage": "http://www.instaclick.com"
+                },
+                {
+                    "name": "Roman Borschel",
+                    "email": "roman@code-factory.org"
+                },
+                {
+                    "name": "Benjamin Eberlei",
+                    "email": "kontakt@beberlei.de"
+                },
+                {
+                    "name": "Johannes Schmitt",
+                    "email": "schmittjoh@gmail.com",
+                    "homepage": "http://jmsyst.com",
+                    "role": "Developer of wrapped JMSSerializerBundle"
+                }
+            ],
+            "description": "Collections Abstraction library",
+            "homepage": "http://www.doctrine-project.org",
+            "keywords": [
+                "array",
+                "collections",
+                "iterator"
+            ],
+            "time": "2013-03-17 14:01:33"
         },
         {
             "name": "doctrine/common",
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/doctrine/common",
-                "reference": "39b56dfd6982b1fb291f5838803b9feaf0115b17"
+                "url": "https://github.com/doctrine/common.git",
+                "reference": "33f906e257510247d0bcd60b8b54f47cfb51e3ed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/doctrine/common/zipball/39b56dfd6982b1fb291f5838803b9feaf0115b17",
-                "reference": "39b56dfd6982b1fb291f5838803b9feaf0115b17",
+                "url": "https://api.github.com/repos/doctrine/common/zipball/33f906e257510247d0bcd60b8b54f47cfb51e3ed",
+                "reference": "33f906e257510247d0bcd60b8b54f47cfb51e3ed",
                 "shasum": ""
             },
             "require": {
+                "doctrine/annotations": "1.*",
+                "doctrine/cache": "1.*",
+                "doctrine/collections": "1.*",
+                "doctrine/inflector": "1.*",
+                "doctrine/lexer": "1.*",
                 "php": ">=5.3.2"
             },
-            "time": "2012-08-02 10:13:20",
             "type": "library",
             "extra": {
                 "branch-alias": {
                     "dev-master": "2.4.x-dev"
                 }
             },
-            "installation-source": "source",
             "autoload": {
                 "psr-0": {
-                    "Doctrine\\Common": "lib/"
+                    "Doctrine\\Common\\": "lib/"
                 }
             },
+            "notification-url": "http://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -95,75 +278,76 @@
                 {
                     "name": "Jonathan Wage",
                     "email": "jonwage@gmail.com",
-                    "homepage": "http://www.jwage.com/",
-                    "role": null
+                    "homepage": "http://www.jwage.com/"
                 },
                 {
                     "name": "Guilherme Blanco",
                     "email": "guilhermeblanco@gmail.com",
-                    "homepage": null,
-                    "role": null
+                    "homepage": "http://www.instaclick.com"
                 },
                 {
                     "name": "Roman Borschel",
-                    "email": "roman@code-factory.org",
-                    "homepage": null,
-                    "role": null
+                    "email": "roman@code-factory.org"
                 },
                 {
                     "name": "Benjamin Eberlei",
-                    "email": "kontakt@beberlei.de",
-                    "homepage": null,
-                    "role": null
+                    "email": "kontakt@beberlei.de"
                 },
                 {
                     "name": "Johannes Schmitt",
                     "email": "schmittjoh@gmail.com",
-                    "homepage": "https://github.com/schmittjoh",
-                    "role": null
+                    "homepage": "http://jmsyst.com",
+                    "role": "Developer of wrapped JMSSerializerBundle"
                 }
             ],
             "description": "Common Library for Doctrine projects",
             "homepage": "http://www.doctrine-project.org",
             "keywords": [
-                "collections",
-                "spl",
-                "eventmanager",
                 "annotations",
-                "persistence"
-            ]
+                "collections",
+                "eventmanager",
+                "persistence",
+                "spl"
+            ],
+            "time": "2013-03-24 17:52:59"
         },
         {
             "name": "doctrine/dbal",
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/doctrine/dbal",
-                "reference": "43191656cb96ca07dd7f11c0a4941de0d9f267d2"
+                "url": "https://github.com/doctrine/dbal.git",
+                "reference": "6e70bb192dff7baede8e6adceb030e079ad5707f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/doctrine/dbal/zipball/43191656cb96ca07dd7f11c0a4941de0d9f267d2",
-                "reference": "43191656cb96ca07dd7f11c0a4941de0d9f267d2",
+                "url": "https://api.github.com/repos/doctrine/dbal/zipball/6e70bb192dff7baede8e6adceb030e079ad5707f",
+                "reference": "6e70bb192dff7baede8e6adceb030e079ad5707f",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.2",
-                "doctrine/common": ">=2.3-dev,<2.5-dev"
+                "doctrine/common": "2.4.x-dev",
+                "php": ">=5.3.2"
             },
-            "time": "2012-07-29 08:17:50",
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*",
+                "symfony/console": "2.*"
+            },
+            "suggest": {
+                "symfony/console": "For helpful console commands such as SQL execution and import of files."
+            },
             "type": "library",
             "extra": {
                 "branch-alias": {
                     "dev-master": "2.4.x-dev"
                 }
             },
-            "installation-source": "source",
             "autoload": {
                 "psr-0": {
-                    "Doctrine\\DBAL": "lib/"
+                    "Doctrine\\DBAL\\": "lib/"
                 }
             },
+            "notification-url": "http://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -171,36 +355,156 @@
                 {
                     "name": "Jonathan Wage",
                     "email": "jonwage@gmail.com",
-                    "homepage": "http://www.jwage.com/",
-                    "role": null
+                    "homepage": "http://www.jwage.com/"
                 },
                 {
                     "name": "Guilherme Blanco",
                     "email": "guilhermeblanco@gmail.com",
-                    "homepage": null,
-                    "role": null
+                    "homepage": "http://www.instaclick.com"
                 },
                 {
                     "name": "Roman Borschel",
-                    "email": "roman@code-factory.org",
-                    "homepage": null,
-                    "role": null
+                    "email": "roman@code-factory.org"
                 },
                 {
                     "name": "Benjamin Eberlei",
-                    "email": "kontakt@beberlei.de",
-                    "homepage": null,
-                    "role": null
+                    "email": "kontakt@beberlei.de"
                 }
             ],
             "description": "Database Abstraction Layer",
             "homepage": "http://www.doctrine-project.org",
             "keywords": [
                 "database",
-                "persistence",
                 "dbal",
+                "persistence",
                 "queryobject"
-            ]
+            ],
+            "time": "2013-03-26 19:48:26"
+        },
+        {
+            "name": "doctrine/inflector",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/doctrine/inflector.git",
+                "reference": "7314da6f9141705f0528c8b72546cb8aeea54ae8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/doctrine/inflector/zipball/7314da6f9141705f0528c8b72546cb8aeea54ae8",
+                "reference": "7314da6f9141705f0528c8b72546cb8aeea54ae8",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Doctrine\\Common\\Inflector\\": "lib/"
+                }
+            },
+            "notification-url": "http://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jonathan Wage",
+                    "email": "jonwage@gmail.com",
+                    "homepage": "http://www.jwage.com/"
+                },
+                {
+                    "name": "Guilherme Blanco",
+                    "email": "guilhermeblanco@gmail.com",
+                    "homepage": "http://www.instaclick.com"
+                },
+                {
+                    "name": "Roman Borschel",
+                    "email": "roman@code-factory.org"
+                },
+                {
+                    "name": "Benjamin Eberlei",
+                    "email": "kontakt@beberlei.de"
+                },
+                {
+                    "name": "Johannes Schmitt",
+                    "email": "schmittjoh@gmail.com",
+                    "homepage": "http://jmsyst.com",
+                    "role": "Developer of wrapped JMSSerializerBundle"
+                }
+            ],
+            "description": "Common String Manipulations with regard to casing and singular/plural rules.",
+            "homepage": "http://www.doctrine-project.org",
+            "keywords": [
+                "inflection",
+                "pluralize",
+                "singularize",
+                "string"
+            ],
+            "time": "2013-03-09 20:00:29"
+        },
+        {
+            "name": "doctrine/lexer",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/doctrine/lexer.git",
+                "reference": "bc0e1f0cc285127a38c6c8ea88bc5dba2fd53e94"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/doctrine/lexer/zipball/bc0e1f0cc285127a38c6c8ea88bc5dba2fd53e94",
+                "reference": "bc0e1f0cc285127a38c6c8ea88bc5dba2fd53e94",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Doctrine\\Common\\Lexer\\": "lib/"
+                }
+            },
+            "notification-url": "http://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Guilherme Blanco",
+                    "email": "guilhermeblanco@gmail.com",
+                    "homepage": "http://www.instaclick.com"
+                },
+                {
+                    "name": "Roman Borschel",
+                    "email": "roman@code-factory.org"
+                },
+                {
+                    "name": "Johannes Schmitt",
+                    "email": "schmittjoh@gmail.com",
+                    "homepage": "https://github.com/schmittjoh",
+                    "role": "Developer of wrapped JMSSerializerBundle"
+                }
+            ],
+            "description": "Base library for a lexer that can be used in Top-Down, Recursive Descent Parsers.",
+            "homepage": "http://www.doctrine-project.org",
+            "keywords": [
+                "lexer",
+                "parser"
+            ],
+            "time": "2013-03-07 12:15:25"
         },
         {
             "name": "kore/CTXParser",
@@ -208,11 +512,9 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kore/CTXParser",
-                "reference": "d9069af102816ac2971927e9ee1520d2a77c1df6"
+                "reference": "fb4f318c7b4b2601e0b3f3614f1fa62f8898d2f7"
             },
-            "time": "2012-12-01 21:37:37",
             "type": "library",
-            "installation-source": "source",
             "autoload": {
                 "classmap": [
                     "src"
@@ -224,36 +526,39 @@
                     "email": "mail@kore-nordmann.de"
                 }
             ],
-            "description": "Parser for CTX files"
+            "description": "Parser for CTX files",
+            "time": "2012-12-03 11:10:15"
         },
         {
             "name": "kriswallsmith/buzz",
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "http://github.com/kriswallsmith/Buzz.git",
-                "reference": "2ba5da13b1b03590f0164b3fb61578078d671fcc"
+                "url": "https://github.com/kriswallsmith/Buzz.git",
+                "reference": "309e674e87bca0850bd0ec17226ff9beb86d7651"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/kriswallsmith/Buzz/zipball/2ba5da13b1b03590f0164b3fb61578078d671fcc",
-                "reference": "2ba5da13b1b03590f0164b3fb61578078d671fcc",
+                "url": "https://api.github.com/repos/kriswallsmith/Buzz/zipball/309e674e87bca0850bd0ec17226ff9beb86d7651",
+                "reference": "309e674e87bca0850bd0ec17226ff9beb86d7651",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.0"
             },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*"
+            },
             "suggest": {
                 "ext-curl": "*"
             },
-            "time": "2012-06-30 15:30:18",
             "type": "library",
-            "installation-source": "source",
             "autoload": {
                 "psr-0": {
                     "Buzz": "lib/"
                 }
             },
+            "notification-url": "http://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -261,8 +566,7 @@
                 {
                     "name": "Kris Wallsmith",
                     "email": "kris.wallsmith@gmail.com",
-                    "homepage": "http://kriswallsmith.net/",
-                    "role": null
+                    "homepage": "http://kriswallsmith.net/"
                 }
             ],
             "description": "Lightweight HTTP client",
@@ -270,33 +574,53 @@
             "keywords": [
                 "curl",
                 "http client"
-            ]
+            ],
+            "time": "2013-03-29 13:04:03"
+        },
+        {
+            "name": "qafoo/rmf",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Qafoo/REST-Micro-Framework",
+                "reference": "5f43983f15a8aa12be42ad6068675d4008bfb9ed"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Qafoo\\RMF": "src/main/"
+                }
+            },
+            "description": "Very simple VC framework which makes it easy to build HTTP applications / REST webservices",
+            "time": "2012-12-07 13:33:01"
         },
         {
             "name": "sabre/vobject",
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/evert/sabre-vobject",
-                "reference": "3caefe0f7af0e1b79a8454e1d74679986b45334b"
+                "url": "https://github.com/evert/sabre-vobject.git",
+                "reference": "fe20656023c5ab1bf1e01089ecff85a03fc3bc64"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/evert/sabre-vobject/zipball/3caefe0f7af0e1b79a8454e1d74679986b45334b",
-                "reference": "3caefe0f7af0e1b79a8454e1d74679986b45334b",
+                "url": "https://api.github.com/repos/evert/sabre-vobject/zipball/fe20656023c5ab1bf1e01089ecff85a03fc3bc64",
+                "reference": "fe20656023c5ab1bf1e01089ecff85a03fc3bc64",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.1"
             },
-            "time": "2012-08-10 17:10:03",
+            "bin": [
+                "bin/vobjectvalidate.php"
+            ],
             "type": "library",
-            "installation-source": "source",
             "autoload": {
                 "psr-0": {
                     "Sabre\\VObject": "lib/"
                 }
             },
+            "notification-url": "http://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -311,10 +635,11 @@
             "description": "The VObject library for PHP allows you to easily parse and manipulate iCalendar and vCard objects",
             "homepage": "https://github.com/evert/sabre-vobject",
             "keywords": [
-                "iCalendar",
                 "VObject",
+                "iCalendar",
                 "vCard"
-            ]
+            ],
+            "time": "2013-03-21 23:20:33"
         },
         {
             "name": "twig/twig",
@@ -333,9 +658,7 @@
             "require": {
                 "php": ">=5.2.4"
             },
-            "time": "2012-02-03 18:34:52",
             "type": "library",
-            "installation-source": "dist",
             "autoload": {
                 "psr-0": {
                     "Twig_": "lib/"
@@ -362,26 +685,24 @@
             "homepage": "http://twig.sensiolabs.org",
             "keywords": [
                 "templating"
-            ]
+            ],
+            "time": "2012-02-03 18:34:52"
         },
         {
             "name": "twitter/bootstrap",
             "version": "dev-master",
-            "target-dir": "twitter/bootstrap",
             "source": {
                 "type": "git",
-                "url": "git://github.com/twitter/bootstrap.git",
-                "reference": "558bc52432840ea1b2f413438427164288f10350"
+                "url": "https://github.com/twitter/bootstrap.git",
+                "reference": "37d0a30589e8bd74299b2d857c348d91396563ed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/twitter/bootstrap/archive/558bc52432840ea1b2f413438427164288f10350.zip",
-                "reference": "558bc52432840ea1b2f413438427164288f10350",
+                "url": "https://api.github.com/repos/twitter/bootstrap/zipball/37d0a30589e8bd74299b2d857c348d91396563ed",
+                "reference": "37d0a30589e8bd74299b2d857c348d91396563ed",
                 "shasum": ""
             },
-            "time": "2012-12-22 02:54:36",
             "type": "library",
-            "installation-source": "source",
             "notification-url": "http://packagist.org/downloads/",
             "license": [
                 "Apache-2.0"
@@ -389,9 +710,10 @@
             "description": "Sleek, intuitive, and powerful front-end framework for faster and easier web development.",
             "homepage": "http://twitter.github.com/bootstrap/",
             "keywords": [
-                "css",
-                "bootstrap"
-            ]
+                "bootstrap",
+                "css"
+            ],
+            "time": "2013-03-15 05:21:06"
         },
         {
             "name": "zendframework/zendframework",
@@ -399,13 +721,13 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/zendframework/zf2.git",
-                "reference": "59741466a4f993fbbd03f96ecd703042692fd405"
+                "reference": "0e70e048a402fe73fd6ff51613d47fa8b6589c63"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/zendframework/zf2/zipball/59741466a4f993fbbd03f96ecd703042692fd405",
-                "reference": "59741466a4f993fbbd03f96ecd703042692fd405",
-                "shasum": ""
+                "url": "https://github.com/zendframework/zf2/zipball/master",
+                "reference": null,
+                "shasum": null
             },
             "require": {
                 "php": ">=5.3.3"
@@ -423,12 +745,14 @@
                 "zendframework/zend-db": "self.version",
                 "zendframework/zend-di": "self.version",
                 "zendframework/zend-dom": "self.version",
+                "zendframework/zend-escaper": "self.version",
                 "zendframework/zend-eventmanager": "self.version",
                 "zendframework/zend-feed": "self.version",
                 "zendframework/zend-file": "self.version",
                 "zendframework/zend-filter": "self.version",
                 "zendframework/zend-form": "self.version",
                 "zendframework/zend-http": "self.version",
+                "zendframework/zend-i18n": "self.version",
                 "zendframework/zend-inputfilter": "self.version",
                 "zendframework/zend-json": "self.version",
                 "zendframework/zend-ldap": "self.version",
@@ -455,9 +779,7 @@
                 "zendframework/zend-uri": "self.version",
                 "zendframework/zend-validator": "self.version",
                 "zendframework/zend-view": "self.version",
-                "zendframework/zend-xmlrpc": "self.version",
-                "zendframework/zend-escaper": "self.version",
-                "zendframework/zend-i18n": "self.version"
+                "zendframework/zend-xmlrpc": "self.version"
             },
             "require-dev": {
                 "doctrine/common": ">=2.1"
@@ -465,35 +787,42 @@
             "suggest": {
                 "doctrine/common": "Doctrine\\Common >=2.1 for annotation features",
                 "ext-intl": "ext/intl for i18n features",
-                "zendframework/zendservice-recaptcha": "ZendService\\ReCaptcha for rendering ReCaptchas in Zend\\Captcha and/or Zend\\Form",
+                "pecl-weakref": "Implementation of weak references for Zend\\Stdlib\\CallbackHandler",
                 "zendframework/zendpdf": "ZendPdf for creating PDF representations of barcodes",
-                "pecl-weakref": "Implementation of weak references for Zend\\Stdlib\\CallbackHandler"
+                "zendframework/zendservice-recaptcha": "ZendService\\ReCaptcha for rendering ReCaptchas in Zend\\Captcha and/or Zend\\Form"
             },
-            "time": "2012-08-04 12:14:47",
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.0-dev"
+                    "dev-master": "2.0.x-dev"
                 }
             },
-            "installation-source": "source",
             "autoload": {
                 "psr-0": {
-                    "Zend": "library/"
+                    "Zend\\": "library/",
+                    "ZendTest\\": "tests/"
                 }
             },
             "license": [
                 "BSD-3-Clause"
             ],
             "description": "Zend Framework 2",
-            "homepage": "http://framework.zend.com/",
             "keywords": [
                 "framework",
                 "zf2"
-            ]
+            ],
+            "support": {
+                "email": "fw-general-subscribe@lists.zend.com",
+                "irc": "irc://irc.freenode.net/zftalk",
+                "issues": "https://github.com/zendframework/zf2/issues",
+                "source": "https://github.com/zendframework/zf2"
+            },
+            "time": "2012-10-17 21:37:11"
         }
     ],
-    "packages-dev": null,
+    "packages-dev": [
+
+    ],
     "aliases": [
 
     ],
@@ -504,5 +833,11 @@
         "zendframework/zendframework": 20,
         "sabre/vobject": 20,
         "kore/ctxparser": 20
-    }
+    },
+    "platform": [
+
+    ],
+    "platform-dev": [
+
+    ]
 }
