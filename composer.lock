@@ -626,28 +626,34 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/evert/sabre-vobject.git",
-                "reference": "fe20656023c5ab1bf1e01089ecff85a03fc3bc64"
+                "url": "https://github.com/fruux/sabre-vobject.git",
+                "reference": "698c574b07d5af9f279991620f6e8db1417f9671"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/evert/sabre-vobject/zipball/fe20656023c5ab1bf1e01089ecff85a03fc3bc64",
-                "reference": "fe20656023c5ab1bf1e01089ecff85a03fc3bc64",
+                "url": "https://api.github.com/repos/fruux/sabre-vobject/zipball/698c574b07d5af9f279991620f6e8db1417f9671",
+                "reference": "698c574b07d5af9f279991620f6e8db1417f9671",
                 "shasum": ""
             },
             "require": {
+                "ext-mbstring": "*",
                 "php": ">=5.3.1"
             },
             "bin": [
-                "bin/vobjectvalidate.php"
+                "bin/vobject"
             ],
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.1.x-dev"
+                }
+            },
             "autoload": {
                 "psr-0": {
                     "Sabre\\VObject": "lib/"
                 }
             },
-            "notification-url": "http://packagist.org/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -655,18 +661,18 @@
                 {
                     "name": "Evert Pot",
                     "email": "evert@rooftopsolutions.nl",
-                    "homepage": "http://www.rooftopsolutions.nl/",
+                    "homepage": "http://evertpot.com/",
                     "role": "Developer"
                 }
             ],
             "description": "The VObject library for PHP allows you to easily parse and manipulate iCalendar and vCard objects",
-            "homepage": "https://github.com/evert/sabre-vobject",
+            "homepage": "https://github.com/fruux/sabre-vobject",
             "keywords": [
                 "VObject",
                 "iCalendar",
                 "vCard"
             ],
-            "time": "2013-03-21 23:20:33"
+            "time": "2013-08-05 15:39:37"
         },
         {
             "name": "twbs/bootstrap",
