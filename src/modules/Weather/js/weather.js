@@ -11,7 +11,7 @@
             target = $( "#" + id ).find( ".body" );
 
         $.getJSON(
-            'http://query.yahooapis.com/v1/public/yql?callback=?',
+            '//query.yahooapis.com/v1/public/yql?callback=?',
             {   q:           query,
                 format:      "json",
                 diagnostics: "true",
