@@ -13,7 +13,7 @@
         "arbit/periodic": "*",
         "kore/ctx-parser" : "*",
         "Qafoo/RMF": "dev-master",
-        "twitter/bootstrap": "*",
+        "twbs/bootstrap": "*",
         "twig/twig": "1.6.0",
         "kriswallsmith/buzz": "*",
         "zendframework/zendframework": "dev-master",
