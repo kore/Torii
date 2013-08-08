@@ -749,33 +749,6 @@
             "time": "2012-02-03 18:34:52"
         },
         {
-            "name": "twitter/bootstrap",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/twitter/bootstrap.git",
-                "reference": "37d0a30589e8bd74299b2d857c348d91396563ed"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/twitter/bootstrap/zipball/37d0a30589e8bd74299b2d857c348d91396563ed",
-                "reference": "37d0a30589e8bd74299b2d857c348d91396563ed",
-                "shasum": ""
-            },
-            "type": "library",
-            "notification-url": "http://packagist.org/downloads/",
-            "license": [
-                "Apache-2.0"
-            ],
-            "description": "Sleek, intuitive, and powerful front-end framework for faster and easier web development.",
-            "homepage": "http://twitter.github.com/bootstrap/",
-            "keywords": [
-                "bootstrap",
-                "css"
-            ],
-            "time": "2013-03-15 05:21:06"
-        },
-        {
             "name": "zendframework/zendframework",
             "version": "dev-master",
             "source": {
