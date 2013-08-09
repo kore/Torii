@@ -30,8 +30,14 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/Arbitracker/XML",
-                "reference": "148f4b3e98dea820404aec4216d1e863aac8d730"
+                "url": "https://github.com/Arbitracker/XML.git",
+                "reference": "0e5ccf3c9c8adc58adc3a78e48b20be9fa701762"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Arbitracker/XML/zipball/0e5ccf3c9c8adc58adc3a78e48b20be9fa701762",
+                "reference": "0e5ccf3c9c8adc58adc3a78e48b20be9fa701762",
+                "shasum": ""
             },
             "type": "library",
             "autoload": {
@@ -39,8 +45,12 @@
                     "Arbit\\Xml": "src/php/"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0+"
+            ],
             "description": "XML reader with a SimpleXML like API.",
-            "time": "2013-03-31 10:08:14"
+            "time": "2013-08-09 06:58:31"
         },
         {
             "name": "doctrine/annotations",
