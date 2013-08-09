@@ -50,7 +50,13 @@ class Parser
         } catch (\Zend\Feed\Reader\Exception\RuntimeException $e) {
             $feed->status = 406;
             return $feed;
-        } catch (\RuntimeException $e) {
+        } catch (\Exception $e) {
+            // Reset internal libxml state, since Zend_Feed fails to do so in
+            // certain error conditions, which makes all subsequent XML parsing
+            // fail. Which really sucks.
+            libxml_use_internal_errors(false);
+            libxml_disable_entity_loader(false);
+
             $feed->status = 503;
             return $feed;
         }
