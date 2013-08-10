@@ -1,7 +1,6 @@
 {
     "name":         "torii/torii2",
     "description":  "Simple portal framework",
-    "minimum-stability": "dev",
     "repositories": [ {
         "type": "vcs",
         "url":  "https://github.com/Qafoo/REST-Micro-Framework"
@@ -10,16 +9,16 @@
         "url":  "http://packages.zendframework.com/"
     } ],
     "require":      {
-        "arbit/periodic": "*",
-        "kore/ctx-parser" : "*",
+        "arbit/periodic": "dev-master",
+        "kore/ctx-parser" : "@stable",
         "Qafoo/RMF": "dev-master",
-        "twbs/bootstrap": "*",
+        "twbs/bootstrap": "@stable",
         "twig/twig": "1.6.0",
-        "kriswallsmith/buzz": "*",
-        "zendframework/zendframework": "dev-master",
-        "sabre/vobject" : "dev-master",
-        "doctrine/common": "2.*",
-        "doctrine/dbal": "2.*"
+        "kriswallsmith/buzz": "@stable",
+        "zendframework/zend-feed": "@stable",
+        "sabre/vobject" : "@stable",
+        "doctrine/common": "2.*@stable",
+        "doctrine/dbal": "2.*@stable"
     },
     "config":       {
         "vendor-dir": "src/library"
