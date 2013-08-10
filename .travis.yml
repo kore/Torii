@@ -10,6 +10,6 @@ before_script:
   - mysql -e 'create database torii_testing;'
 
 before_script:
-  - ant -Dcommons.env=testing db:initialize
+  - ant -Djslint.enabled=false -Dcommons.env=testing db:initialize
 
-script: ant
+script: ant -Djslint.enabled=false
