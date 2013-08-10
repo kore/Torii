@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "bf9df838c9c1c66f9b1fb59fc0b28565",
+    "hash": "0652792ec705faa4b9a69671031404e7",
     "packages": [
         {
             "name": "arbit/periodic",
@@ -511,6 +511,52 @@
             "time": "2013-06-28 17:00:15"
         },
         {
+            "name": "zendframework/zend-servicemanager",
+            "version": "2.2.2",
+            "target-dir": "Zend/ServiceManager",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zendframework/Component_ZendServiceManager.git",
+                "reference": "release-2.2.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://packages.zendframework.com/composer/zendframework-zend-servicemanager-2.2.2-release-2.2.2-6ab69c.zip",
+                "reference": "2.2.2",
+                "shasum": "fa6a6e7e46b47d44c402bdbdb8b4a5f9f3eae455"
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "suggest": {
+                "zendframework/zend-di": "Zend\\Di component"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.2-dev",
+                    "dev-develop": "2.3-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Zend\\ServiceManager\\": ""
+                }
+            },
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": " ",
+            "keywords": [
+                "servicemanager",
+                "zf2"
+            ],
+            "support": {
+                "source": "https://github.com/zendframework/Component_ZendServiceManager/tree/release-2.2.0rc3"
+            },
+            "time": "2013-05-08 18:00:17"
+        },
+        {
             "name": "zendframework/zend-stdlib",
             "version": "2.2.2",
             "target-dir": "Zend/Stdlib",
@@ -572,6 +618,7 @@
         "twbs/bootstrap": 0,
         "kriswallsmith/buzz": 0,
         "zendframework/zend-feed": 0,
+        "zendframework/zend-servicemanager": 0,
         "sabre/vobject": 0,
         "doctrine/common": 0,
         "doctrine/dbal": 0

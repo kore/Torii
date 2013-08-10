@@ -16,6 +16,7 @@
         "twig/twig": "1.6.0",
         "kriswallsmith/buzz": "@stable",
         "zendframework/zend-feed": "@stable",
+        "zendframework/zend-servicemanager": "@stable",
         "sabre/vobject" : "@stable",
         "doctrine/common": "2.*@stable",
         "doctrine/dbal": "2.*@stable"
