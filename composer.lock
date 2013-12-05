@@ -193,16 +193,16 @@
         },
         {
             "name": "kore/ctx-parser",
-            "version": "1.2",
+            "version": "1.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kore/CTXParser.git",
-                "reference": "36a367825135f9ab2c4a34e7fa4c533f9f983703"
+                "reference": "bd40da98af6e67c1cde4f0da84c27f460c6ebe72"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kore/CTXParser/zipball/36a367825135f9ab2c4a34e7fa4c533f9f983703",
-                "reference": "36a367825135f9ab2c4a34e7fa4c533f9f983703",
+                "url": "https://api.github.com/repos/kore/CTXParser/zipball/bd40da98af6e67c1cde4f0da84c27f460c6ebe72",
+                "reference": "bd40da98af6e67c1cde4f0da84c27f460c6ebe72",
                 "shasum": ""
             },
             "type": "library",
@@ -216,7 +216,7 @@
                 "LGPL-3.0+"
             ],
             "description": "Parser for CTX files",
-            "time": "2013-12-04 18:02:54"
+            "time": "2013-12-05 17:06:54"
         },
         {
             "name": "kriswallsmith/buzz",
