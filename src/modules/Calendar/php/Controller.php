@@ -99,9 +99,10 @@ class Controller
 
         $perDay = array();
         foreach ($entries as $entry) {
-            $entry->date->setTimezone(new \DateTimeZone($timeZone));
-            $perDay[$entry->date->format('l, jS F')][] = $entry;
-            $entry->date = $entry->date->format('H:i');
+            $entry->start->setTimezone(new \DateTimeZone($timeZone));
+            $perDay[$entry->start->format('l, jS F')][] = $entry;
+            $entry->start = $entry->start->format('H:i');
+            $entry->end = $entry->end->format('H:i');
         }
 
         return $perDay;
@@ -130,12 +131,7 @@ class Controller
                 $logger->log("Status: " . $url->status);
             }
 
-            usort(
-                $entries,
-                function ($a, $b) {
-                    return $a->date->getTimestamp() - $b->date->getTimestamp();
-                }
-            );
+            $entries = $this->model->sortEvents($entries);
 
             $this->model->storeCalendar($module, $entries);
         }

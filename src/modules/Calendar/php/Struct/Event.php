@@ -24,11 +24,18 @@ class Event extends Struct
     public $summary;
 
     /**
-     * Event date
+     * Event start date
      *
      * @var \DateTime
      */
-    public $date;
+    public $start;
+
+    /**
+     * Event end date
+     *
+     * @var \DateTime
+     */
+    public $end;
 
     /**
      * Event location

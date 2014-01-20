@@ -50,8 +50,8 @@ class Parser
                 $response->getContent()
             );
 
-            $start = new \DateTime("now");
-            $end = new \DateTime("now + 7 days");
+            $start = new \DateTime("today 0:00");
+            $end = new \DateTime("today +7 days");
             $reader->expand($start, $end);
             foreach ($reader->VEVENT as $entry) {
                 $calendar->entries[] = $this->parseEntry($url, $entry);
@@ -75,7 +75,8 @@ class Parser
         $event = new Struct\Event();
 
         $event->summary  = (string) $data->SUMMARY;
-        $event->date     = $data->DTSTART->getDateTime();
+        $event->start    = $data->DTSTART->getDateTime();
+        $event->end      = $data->DTEND->getDateTime();
         $event->location = (string) $data->LOCATION;
         $event->calendar = $url->name;
 

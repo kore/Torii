@@ -188,11 +188,48 @@ class Model
      */
     public function getCalendar($module)
     {
-        return unserialize(
+        $entries = unserialize(
             file_get_contents(
                 $this->getStorageFileName($module)
             )
         );
+
+        // Explode entries per day
+        foreach ($entries as $entry) {
+            while ($entry->start->format('d.m.Y') !== $entry->end->format('d.m.Y')) {
+                $firstDay = clone $entry;
+                $firstDay->end = new \DateTime($entry->start->format('d.m.Y') . ' 24:00');
+                $entries[] = $firstDay;
+
+                $entry->start->modify("+1 day 0:00");
+            }
+        }
+
+        return array_filter(
+            $this->sortEvents($entries),
+            function (Struct\Event $event) {
+                return ($event->start >= new \DateTime('today 0:00')) &&
+                    ($event->start < new \DateTime('today +7 days'));
+            }
+        );
+    }
+
+    /**
+     * Sort events
+     *
+     * @param array $entries
+     * @return void
+     */
+    public function sortEvents(array $entries)
+    {
+        usort(
+            $entries,
+            function ($a, $b) {
+                return $a->start->getTimestamp() - $b->start->getTimestamp();
+            }
+        );
+
+        return $entries;
     }
 
     /**

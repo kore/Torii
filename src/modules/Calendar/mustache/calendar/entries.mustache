@@ -3,7 +3,7 @@
     <ul class="calendar">
     {{#entries}}
         <li>
-            <span class="calendar">[{{calendar}}]</span> <span class="date">{{date}}</span> {{summary}}<br />
+            <span class="calendar">[{{calendar}}]</span> <span class="date">{{start}} to {{end}}</span> {{summary}}<br />
             <a class="location" target="_blank" href="https://maps.google.com/?q={{location}}">{{location}}</a>
         </li>
     {{/entries}}
