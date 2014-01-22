@@ -100,6 +100,8 @@ class Controller
         $perDay = array();
         foreach ($entries as $entry) {
             $entry->start->setTimezone(new \DateTimeZone($timeZone));
+            $entry->end->setTimezone(new \DateTimeZone($timeZone));
+
             $perDay[$entry->start->format('l, jS F')][] = $entry;
             $entry->start = $entry->start->format('H:i');
             $entry->end = $entry->end->format('H:i');
