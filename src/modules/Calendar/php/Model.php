@@ -209,7 +209,8 @@ class Model
             $this->sortEvents($entries),
             function (Struct\Event $event) {
                 return ($event->start >= new \DateTime('today 0:00')) &&
-                    ($event->start < new \DateTime('today +7 days'));
+                    ($event->start < new \DateTime('today +7 days')) &&
+                    ($event->end > $event->start);
             }
         );
     }
