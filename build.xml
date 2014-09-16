@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="Torii 2" default="verify" basedir="./">
+<project name="Torii 2" default="test" basedir="./">
     <!--
         Import project specific settings.
     -->
@@ -7,9 +7,47 @@
     <property file="${basedir}/build.properties" />
 
     <!--
+        Import main target defintions (extension points)
+    -->
+    <import optional="true" file="${basedir}/ant/main.xml" />
+
+    <!--
+        Enable used modules
+    -->
+    <import optional="true" file="${basedir}/ant/modules/composer.xml" />
+    <import optional="true" file="${basedir}/ant/modules/phpunit.xml" />
+    <import optional="true" file="${basedir}/ant/modules/checkstyle.xml" />
+    <import optional="true" file="${basedir}/ant/modules/pdepend.xml" />
+    <import optional="true" file="${basedir}/ant/modules/phpcpd.xml" />
+    <import optional="true" file="${basedir}/ant/modules/phpmd.xml" />
+
+    <!--
+        Task group, which installs the build-commons, if they do not exist yet.
+    -->
+    <target name="-install:check">
+        <condition property="-install:dir-exists">
+            <available file="${basedir}/ant" type="dir"/>
+        </condition>
+    </target>
+
+    <target name="install" depends="-install:check" unless="-install:dir-exists">
+        <exec executable="git" failonerror="true" dir="${basedir}">
+            <arg value="submodule" />
+            <arg value="update" />
+            <arg value="--init" />
+        </exec>
+
+        <echo>Build-Commons submodule intialized. Please re-run the build.</echo>
+        <fail />
+    </target>
+
+    <target name="install-and-run" depends="install">
+        <antcall target="test" />
+    </target>
+
+    <!--
         Import the build-commons framework.
     -->
-    <import file="setup/src/main/xml/base.xml" />
 
     <target name="style">
         <property name="bootstrap.basedir" value="${basedir}/src/library/twitter/bootstrap/twitter/bootstrap/" />
