@@ -21,7 +21,14 @@
         "doctrine/common": "2.*@stable",
         "doctrine/dbal": "2.*@stable"
     },
+    "require-dev": {
+        "pdepend/pdepend": "@stable",
+        "phpmd/phpmd": "@stable",
+        "phpunit/phpunit": "@stable",
+        "sebastian/phpcpd": "@stable",
+        "squizlabs/php_codesniffer": "@stable"
+    },
     "config":       {
-        "vendor-dir": "src/library"
+        "vendor-dir": "vendor/"
     }
 }

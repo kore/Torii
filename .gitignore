@@ -1,7 +1,7 @@
 /.abc
 /.pear
 /build
-/src/library/*
+/vendor/*
 /build.properties.local
 /src/config/config.ini
 /composer.phar
