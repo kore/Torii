@@ -5,12 +5,18 @@
          convertWarningsToExceptions="true"
          processIsolation="false"
          stopOnFailure="false"
-         bootstrap="../src/php/Torii/bootstrap.php"
+         bootstrap="src/php/Torii/bootstrap.php"
          syntaxCheck="false">
+
+    <testsuites>
+        <testsuite name="Torii Test Suite">
+            <directory>test/</directory>
+        </testsuite>
+    </testsuites>
 
     <filter>
       <whitelist>
-          <directory suffix=".php">../src/php/</directory>
+          <directory suffix=".php">src/php/</directory>
       </whitelist>
   </filter>
 </phpunit>
