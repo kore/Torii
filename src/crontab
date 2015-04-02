@@ -18,7 +18,7 @@
 
 # Update feeds regularly
 */2 * * * * module:feed
-0 * * * * module:account
+# 0 * * * * module:account
 0/10 * * * * module:calendar
 0 1 * * * feed:favicons
 0 1 * * * feed:cleanup
