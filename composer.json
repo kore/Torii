@@ -6,7 +6,7 @@
         "url":  "https://github.com/Qafoo/REST-Micro-Framework"
     }, {
         "type": "composer",
-        "url":  "http://packages.zendframework.com/"
+        "url":  "https://packages.zendframework.com/"
     } ],
     "require":      {
         "arbit/periodic": "dev-master",
