@@ -57,7 +57,6 @@ class Parser
                 $calendar->entries[] = $this->parseEntry($url, $entry);
             }
         } catch (\Exception $e) {
-            echo $e;
             $url->status = 503;
         }
 
