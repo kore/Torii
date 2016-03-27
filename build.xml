@@ -93,5 +93,4 @@
             <arg value="cd Torii &amp;&amp; git pull &amp;&amp; ant install &amp;&amp; src/bin/deployAssets" />
         </exec>
     </target>
-
 </project>
