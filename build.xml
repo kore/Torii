@@ -89,8 +89,8 @@
              tunnel configuration etc.
         -->
         <exec executable="ssh">
-            <arg value="torii" />
-            <arg value="cd Torii &amp;&amp; git pull &amp;&amp; ant install &amp;&amp; src/bin/deployAssets" />
+            <arg value="privat-web" />
+            <arg value="cd torii-portal.org &amp;&amp; git pull &amp;&amp; ant install &amp;&amp; src/bin/deployAssets" />
         </exec>
     </target>
 </project>
