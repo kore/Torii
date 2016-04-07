@@ -53,6 +53,11 @@ class Parser
             $start = new \DateTime("today 0:00");
             $end = new \DateTime("today +7 days");
             $reader->expand($start, $end);
+
+            if (!$reader->VEVENT) {
+                return $calendar;
+            }
+
             foreach ($reader->VEVENT as $entry) {
                 $calendar->entries[] = $this->parseEntry($url, $entry);
             }
