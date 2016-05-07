@@ -22,6 +22,8 @@
     <import optional="true" file="${basedir}/ant/modules/phpmd.xml" />
     <import optional="true" file="${basedir}/ant/modules/dbdeploy.xml" />
 
+    <import optional="true" file="${basedir}/src/ant/serve.xml" />
+
     <!--
         Task group, which installs the build-commons, if they do not exist yet.
     -->

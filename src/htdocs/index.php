@@ -8,6 +8,19 @@
 namespace Torii;
 use Qafoo\RMF;
 
+$requested = $_SERVER['REQUEST_URI'];
+if (isset($_SERVER['QUERY_STRING']) && $_SERVER['QUERY_STRING']) {
+    $requested = str_replace('?' . $_SERVER['QUERY_STRING'], '', $requested);
+}
+
+if ( file_exists( __DIR__ . $requested ) &&
+     is_file( __DIR__ . $requested ) )
+{
+    // Do not try to server static files – this is only important, if used
+    // together with PHPs internal webserver.
+    return false;
+}
+
 require __DIR__ . '/../php/Torii/bootstrap.php';
 $dic = new DIC\Base();
 

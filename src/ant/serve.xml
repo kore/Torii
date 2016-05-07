@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Serve">
+    <target name="serve" depends="prepare">
+        <echo>Server starting on http://localhost:8080/</echo>
+        <exec executable="php" failonerror="true" dir="${basedir}">
+            <arg value="-S" />                                              
+            <arg value="0.0.0.0:8080" />                                              
+            <arg value="-t" />                                              
+            <arg value="src/htdocs/" />                                              
+            <arg value="src/htdocs/index.php" />
+        </exec>
+    </target>
+</project>
