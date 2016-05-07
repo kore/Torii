@@ -108,12 +108,13 @@ class Controller
      */
     public function redirect(RMF\Request $request, Struct\User $user, Struct\ModuleConfiguration $module)
     {
-        if (!preg_match('(^/redirect/(\\d+)/(.+)$)', $request->variables['path'], $match)) {
+        if (!preg_match('(^/redirect/(\\d+)/?(.*)$)', $request->variables['path'], $match)) {
             throw new \RuntimeException("Invalid URL passed");
         }
 
         $this->model->markRead($request->variables['module'], $match[1]);
-        header('Location: ' . urldecode($match[2]));
+        $feedData = $this->model->getFeedData($match[1]);
+        header('Location: ' . $feedData->link);
         exit(0);
     }
 

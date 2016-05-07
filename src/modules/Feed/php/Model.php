@@ -428,6 +428,33 @@ class Model
     }
 
     /**
+     * Get URL from table.
+     *
+     * @param int $urlId
+     * @return string
+     */
+    public function getFeedData($urlId)
+    {
+        $queryBuilder = $this->dbal->createQueryBuilder();
+        $queryBuilder
+            ->select('feed_d_data')
+            ->from('feed_data', 'd')
+            ->where(
+                $queryBuilder->expr()->eq('feed_d_id', ':id')
+            )
+            ->setParameter(':id', $urlId);
+
+        $statement = $queryBuilder->execute();
+        $result = $statement->fetch(\PDO::FETCH_ASSOC);
+
+        if (!$result) {
+            throw new \OutOfBoundsException("No URL found for ID $urlId");
+        }
+
+        return json_decode($result['feed_d_data']);
+    }
+
+    /**
      * Get URLs which do not yet have a favicon assigned
      *
      * @return Struct\Url[]
