@@ -105,19 +105,19 @@ class FaviconFetcher extends Periodic\Command
             // Load root and try to locate favicon
             $response = $client->get($baseUrl);
             if (!$response->isOk()) {
-                $logger->log("Could not fetch root: $baseUrl", Periodic\Logger::WARNING);
+                $logger->log("Could not fetch root: $baseUrl");
                 return false;
             }
 
             // Try to find favicon in resulting (probably) HTML
             if (!preg_match('(<link[^>]+rel=([\'"]?)[^>]*icon[^>]*\1[^>]*>)', $response->getContent(), $match)) {
-                $logger->log("Did not find icon referenced in source on $baseUrl.", Periodic\Logger::WARNING);
+                $logger->log("Did not find icon referenced in source on $baseUrl.");
                 return false;
             }
 
             $link = $match[0];
             if (!preg_match('((?J)href=([\'"])(?P<favicon>[^>]*?)\1|href=(?P<favicon>\\S+))', $link, $match)) {
-                $logger->log("Could not extract href property in link element $link.", Periodic\Logger::WARNING);
+                $logger->log("Could not extract href property in link element $link.");
                 return false;
             }
 
@@ -143,11 +143,11 @@ class FaviconFetcher extends Periodic\Command
                 return $name;
             }
         } catch (\Exception $e) {
-            $logger->log("An error occured while fetching: " . $e->getMessage(), Periodic\Logger::ERROR);
+            $logger->log("An error occured while fetching: " . $e->getMessage());
             return false;
         }
 
-        $logger->log("No favicon fetching strategy worked.", Periodic\Logger::WARNING);
+        $logger->log("No favicon fetching strategy worked.");
         return false;
     }
 }
