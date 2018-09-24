@@ -79,8 +79,8 @@ class Parser
         $event = new Struct\Event();
 
         $event->summary  = (string) $data->SUMMARY;
-        $event->start    = $data->DTSTART->getDateTime();
-        $event->end      = $data->DTEND->getDateTime();
+        $event->start    = $data->DTSTART ? $data->DTSTART->getDateTime() : null;
+        $event->end      = $data->DTEND ? $data->DTEND->getDateTime() : null;
         $event->location = (string) $data->LOCATION;
         $event->calendar = $url->name;
 
