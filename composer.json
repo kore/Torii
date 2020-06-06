@@ -11,7 +11,7 @@
     "require":      {
         "arbit/periodic": "dev-master",
         "kore/ctx-parser" : "@stable",
-        "Qafoo/RMF": "dev-master",
+        "qafoo/rmf": "dev-master",
         "twbs/bootstrap": "@stable",
         "twig/twig": "1.6.0",
         "kriswallsmith/buzz": "@stable",
