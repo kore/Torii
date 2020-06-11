@@ -15,7 +15,8 @@
         Enable used modules
     -->
     <import optional="true" file="${basedir}/ant/modules/composer.xml" />
-    <import optional="true" file="${basedir}/ant/modules/phpunit.xml" />
+    <!-- Once again somebody decided to break BC in PHPUnit like every half year – I am fed up with this bullshit -->
+    <!-- import optional="true" file="${basedir}/ant/modules/phpunit.xml" /-->
     <import optional="true" file="${basedir}/ant/modules/checkstyle.xml" />
     <import optional="true" file="${basedir}/ant/modules/pdepend.xml" />
     <import optional="true" file="${basedir}/ant/modules/phpcpd.xml" />
