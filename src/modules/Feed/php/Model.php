@@ -153,7 +153,7 @@ class Model
         $this->dbal->update(
             'feed_url',
             array(
-                'feed_u_status' => $status,
+                'feed_u_status' => (int) $status,
                 'feed_u_update' => $update,
             ),
             array(
