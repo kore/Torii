@@ -10,6 +10,17 @@ namespace Torii;
 
 use Arbit\Periodic;
 
+class ErrorHandler {
+	public static function handle($severity, $message, $file, $line) {
+	    if (!(error_reporting() & $severity)) {
+		// This error code is not included in error_reporting
+		return;
+	    }
+	    throw new \ErrorException($message, 0, $severity, $file, $line);
+	}
+}
+set_error_handler([ErrorHandler::class, 'handle']);
+
 require __DIR__ . '/../php/Torii/bootstrap.php';
 $dic = new DIC\Base();
 
