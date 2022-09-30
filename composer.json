@@ -13,7 +13,7 @@
         "kore/ctx-parser" : "@stable",
         "qafoo/rmf": "dev-master",
         "twbs/bootstrap": "@stable",
-        "twig/twig": "1.6.0",
+        "twig/twig": "1.44.7",
         "kriswallsmith/buzz": "@stable",
         "zendframework/zend-feed": "@stable",
         "zendframework/zend-servicemanager": "@stable",
