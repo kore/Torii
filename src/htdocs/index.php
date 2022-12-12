@@ -8,8 +8,8 @@
 namespace Torii;
 use Qafoo\RMF;
 
-// Do nothing but redirectto Torii 2
-header('Location: https://torii2.netlify.app/');
+// Do nothing but redirect to Portalific (Torii 2)
+header('Location: https://portalific.com/');
 exit();
 
 $requested = $_SERVER['REQUEST_URI'];
